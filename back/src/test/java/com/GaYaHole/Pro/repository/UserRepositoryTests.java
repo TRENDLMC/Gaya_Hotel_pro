@@ -22,15 +22,15 @@ public class UserRepositoryTests {
 
             User user = User.builder()
                     .id("id..."+i)
-                    .password("testpwd"+i)
+                    .pwd("testpwd"+i)
                     .name("testname"+i)
                     .grade(i%2)
-                    .address_1("testadr1..."+i)
-                    .address_2("testadr2..."+i)
+                    .add1("testadr1..."+i)
+                    .add2("testadr2..."+i)
                     .email("testemail"+i)
-                    .phone_number1("010")
-                    .phone_number2("12"+i)
-                    .phone_number3("34"+i)
+                    .p_num1("010")
+                    .p_num2("12"+i)
+                    .p_num3("34"+i)
                     .build();
 
             System.out.println(userRepository.save(user));

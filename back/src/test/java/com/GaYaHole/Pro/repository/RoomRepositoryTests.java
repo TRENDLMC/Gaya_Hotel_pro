@@ -22,10 +22,10 @@ public class RoomRepositoryTests {
         IntStream.rangeClosed(1,5).forEach(i->{
 
             Room room = Room.builder()
-                    .room_number(i)
-                    .room_size(i+3/2)
-                    .room_type("room type..."+i)
-                    .room_price(i*100000)
+                    .r_num(i)
+                    .r_size(i+3/2)
+                    .r_type("room type..."+i)
+                    .r_price(i*100000)
                     .build();
 
             System.out.println(roomRepository.save(room));

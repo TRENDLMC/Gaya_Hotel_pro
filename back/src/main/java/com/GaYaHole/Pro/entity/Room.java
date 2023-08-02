@@ -15,12 +15,12 @@ import javax.persistence.Id;
 public class Room extends BaseEntity{
     
     @Id
-    private int room_number; //방 번호
+    private int r_num; //방 번호
     
-    private int room_size; //인원 수
+    private int r_size; //인원 수
     
     @Column(nullable = false, length = 20)
-    private String room_type; //방 종류
+    private String r_type; //방 종류 11
     
-    private int room_price; //방 가격
+    private int r_price; //방 가격
 }
