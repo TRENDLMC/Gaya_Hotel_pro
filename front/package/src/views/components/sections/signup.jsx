@@ -53,6 +53,11 @@ const PageForm = () => {
         pwd:"",
     })
 
+    const floatLeft = {
+        display:"block",
+        float:"left",
+        width:"33%"
+    };
     const onChange=(event)=>{
         setUser({...user,[event.target.name]:event.target.value});
     }
@@ -160,9 +165,23 @@ const PageForm = () => {
                             </FormGroup>
                             <FormGroup className="col-md-6">
                                 <Label>전화번호</Label>
-                                <Input type="text" maxLength={"3"} className="form-control" name="p_num1"  placeholder='010' onChange={onChange}/>
-                                <Input type="text" maxLength={"4"} className="form-control" name="p_num2" placeholder="1234" onChange={onChange} />
-                                <Input type="text" maxLength={"4"}  className="form-control" name="p_num3" placeholder="1234"  onChange={onChange}/>
+                                <Container>
+                                    <Row>
+                                        <Col className="col-md-4" >
+                                            <Input type="text" maxLength={"3"} className="form-control" name="p_num1"  placeholder='010' onChange={onChange} />
+                                        </Col>
+                                        <Col className="col-md-4">
+                                            <Input type="text" maxLength={"4"} className="form-control" name="p_num2" placeholder="1234" onChange={onChange} />
+                                        </Col>
+                                        <Col className="col-md-4">
+                                            <Input type="text" maxLength={"4"}  className="form-control" name="p_num3" placeholder="1234"  onChange={onChange} />
+                                        </Col>
+                                    </Row>
+
+                                </Container>
+                                    <Input type="text" maxLength={"3"} className="form-control" name="p_num1"  placeholder='010' onChange={onChange} />
+                                    <Input type="text" maxLength={"4"} className="form-control" name="p_num2" placeholder="1234" onChange={onChange} />
+                                    <Input type="text" maxLength={"4"}  className="form-control" name="p_num3" placeholder="1234"  onChange={onChange} />
                             </FormGroup>
                             <Col md="12" >
                                 <input type='button' onClick={adduser} className="btn btn-success waves-effect waves-light m-r-10" value={"회원가입"}/>

@@ -9,21 +9,21 @@ import Footer from "../../components/footer/footer.jsx";
 import LoginForm from "./sections/loginform.jsx";
 
 const Login = () => {
-    return (
-        <div id="main-wrapper">
-            <Header />
-            <div className="page-wrapper">
-                <div className="container-fluid">
-                  <LoginForm />
-                </div>
-            </div>
-            <Footer />
+  return (
+    <div id="main-wrapper">
+      <Header />
+      <div className="page-wrapper">
+        <div className="container-fluid">
+          <LoginForm />
         </div>
-    );
-}
+      </div>
+      <Footer />
+    </div>
+  );
+};
 
 Login.propTypes = {
-    classes: PropTypes.object
+  classes: PropTypes.object,
 };
 
 export default Login;
