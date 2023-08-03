@@ -21,7 +21,7 @@ public class Reservation extends BaseEntity{
 
 
     private Date check_in;
-    
+
     private Date check_out;
 
 
@@ -32,10 +32,6 @@ public class Reservation extends BaseEntity{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="r_num")
     private Room r_num;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="option_code")
-    private Option option_code;
-
+    
 
 }
