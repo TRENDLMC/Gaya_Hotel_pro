@@ -16,6 +16,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @SpringBootApplication
 @EnableJpaAuditing
@@ -36,23 +37,34 @@ public class ProApplication implements CommandLineRunner {
 
 		User user1 = new User("test","12345","경기도 안산시 이동","715-3","김테스트","010","1234","1234"
 				,"test@test.com",1);
+
+		User user2 = new User("test2","12345","경기도 안산시 이동","715-3","김테스트2","010","1234","5978"
+				,"test2@test.com",0);
+
 		Room room1 = new Room(101, 2, "디럭스 룸", 160000);
 
+		Room room2 = new Room(102, 3, "스탠다드 룸", 180000);
+
 		// 테스트 계정 생성
-		userRepository.save(user1);
+		userRepository.save(user2);
 
 		String nummb= "2023-08-15";
 		SimpleDateFormat sidf=new SimpleDateFormat("yyyy-MM-dd");
 		Date date2=sidf.parse(nummb);
 
-
 		String nummb2= "2023-08-17";
 		Date date3=sidf.parse(nummb2);
+
+		String nummb3= "2023-08-16";
+		Date date4=sidf.parse(nummb3);
+
+		String nummb4= "2023-08-20";
+		Date date5=sidf.parse(nummb4);
 
 
 		//16 개의 방 생성
 		roomRepository.save(room1);
-		roomRepository.save(new Room(102, 3, "스탠다드 룸", 180000));
+		roomRepository.save(room2);
 		roomRepository.save(new Room(103, 4, "패밀리 룸", 240000));
 		roomRepository.save(new Room(104, 2, "스위트 룸", 300000));
 		roomRepository.save(new Room(105, 2, "디럭스 룸", 160000));
@@ -70,8 +82,24 @@ public class ProApplication implements CommandLineRunner {
 
 //		System.out.println(date3);
 //		System.out.println(date2);
-		reservationRepository.save(new Reservation(1, 300000, date2,date3, user1,room1, "ABC"));
+//		reservationRepository.save(new Reservation(1, 300000, date2,date3, user1,room1, "ABC"));
+		reservationRepository.save(new Reservation(2, 200000, date4,date5, user2,room2, "ADE"));
 
+
+//
+//		List<Room> testroom = roomRepository.test();
+//
+//		System.out.println("============"+testroom.get(0).getR_num()+"============");
+		String string= "2023-08-17";
+		Date testdate=sidf.parse(string);
+		List<Room> ableRoom = roomRepository.test2(testdate);
+
+		if (ableRoom.size()!=0) {
+			System.out.println("========테스트 결과 출력 :" + ableRoom.get(2).getR_price()+ "   아악 =========");
+		}
+		else{
+			System.out.println("ableRoom이 비어있음");
+		}
 	}
 
 	public static void main(String[] args) {
