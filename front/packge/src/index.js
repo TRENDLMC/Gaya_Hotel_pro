@@ -10,6 +10,7 @@ import {
 } from "react-router-dom";
 import Components from "./views/components/components.jsx";
 import CustomComponents from "./views/custom-components/custom-components.jsx";
+import Login from "./views/login/login";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -19,6 +20,7 @@ root.render(
     <Routes>
       <Route path="/custom-components" element={<CustomComponents />} />
       <Route path="/" element={<Components />} />
+      <Route path="/login" element={<Login />} />
     </Routes>
   </HashRouter>
 );
