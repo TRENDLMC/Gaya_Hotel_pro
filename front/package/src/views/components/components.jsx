@@ -14,7 +14,7 @@ import Images from "./sections/images.jsx";
 import Breadcrumbs from "./sections/breadcrumbs.jsx";
 import Cards from "./sections/cards.jsx";
 import Dropdowns from "./sections/dropdowns.jsx";
-import Pagelogin from "./sections/login.jsx";
+import Pagelogin from "./sections/signup.jsx";
 import PageTable from "./sections/table.jsx";
 import Notification from "./sections/notification.jsx";
 import TooltipPopover from "./sections/tooltip-popover.jsx";
