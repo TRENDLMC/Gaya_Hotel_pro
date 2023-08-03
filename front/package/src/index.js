@@ -1,18 +1,15 @@
 import React from "react";
 import "./assets/scss/style.scss";
-import ReactDOM from 'react-dom/client';
-import reportWebVitals from './reportWebVitals';
+import ReactDOM from "react-dom/client";
+import reportWebVitals from "./reportWebVitals";
 import { createBrowserHistory } from "history";
-import {
-  Route,
-  Routes,
-  HashRouter
-} from "react-router-dom";
+import { Route, Routes, HashRouter } from "react-router-dom";
 import Components from "./views/components/components.jsx";
 import CustomComponents from "./views/custom-components/custom-components.jsx";
-import Login from './views/login/login.jsx';
+import Login from "./views/login/login.jsx";
+import Signup from "./views/singup/signup.jsx";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 
 var hist = createBrowserHistory();
 root.render(
@@ -21,6 +18,7 @@ root.render(
       <Route path="/custom-components" element={<CustomComponents />} />
       <Route path="/" element={<Components />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/singup" element={<Signup />} />
     </Routes>
   </HashRouter>
 );
