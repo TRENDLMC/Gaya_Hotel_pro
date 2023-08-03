@@ -4,6 +4,7 @@ package com.GaYaHole.Pro.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Getter
@@ -18,6 +19,12 @@ public class Reservation extends BaseEntity{
 
     private int total_price;
 
+
+    private Date check_in;
+    
+    private Date check_out;
+
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="id")
     private User id;
@@ -29,5 +36,6 @@ public class Reservation extends BaseEntity{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="option_code")
     private Option option_code;
+
 
 }
