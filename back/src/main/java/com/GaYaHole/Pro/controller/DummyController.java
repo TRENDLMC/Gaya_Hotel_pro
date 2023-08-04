@@ -80,13 +80,8 @@ public class DummyController {
 
     //http://localhost:8095/dummy/datecheck
     @PostMapping("/dummy/datecheck") //체크인, 체크아웃 날짜에 따른 방 정보 출력
-    public List<Room> datecheck(@RequestParam String checkin, @RequestParam String checkout) throws ParseException {
-
-        SimpleDateFormat sidf = new SimpleDateFormat("yyyy-MM-dd");
-
-        Date testdate1 = sidf.parse(checkin);
-        Date testdate2 = sidf.parse(checkout);
-        List<Room> ableRoomList = roomRepository.dateCal(testdate1, testdate2);
+    public List<Room> datecheck(@RequestBody Reservation reservation) throws ParseException {
+        List<Room> ableRoomList = roomRepository.dateCal(reservation.getCheck_in(), reservation.getCheck_out());
 
         //확인용으로 출력
         if (ableRoomList.size() != 0) {
