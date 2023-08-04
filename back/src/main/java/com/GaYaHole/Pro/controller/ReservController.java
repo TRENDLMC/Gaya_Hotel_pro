@@ -1,6 +1,6 @@
 package com.GaYaHole.Pro.controller;
 
-import com.GaYaHole.Pro.entity.QRoom;
+
 import com.GaYaHole.Pro.entity.Review;
 import com.GaYaHole.Pro.entity.Room;
 import com.GaYaHole.Pro.repository.ReviewRepository;
