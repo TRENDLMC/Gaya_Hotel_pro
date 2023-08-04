@@ -1,6 +1,5 @@
 package com.GaYaHole.Pro.controller;
 
-
 import com.GaYaHole.Pro.entity.Review;
 import com.GaYaHole.Pro.entity.Room;
 import com.GaYaHole.Pro.repository.ReviewRepository;
@@ -23,21 +22,19 @@ public class ReservController {
     @Autowired
     private ReviewRepository reviewRepository;
 
-    @GetMapping("/detail")  // 방 정보 출력 - r_num
+    @GetMapping("/detail") // 방 정보 출력 - r_num
     public Optional<Room> detail(@RequestBody Room room) {
-        log.info("r_num: "+room);
-        Optional<Room> rom=roomRepository.findById(room.getR_num());
+        log.info("r_num: " + room);
+        Optional<Room> rom = roomRepository.findById(room.getR_num());
 
         return rom;
     }
 
-    @GetMapping("/review")  // 리뷰 출력 - r_num
-    public List<Review> rreview (@RequestBody Room room) {
-        log.info("review: "+room.getR_num());
-        List<Review> rev =reviewRepository.test111(room.getR_num());
+    @GetMapping("/review") // 리뷰 출력 - r_num
+    public List<Review> rreview(@RequestBody Room room) {
+        log.info("review: " + room.getR_num());
+        List<Review> rev = reviewRepository.test111(room.getR_num());
         return rev;
     }
-
-
 
 }
