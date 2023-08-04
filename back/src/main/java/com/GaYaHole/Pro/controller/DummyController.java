@@ -44,24 +44,42 @@ public class DummyController {
         return "회원가입 완료";
     }
 
+    //http://localhost:8095/dummy/login
+    @PostMapping("/dummy/login")
+    public int login(@RequestParam String id, String pwd){
+
+
+        int result; //받아올 값 보기 편하게
+        result = userRepository.logintest(id, pwd);
+
+        if(result==1){
+            System.out.println( "로그인 성공");
+        }
+        else{
+            System.out.println( "로그인 실패");
+        }
+
+        // 반환 값 1 : 로그인 성공
+        // 반환 값 0 : 로그인 실패
+        return result;
+
+    }
+
+    //http://localhost:8095/dummy/idcheck
     @PostMapping("/dummy/idcheck")
-    public void idcheck(@RequestParam String string){
-        int num=100;
+    public int idcheck(@RequestParam String string){
         int result;
 
         result = userRepository.idtest(string);
 
-        if(result>0){
-            num = 0; //중복
-        }else{
-            num = 1; //중복아님
-        }
+        // 반환 값 1 : 중복
+        // 반환 값 0 : 중복 아님
 
-
-        System.out.println("반환될 값 : "+num);
+        return result;
 
     }
 
+    //http://localhost:8095/dummy/datecheck
     @PostMapping("/dummy/datecheck") //체크인, 체크아웃 날짜에 따른 방 정보 출력
     public List<Room> datecheck(@RequestParam String checkin, @RequestParam String checkout) throws ParseException {
 
@@ -93,6 +111,6 @@ public class DummyController {
             }
         }
 
-        return ableRoomList; //방 리스트 반환 
+        return ableRoomList; //방 리스트 반환
     }
 }

@@ -57,4 +57,22 @@ public class UserRepositoryTests {
         System.out.println("반환될 값 : "+num);
 
     }
+
+    @Test
+    public void loginTest(){
+
+        String loginId ="test";
+        String loginPwd = "12346";
+
+        int result; //받아올 값 보기 편하게
+        result = userRepository.logintest(loginId, loginPwd);
+
+        if(result==1){
+            System.out.println( "로그인 성공");
+        }
+        else{
+            System.out.println( "로그인 실패");
+        }
+
+    }
 }
