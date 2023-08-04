@@ -13,27 +13,13 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Data
 public class User extends BaseEntity{ //사용자 테이블
-
-    public User(String id, String pwd){
-        this.getId();
-        this.getPwd();
-    }
 
     @Id
     private String id; //아이디
 
-    public String getId(){
-        return id;
-    }
-
     @Column(length=60, nullable=false)
     private String pwd; //비밀번호
-
-    public String getPwd(){
-        return pwd;
-    }
 
     // private Date regdate; 가입일, BaseEntity에서 받음
 
@@ -57,7 +43,6 @@ public class User extends BaseEntity{ //사용자 테이블
     private String email; //이메일
 
     private int grade; //등급 (블랙리스트 여부) -임시-
-
 
 
 }
