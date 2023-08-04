@@ -1,7 +1,9 @@
 package com.GaYaHole.Pro.controller;
 
+import com.GaYaHole.Pro.entity.Reservation;
 import com.GaYaHole.Pro.entity.Room;
 import com.GaYaHole.Pro.entity.User;
+import com.GaYaHole.Pro.repository.ReservationRepository;
 import com.GaYaHole.Pro.repository.RoomRepository;
 import com.GaYaHole.Pro.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,9 @@ public class DummyController {
 
     @Autowired
     private RoomRepository roomRepository;
+
+    @Autowired
+    private ReservationRepository reservationRepository;
 
     //http://localhost:8095/dummy/join
     @PostMapping("/dummy/join")
@@ -112,5 +117,36 @@ public class DummyController {
         }
 
         return ableRoomList; //방 리스트 반환
+    }
+
+    @PostMapping("/dummy/reservation")
+    public String reserv (@RequestParam String id, @RequestParam int rnum, @RequestParam String optioncode,
+                          @RequestParam String checkin, @RequestParam String checkout, @RequestParam int totalprice )
+    throws ParseException{
+
+        User user; Room room;
+        user = userRepository.userinfo(id);
+        room = roomRepository.roominfo(rnum);
+
+        int renum = reservationRepository.numCount()+1;
+
+        SimpleDateFormat sidf = new SimpleDateFormat("yyyy-MM-dd");
+        Date check_in = sidf.parse(checkin);
+        Date check_out = sidf.parse(checkout);
+
+
+        Reservation reservation = Reservation.builder()
+                .reservation_num(renum)
+                .option_code(optioncode)
+                .check_in(check_in)
+                .check_out(check_out)
+                .total_price(totalprice)
+                .r_num(room)
+                .id(user)
+                .build();
+
+        reservationRepository.save(reservation);
+
+        return "예약 성공";
     }
 }

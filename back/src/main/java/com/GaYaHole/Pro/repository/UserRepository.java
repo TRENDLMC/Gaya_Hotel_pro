@@ -14,4 +14,7 @@ public interface UserRepository extends JpaRepository<User, Integer>{
 
     @Query(value="select count(id) from user where id = :loginid and pwd = :loginpwd", nativeQuery = true)
     int logintest(@Param("loginid") String loginID, @Param("loginpwd") String loginPwd);
+
+    @Query(value="select * from user where id = :idid", nativeQuery = true)
+    User userinfo(@Param("idid") String id);
 }
