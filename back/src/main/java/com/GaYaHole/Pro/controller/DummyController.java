@@ -51,12 +51,11 @@ public class DummyController {
 
     //http://localhost:8095/dummy/login
     @PostMapping("/dummy/login")
-    public int login(@RequestParam String id, String pwd){
+    public int login(@RequestBody User user){
 
-
+        System.out.println(user.getId());
         int result; //받아올 값 보기 편하게
-        result = userRepository.logintest(id, pwd);
-
+        result = userRepository.logintest(user.getId(),user.getPwd());
         if(result==1){
             System.out.println( "로그인 성공");
         }
@@ -72,14 +71,9 @@ public class DummyController {
 
     //http://localhost:8095/dummy/idcheck
     @PostMapping("/dummy/idcheck")
-    public int idcheck(@RequestParam String string){
+    public int idcheck(@RequestBody User user){
         int result;
-
-        result = userRepository.idtest(string);
-
-        // 반환 값 1 : 중복
-        // 반환 값 0 : 중복 아님
-
+        result = userRepository.idtest(user.getId());
         return result;
 
     }
