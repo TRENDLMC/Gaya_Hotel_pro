@@ -33,8 +33,11 @@ const LoginForm = () => {
     })
       .then((response) => {
         if (response.ok) {
+          console.log("로그인 성공! 환영합니다.");
           alert("로그인 성공! 환영합니다." + loginInfo.id + " 님!");
+          sessionStorage.setItem("id", loginInfo.id); // sessionStorage에 id를 user_id라는 key 값으로 저장
         } else {
+          console.log("로그인 실패. 다시 시도해 주세요");
           alert("로그인 실패. 다시 시도해 주세요");
         }
       })
@@ -66,30 +69,6 @@ const LoginForm = () => {
       </div>
       <div className="spacer" id="forms-component">
         <Container style={ContainerStyles}>
-          {/* <Row >
-                        <Col md="12" >
-                            <Form>
-                                <FormGroup className="col-md-8 ">
-                                    <Label htmlFor="id">아이디</Label>
-                                    <Input type="text" className="form-control" name="id" placeholder="Enter Username" onChange={onChange}/>
-                                </FormGroup>
-
-                                <FormGroup className="col-md-8">
-                                    <Label htmlFor="password">패스워드</Label>
-                                    <Input type="password" className="form-control" name="password" placeholder="Password" onChange={onChange} />
-                                </FormGroup>
-                                
-                                <FormGroup className="col-md-12 ml-3">
-                                    <Input id="checkbox1" type="checkbox" />
-                                    <Label htmlFor="checkbox1"> 아이디 저장 </Label>
-                                </FormGroup>
-                                <Col md="12" className="text-center">
-                                    <input type='button' onClick={login} className="btn btn-success waves-effect waves-light m-r-10" value={"로그인"}/>
-                                </Col>
-                            </Form>
-                        </Col>
-                    </Row> */}
-
           <Row>
             <Col className="col-md">
               <Form>
