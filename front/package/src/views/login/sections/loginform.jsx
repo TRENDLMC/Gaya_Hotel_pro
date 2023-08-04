@@ -1,14 +1,6 @@
 import React, { useState } from "react";
-import {
-  Container,
-  Row,
-  Col,
-  Form,
-  FormGroup,
-  Label,
-  Input,
-  Link,
-} from "reactstrap";
+import { Container, Row, Col, Form, FormGroup, Label, Input } from "reactstrap";
+import { HashLink as Link } from "react-router-hash-link";
 
 const LoginForm = () => {
   const [loginInfo, setLoginInfo] = useState({
@@ -107,13 +99,12 @@ const LoginForm = () => {
                 <p />
                 <Input id="checkbox1" type="checkbox" />
                 <Label htmlFor="checkbox1"> 아이디 저장 </Label>
-                <span>
+                {/* <span>
                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                </span>
-                <a href="../signup/signup.jsx">아직 회원이 아니신가요?</a>
-                {/* <Link className="nav-link" to={"/reservation"}>
+                </span> */}
+                <Link className="nav-link" to={"/signup"}>
                   아직 회원이 아니신가요?
-                </Link> */}
+                </Link>
               </div>
             </Col>
           </Row>

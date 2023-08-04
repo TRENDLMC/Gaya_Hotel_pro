@@ -19,7 +19,7 @@ root.render(
       <Route path="/custom-components" element={<CustomComponents />} />
       <Route path="/" element={<Components />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/singup" element={<Signup />} />
+      <Route path="/signup" element={<Signup />} />
       <Route path="/reservation" element={<Reservation />} />
     </Routes>
   </HashRouter>

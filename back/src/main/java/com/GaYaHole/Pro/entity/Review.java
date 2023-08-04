@@ -1,5 +1,7 @@
 package com.GaYaHole.Pro.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.naming.spi.ResolveResult;
@@ -24,14 +26,17 @@ public class Review extends BaseEntity{
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="id")
+    @JsonIgnore
     private User id; // 관계 설정 이렇게 하는거 맞는지 테스트
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="r_num")
+    @JsonIgnore
     private Room r_num;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="reservation_num")
+    @JsonIgnore
     private Reservation reservation_num;
 
 }

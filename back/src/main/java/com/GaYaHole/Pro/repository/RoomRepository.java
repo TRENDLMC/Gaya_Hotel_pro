@@ -7,8 +7,17 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.repository.query.Param;
 
+<<<<<<< Updated upstream
 import java.util.Date;
 import java.util.List;
+=======
+<<<<<<< HEAD
+public interface RoomRepository extends JpaRepository<Room, Integer>{
+=======
+import java.util.Date;
+import java.util.List;
+>>>>>>> master
+>>>>>>> Stashed changes
 
 public interface RoomRepository extends JpaRepository<Room, Integer> {
 
