@@ -8,8 +8,13 @@ import Components from "./views/components/components.jsx";
 import CustomComponents from "./views/custom-components/custom-components.jsx";
 import Login from "./views/login/login.jsx";
 import Signup from "./views/singup/signup.jsx";
-import Reservation from './views/reservation/reservation';
+import Reservation from "./views/reservation/reservation";
+import * as dayjs from "dayjs";
+import isLeapYear from "dayjs/plugin/isLeapYear"; // 윤년 판단 플러그인
+import "dayjs/locale/ko"; // 한국어 가져오기
 
+dayjs.extend(isLeapYear); // 플러그인 등록
+dayjs.locale("ko"); // 언어 등록
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 var hist = createBrowserHistory();

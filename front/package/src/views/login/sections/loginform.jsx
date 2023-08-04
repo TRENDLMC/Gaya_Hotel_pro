@@ -5,7 +5,7 @@ import { HashLink as Link } from "react-router-hash-link";
 const LoginForm = () => {
   const [loginInfo, setLoginInfo] = useState({
     id: "",
-    password: "",
+    pwd: "",
   });
 
   const login = () => {
@@ -13,24 +13,25 @@ const LoginForm = () => {
       alert("아이디를 입력해주십시오");
       return;
     }
-    if (loginInfo.password === "") {
+    if (loginInfo.pwd === "") {
       alert("비밀번호를 입력해주십시오");
       return;
     }
     console.log(JSON.stringify(loginInfo));
-    fetch("http://localhost:8095/test/test", {
+    fetch("http://localhost:8095/dummy/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(loginInfo),
     })
       .then((response) => {
-        if (response.ok) {
-          console.log("로그인 성공! 환영합니다.");
+        return response.json();
+      }).then((data) => {
+        console.log(data);
+        if (data === 1) {
           alert("로그인 성공! 환영합니다." + loginInfo.id + " 님!");
           sessionStorage.setItem("id", loginInfo.id); // sessionStorage에 id를 user_id라는 key 값으로 저장
         } else {
-          console.log("로그인 실패. 다시 시도해 주세요");
-          alert("로그인 실패. 다시 시도해 주세요");
+          alert("로그인 실패.")
         }
       })
       .catch((err) => {
@@ -80,7 +81,7 @@ const LoginForm = () => {
                   <Input
                     type="password"
                     className="form-control"
-                    name="password"
+                    name="pwd"
                     placeholder="Password"
                     onChange={onChange}
                   />

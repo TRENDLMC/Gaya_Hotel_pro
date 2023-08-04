@@ -13,7 +13,7 @@ const Signup = () => {
             <Header />
             <div className="page-wrapper">
                 <div className="container-fluid">
-                  <Signupform />
+                    <Signupform />
                 </div>
             </div>
             <Footer />
@@ -21,7 +21,7 @@ const Signup = () => {
     );
 }
 
-Signupform.propTypes = {
+Signup.propTypes = {
     classes: PropTypes.object
 };
 

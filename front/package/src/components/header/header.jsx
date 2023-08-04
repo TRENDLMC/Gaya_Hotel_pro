@@ -33,7 +33,7 @@ const Header = () => {
     console.log(loginSession);
   }, []);
 
-  const [loginSession, setLoginSession] = useState(false);
+  const [loginSession, setLoginSession] = useState(null);
 
   const sessionClear = () => {
     sessionStorage.removeItem("key");
