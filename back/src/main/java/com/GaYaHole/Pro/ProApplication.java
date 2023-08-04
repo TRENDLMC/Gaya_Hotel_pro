@@ -34,23 +34,23 @@ public class ProApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		User user1 = new User("test","12345","경기도 안산시 이동","715-3","김테스트","010","1234","1234"
-				,"test@test.com",1);
-
-		User user2 = new User("test2","12345","경기도 안산시 이동","715-3","김테스트2","010","1234","5978"
-				,"test2@test.com",0);
-
-		Room room1 = new Room(101, 2, "디럭스 룸", 160000);
-
-		Room room2 = new Room(102, 3, "스탠다드 룸", 180000);
+//		User user1 = new User("test","12345","경기도 안산시 이동","715-3","김테스트","010","1234","1234"
+//				,"test@test.com",1);
+//
+//		User user2 = new User("test2","12345","경기도 안산시 이동","715-3","김테스트2","010","1234","5978"
+//				,"test2@test.com",0);
+//
+//		Room room1 = new Room(101, 2, "디럭스 룸", 160000);
+//
+//		Room room2 = new Room(102, 3, "스탠다드 룸", 180000);
 
 		// 테스트 계정 생성
-		userRepository.save(user1);
+		//userRepository.save(user1);
 		//userRepository.save(user2);
 
 		//16 개의 방 생성
-		roomRepository.save(room1);
-		roomRepository.save(room2);
+//		roomRepository.save(room1);
+//		roomRepository.save(room2);
 		roomRepository.save(new Room(103, 4, "패밀리 룸", 240000));
 		roomRepository.save(new Room(104, 2, "스위트 룸", 300000));
 		roomRepository.save(new Room(105, 2, "디럭스 룸", 160000));

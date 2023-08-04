@@ -14,10 +14,11 @@ import java.util.List;
 public interface ReservationRepository extends JpaRepository<Reservation, Integer> {
 
 
-    //날짜 계산 메소드
-    @Query(value="select * from room where r_num not in ((select r_num from reservation where date( :testDate) between check_in and check_out))", nativeQuery = true)
-    List<Room> dateCal( @Param("testDate") Date testdate);
+//    //예약 정보 Insert하는 쿼리
+//    @Query(value="", nativeQuery = true)
+//    public void reservation();
 
-
+    @Query (value = "select count(reservation_num) from reservation", nativeQuery = true)
+    int numCount();
 
 }

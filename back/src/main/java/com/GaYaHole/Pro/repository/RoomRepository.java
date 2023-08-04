@@ -7,17 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.repository.query.Param;
 
-<<<<<<< Updated upstream
 import java.util.Date;
 import java.util.List;
-=======
-<<<<<<< HEAD
-public interface RoomRepository extends JpaRepository<Room, Integer>{
-=======
-import java.util.Date;
-import java.util.List;
->>>>>>> master
->>>>>>> Stashed changes
 
 public interface RoomRepository extends JpaRepository<Room, Integer> {
 
@@ -39,4 +30,8 @@ public interface RoomRepository extends JpaRepository<Room, Integer> {
             "(select r_num from reservation r2 where r2.check_out "+
             "between date( :cidate) and date ( :codate) )) )", nativeQuery = true)
     List<Room> dateCal (@Param("cidate") Date checkin, @Param("codate") Date checkout);
+
+    @Query(value="select* from room where r_num = :rnum", nativeQuery = true)
+    Room roominfo (@Param("rnum") int r_num);
+
 }
