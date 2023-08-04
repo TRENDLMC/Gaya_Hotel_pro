@@ -2,6 +2,7 @@ package com.GaYaHole.Pro.repository;
 
 import com.GaYaHole.Pro.entity.User;
 import org.junit.jupiter.api.Test;
+import org.mockito.internal.matchers.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Commit;
@@ -36,5 +37,23 @@ public class UserRepositoryTests {
             System.out.println(userRepository.save(user));
 
         });
+    }
+
+    @Test
+    public void idTest(){
+        int num=100;
+        int result;
+        String 입력받은아이디 ="test43";
+        result = userRepository.idtest(입력받은아이디);
+
+        if(result>0){
+            num = 0; //중복
+        }else{
+            num = 1; //중복아님
+        }
+
+
+        System.out.println("반환될 값 : "+num);
+
     }
 }
