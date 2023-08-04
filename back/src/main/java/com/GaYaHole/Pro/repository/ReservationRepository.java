@@ -14,8 +14,10 @@ import java.util.List;
 public interface ReservationRepository extends JpaRepository<Reservation, Integer> {
 
 
+    //날짜 계산 메소드
     @Query(value="select * from room where r_num not in ((select r_num from reservation where date( :testDate) between check_in and check_out))", nativeQuery = true)
-    List<Room> test2( @Param("testDate") Date testdate);
+    List<Room> dateCal( @Param("testDate") Date testdate);
+
 
 
 }

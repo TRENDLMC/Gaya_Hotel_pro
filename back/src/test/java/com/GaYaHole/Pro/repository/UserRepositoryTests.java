@@ -40,13 +40,14 @@ public class UserRepositoryTests {
     }
 
     @Test
-    public void idTest(){
-        int num=100;
-        int result;
+    public void idTest(){ //아이디 체크 테스트
+
+        int num=100; //아무거나로 초기화
+        int result; //받아올 값 보기 편하게
         String 입력받은아이디 ="test43";
         result = userRepository.idtest(입력받은아이디);
 
-        if(result>0){
+        if(result>0){ //같은 아이디가 0개 초과할때
             num = 0; //중복
         }else{
             num = 1; //중복아님

@@ -28,7 +28,6 @@ public class ProApplication implements CommandLineRunner {
 	private UserRepository userRepository;
 	@Autowired
 	private OptionRepository optionRepository;
-
 	@Autowired
 	private ReservationRepository reservationRepository;
 
@@ -46,21 +45,8 @@ public class ProApplication implements CommandLineRunner {
 		Room room2 = new Room(102, 3, "스탠다드 룸", 180000);
 
 		// 테스트 계정 생성
-		userRepository.save(user2);
-
-		String nummb= "2023-08-15";
-		SimpleDateFormat sidf=new SimpleDateFormat("yyyy-MM-dd");
-		Date date2=sidf.parse(nummb);
-
-		String nummb2= "2023-08-17";
-		Date date3=sidf.parse(nummb2);
-
-		String nummb3= "2023-08-16";
-		Date date4=sidf.parse(nummb3);
-
-		String nummb4= "2023-08-20";
-		Date date5=sidf.parse(nummb4);
-
+		userRepository.save(user1);
+		//userRepository.save(user2);
 
 		//16 개의 방 생성
 		roomRepository.save(room1);
@@ -80,26 +66,49 @@ public class ProApplication implements CommandLineRunner {
 		roomRepository.save(new Room(115, 4, "패밀리 룸", 240000));
 		roomRepository.save(new Room(116, 2, "스위트 룸", 300000));
 
-//		System.out.println(date3);
-//		System.out.println(date2);
-//		reservationRepository.save(new Reservation(1, 300000, date2,date3, user1,room1, "ABC"));
-		reservationRepository.save(new Reservation(2, 200000, date4,date5, user2,room2, "ADE"));
-
-
 //
 //		List<Room> testroom = roomRepository.test();
 //
 //		System.out.println("============"+testroom.get(0).getR_num()+"============");
-		String string= "2023-08-17";
-		Date testdate=sidf.parse(string);
-		List<Room> ableRoom = roomRepository.test2(testdate);
+//		String string= "2023-08-17";
+//		Date testdate=sidf.parse(string);
+//		List<Room> ableRoom = roomRepository.test2(testdate);
+//
+//		if (ableRoom.size()!=0) {
+//			System.out.println("========테스트 결과 출력 :" + ableRoom.get(2).getR_price()+ "   아악 =========");
+//		}
+//		else{
+//			System.out.println("ableRoom이 비어있음");
+//		}
 
-		if (ableRoom.size()!=0) {
-			System.out.println("========테스트 결과 출력 :" + ableRoom.get(2).getR_price()+ "   아악 =========");
-		}
-		else{
-			System.out.println("ableRoom이 비어있음");
-		}
+//		SimpleDateFormat sidf=new SimpleDateFormat("yyyy-MM-dd");
+//
+//		String string1 ="2023-08-18";
+//		String string2 ="2023-08-30";
+//		Date testdate1= sidf.parse(string1);
+//		Date testdate2= sidf.parse(string2);
+//		List<Room> ableRoomList = roomRepository.dateCal(testdate1, testdate2);
+//
+//		if(ableRoomList.size()!=0){
+//			System.out.println("===========예약 가능한 방 목록============");
+//
+//			for(int i=0; i<ableRoomList.size()-1; i++){
+//				System.out.println("============== "+(i+1)+"번째 방 ==============");
+//
+//				int roomnum = ableRoomList.get(i).getR_num();
+//				int roomprice = ableRoomList.get(i).getR_price();
+//				int roomsize = ableRoomList.get(i).getR_size();
+//				String roomtype = ableRoomList.get(i).getR_type();
+//
+//				System.out.println("방 번호 : "+roomnum);
+//				System.out.println("방 가격 : "+roomprice);
+//				System.out.println("방 인원 : "+roomsize);
+//				System.out.println("방 종류 : "+roomtype);
+//
+//				System.out.println("========================================");
+//
+//			}
+//		}
 	}
 
 	public static void main(String[] args) {
