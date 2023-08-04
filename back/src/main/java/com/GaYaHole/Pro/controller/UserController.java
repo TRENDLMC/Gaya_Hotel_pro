@@ -1,8 +1,10 @@
 package com.GaYaHole.Pro.controller;
 
+import com.GaYaHole.Pro.entity.Accounting;
 import com.GaYaHole.Pro.entity.Reservation;
 import com.GaYaHole.Pro.entity.Room;
 import com.GaYaHole.Pro.entity.User;
+import com.GaYaHole.Pro.repository.AccountRepository;
 import com.GaYaHole.Pro.repository.ReservationRepository;
 import com.GaYaHole.Pro.repository.RoomRepository;
 import com.GaYaHole.Pro.repository.UserRepository;
@@ -15,7 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class UserController {
@@ -28,6 +32,10 @@ public class UserController {
 
     @Autowired
     private ReservationRepository reservationRepository;
+
+    @Autowired
+    private AccountRepository accountRepository;
+
 
     @PostMapping("/user/join")
     public String join (@RequestBody User user){
@@ -73,6 +81,18 @@ public class UserController {
         result = userRepository.idtest(user.getId());
         return result;
 
+    }
+
+    @PostMapping ("/user/mypage")
+    public String mypage(@RequestBody User user){
+
+        User userinformation = userRepository.userinfo(user.getId());
+        Reservation reservation = reservationRepository.userinfo(user.getId());
+        int priceresult =  accountRepository.userinfo(user.getId());
+
+        //이거 무슨 형식으로 내보내지
+
+        return "마이페이지 조회";
     }
 
 

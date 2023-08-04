@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Date;
 import java.util.List;
@@ -20,5 +21,8 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
 
     @Query (value = "select count(reservation_num) from reservation", nativeQuery = true)
     int numCount();
+
+    @Query (value="select * from reservation where id = :userid", nativeQuery = true)
+    Reservation userinfo(@Param("userid") String id);
 
 }
