@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import { Container, Row, Col, Form, FormGroup, Label, Input } from "reactstrap";
 
 const RoomDetail = () => {
+  // 세션 스토리지 roomInfo
+  const rooInfo = "";
   const SERVER_URL = "http://localhost:8095/";
-  // 방리스트 페이지에서 받아온 방정보
+
+  // 방리스트 페이지에서 받아온 방
+  // 방번호로 리뷰와 방 정보 불러오기
   const [roomInfo, setRoomInfo] = useState({
     roomNum: "",
-    roomSize: "",
     tmp_checkin: "",
     tmp_checkout: "",
   });
@@ -27,24 +30,58 @@ const RoomDetail = () => {
     options: "",
     total_pay: "",
   });
-
-  // 리뷰 리스트 정보 받기
-  const fetchReviews = () => {
+  // 방정보 받기
+  const fetchRoomInfo = () => {
     // Read the token from the session storage
     // and include it to Authorization header
 
     // const token = sessionStorage.getItem("jwt");
     // data.? 로 데이터 불러옴
-    fetch(SERVER_URL + "?")
-      .then((response) => response.json())
-      .then((data) => setRoomInfo(data))
-      .catch((err) => console.error(err));
+
+    fetch(SERVER_URL + "/reserv/detail", {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(roomInfo),
+    })
+      .then((response) => {
+        if (response.ok) {
+          // response length 만큼 조건문 실행해서 리스트 또는 제이슨에 저장 하던지 그냥 제이슨 쓰던지
+        } else {
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
+  // 리뷰 리스트 정보 받기
+  const fetchReviewList = () => {
+    // Read the token from the session storage
+    // and include it to Authorization header
+
+    // const token = sessionStorage.getItem("jwt");
+    // data.? 로 데이터 불러옴
+
+    fetch(SERVER_URL + "/reserv/review", {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(roomInfo),
+    })
+      .then((response) => {
+        if (response.ok) {
+          // response length 만큼 조건문 실행해서 리스트 또는 제이슨에 저장 하던지 그냥 제이슨 쓰던지
+        } else {
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   // 방 정보 받기
 
   // 결제 시 사용되는 fetch
-  fetch("http://localhost:8095/?/?", {
+  fetch(SERVER_URL + "/reserv/r", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(paymentInfo),
@@ -58,18 +95,13 @@ const RoomDetail = () => {
       console.error(err);
     });
 
-  const Row1Styles = {
+  const Row1Style = {
     height: "500px",
     width: "100%",
     border: "solid",
   };
 
-  const Row2Styles = {
-    height: "100px",
-    border: "solid",
-  };
-
-  const Row3Styles = {
+  const InfoStyle = {
     border: "solid",
   };
 
@@ -88,28 +120,37 @@ const RoomDetail = () => {
 
       <Container>
         <Row>
-          <Col style={Row1Styles} className="cl-md-6">
+          <Col style={Row1Style} className="cl-md-6">
             <div>사진 칸</div>
           </Col>
-          <Col className="cl-md-6" style={Row1Styles}>
-            <div>정보 칸</div>
+          {/* 사용가능한 방 옵션 선택시 스트링으로 저장할수 있게 */}
+          <Col className="cl-md-6" style={Row1Style}>
+            <Container>
+              <Row style={InfoStyle}>
+                <Col style={InfoStyle}>방 번호</Col>
+                <Col style={InfoStyle}>방 종류</Col>
+              </Row>
+              <Row style={InfoStyle}>
+                <Col style={InfoStyle}>방 사이즈</Col>
+                <Col style={InfoStyle}> 인원수 조정</Col>
+              </Row>
+              <Row style={InfoStyle}>
+                <Col style={InfoStyle}>체크인 날짜</Col>
+                <Col style={InfoStyle}>체크 아웃 날짜</Col>
+              </Row>
+              <Row style={InfoStyle}>
+                <Col style={InfoStyle}>옵션 선택</Col>
+              </Row>
+              <Row style={InfoStyle}>
+                <Col style={InfoStyle}>총 결제 금액 :</Col>
+              </Row>
+              <Row style={InfoStyle}>
+                <Col style={InfoStyle}>예약하기</Col>
+                <Col style={InfoStyle}>초기화</Col>
+              </Row>
+            </Container>
           </Col>
-        </Row>
-        <Row>
-          <Col className="col-md-4" style={Row2Styles}>
-            Navi 1
-          </Col>
-          <Col className="col-md-4" style={Row2Styles}>
-            Navi 2
-          </Col>
-          <Col className="col-md-4" style={Row2Styles}>
-            Navi 3
-          </Col>
-        </Row>
-        <Row>
-          <Col className="col-md" style={Row3Styles}>
-            내용
-          </Col>
+          {/* 예약 완료 버튼을 누르면 결제 모달창이 뜨게  */}
         </Row>
       </Container>
     </div>
