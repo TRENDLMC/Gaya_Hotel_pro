@@ -66,7 +66,7 @@ public class ReservationController {
         return ableRoomList; //방 리스트 반환
     }
 
-    @PostMapping("/reser/reservation")
+    @PostMapping("/reser/reservation") //예약하기
     public String reserv (@RequestParam String id, @RequestParam int rnum, @RequestParam String optioncode,
                           @RequestParam String checkin, @RequestParam String checkout, @RequestParam int totalprice )
             throws ParseException{

@@ -16,4 +16,7 @@ public interface UserRepository extends JpaRepository<User, Integer>{
 
     @Query(value="select * from user where id = :idid", nativeQuery = true)
     User userinfo(@Param("idid") String id);
+
+    @Query(value="update user set grade = :modgrade where id = :idid", nativeQuery = true)
+    void moduser(@Param("idid") String id, @Param("modgrade") int mgrade);
 }

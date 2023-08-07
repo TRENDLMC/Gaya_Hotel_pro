@@ -2,11 +2,9 @@ package com.GaYaHole.Pro.controller;
 
 
 import com.GaYaHole.Pro.entity.Notice;
+import com.GaYaHole.Pro.entity.Reservation;
 import com.GaYaHole.Pro.entity.User;
-import com.GaYaHole.Pro.repository.AccountRepository;
-import com.GaYaHole.Pro.repository.NoticeRepository;
-import com.GaYaHole.Pro.repository.RoomRepository;
-import com.GaYaHole.Pro.repository.UserRepository;
+import com.GaYaHole.Pro.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,6 +28,9 @@ public class AdminController {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    ReservationRepository reservationRepository;
 
     @Transactional
     @PutMapping("/admin/modroom") //방 가격 수정
@@ -70,5 +71,30 @@ public class AdminController {
         return users;
     }
 
-    
+    @PostMapping("/admin/reservation") //전체 예약 조회
+    public List<Reservation> allreservation(){
+
+        List<Reservation> reservations = reservationRepository.findAll();
+
+        return reservations;
+
+    }
+
+//    @PostMapping("/admin/moduser1") //사용자 정보 수정 (-1, 0)
+//    public String moduser1(@RequestBody User user){
+//
+//        userRepository.save(user);
+//
+//        return "사용자 정보 수정";
+//
+//    }
+
+    @PostMapping("/admin/moduser") //사용자 정보 수정 (-1, 0)
+    public String moduser(@RequestBody User user){
+
+        userRepository.moduser(user.getId(), user.getGrade());
+
+        return "사용자 정보 수정";
+
+    }
 }
