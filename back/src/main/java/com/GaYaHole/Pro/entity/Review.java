@@ -15,7 +15,16 @@ import javax.persistence.*;
 @ToString
 public class Review extends BaseEntity{
 
+    public Review(String content, float starpoint, User id, Room r_num, Reservation reservation_num) {
+        this.content = content;
+        this.starpoint = starpoint;
+        this.id = id;
+        this.r_num = r_num;
+        this.reservation_num = reservation_num;
+    }
+
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int review_num; // 리뷰 번호
 
     @Column(nullable = false, length=500)
@@ -38,5 +47,6 @@ public class Review extends BaseEntity{
     @JoinColumn(name="reservation_num")
     @JsonIgnore
     private Reservation reservation_num;
+
 
 }
