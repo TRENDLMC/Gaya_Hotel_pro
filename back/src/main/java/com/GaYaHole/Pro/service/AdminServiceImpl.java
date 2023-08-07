@@ -6,9 +6,11 @@ import com.GaYaHole.Pro.entity.Room;
 import com.GaYaHole.Pro.entity.User;
 import com.GaYaHole.Pro.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class AdminServiceImpl implements AdminService {
 
     @Autowired
@@ -43,14 +45,14 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public List userinfo() throws Exception {
+    public List<User> userinfo() throws Exception {
         List<User> users = userRepository.findAll();
 
         return users;
     }
 
     @Override
-    public List allreservation() throws Exception {
+    public List<Reservation> allreservation() throws Exception {
         List<Reservation> reservations = reservationRepository.findAll();
         return reservations;
     }

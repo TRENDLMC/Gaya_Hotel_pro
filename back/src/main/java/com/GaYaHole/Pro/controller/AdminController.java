@@ -7,6 +7,7 @@ import com.GaYaHole.Pro.entity.Room;
 import com.GaYaHole.Pro.entity.User;
 import com.GaYaHole.Pro.repository.*;
 import com.GaYaHole.Pro.service.AdminService;
+import com.GaYaHole.Pro.service.AdminServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,8 +18,8 @@ import java.util.List;
 @RestController
 public class AdminController {
 
-
-    AdminService adminService;
+    @Autowired
+    AdminServiceImpl adminService;
 
     @Autowired
     NoticeRepository noticeRepository;
@@ -31,10 +32,7 @@ public class AdminController {
 
     @PutMapping("/admin/modroom") //방 가격 수정
     public int modRoom(@RequestBody Room room) throws Exception {
-
         adminService.modRoomPrice(room);
-
-
         return 1;
     }
 
