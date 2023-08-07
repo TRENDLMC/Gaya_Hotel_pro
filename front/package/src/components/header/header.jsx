@@ -17,25 +17,43 @@ import {
   DropdownMenu,
   DropdownItem,
 } from "reactstrap";
-import { set } from "date-fns";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const [loginSession, setLoginSession] = useState(null);
-
   const toggle = () => setIsOpen(!isOpen);
+
+  const [loginSession, setLoginSession] = useState(null);
 
   const bannerst = {
     positon: "relative",
     backgroundColor: "#8f103d",
   };
+  const [usergrade, setUsergrade] = useState([
+
+  ]);
 
   useEffect(() => {
     setLoginSession(sessionStorage.getItem("id"));
-    console.log(loginSession);
+    var id = {
+      id: sessionStorage.getItem("id")
+    }
+    fetch("http://localhost:8095/user/gradecheck", {
+      method: "POST",//조회
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(id),
+    })
+      .then((response) => {
+        return response.json();
+      }).then((date) => {
+        setUsergrade(date);
+        console.log(usergrade);
+      }).catch((err) => {
+        console.log(err);
+      });
     sessionCheck();
   }, [loginSession]);
+
 
   const sessionClear = () => {
     sessionStorage.removeItem("id");
@@ -58,7 +76,22 @@ const Header = () => {
       );
     }
   };
+  const gradeCheck = () => {
+    if (usergrade == 1) {
+      return (
+        <Link className="nav-link" to={"/"} onClick={sessionClear}>
+          관리자페이지
+        </Link>
+      )
+    } else {
+      return (
+        <Link className="nav-link" to={"/"} onClick={sessionClear}>
+          마이페이지
+        </Link>
+      )
+    }
 
+  };
   /*--------------------------------------------------------------------------------*/
   /*To open NAVBAR in MOBILE VIEW                                                   */
   /*--------------------------------------------------------------------------------*/
@@ -94,10 +127,11 @@ const Header = () => {
                 </Link>
               </NavItem>
               <NavItem>
-                <Link className="nav-link" to={"/"}>
+                <Link className="nav-link" to={"/custom-components"}>
                   리뷰
                 </Link>
               </NavItem>
+              {loginSession && <NavItem>{gradeCheck()}</NavItem>}
               <NavItem>{sessionCheck()}</NavItem>
             </Nav>
           </Collapse>
