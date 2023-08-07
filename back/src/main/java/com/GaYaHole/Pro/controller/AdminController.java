@@ -1,15 +1,14 @@
 package com.GaYaHole.Pro.controller;
 
 
+import com.GaYaHole.Pro.entity.Notice;
 import com.GaYaHole.Pro.repository.AccountRepository;
+import com.GaYaHole.Pro.repository.NoticeRepository;
 import com.GaYaHole.Pro.repository.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class AdminController {
@@ -21,6 +20,9 @@ public class AdminController {
 
     @Autowired
     AccountRepository accountRepository;
+
+    @Autowired
+    NoticeRepository noticeRepository;
 
     @Transactional
     @PutMapping("/admin/modroom") //방 가격 수정
@@ -41,5 +43,14 @@ public class AdminController {
         System.out.println("============== 총 매출 확인용 : "+result+" ==============");
 
         return result;
+    }
+
+    @PostMapping("/admin/addnotice")
+    public String addnotice(@RequestBody Notice notice){
+
+        noticeRepository.save(notice);
+
+        return "공지 업로드";
+
     }
 }
