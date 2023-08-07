@@ -3,41 +3,31 @@ import Calendar from './calendar'
 import Modal from "react-modal";
 import { Container, Row, Col, Label, Card, CardTitle, CardText, Button } from 'reactstrap';
 import * as dayjs from "dayjs";
-import img101 from '../../../assets/images/roomlist/img101.jpg';
-import img102 from '../../../assets/images/roomlist/img102.jpg';
-import img103 from '../../../assets/images/roomlist/img103.jpg';
-import img104 from '../../../assets/images/roomlist/img104.jpg';
-import img105 from '../../../assets/images/roomlist/img105.jpg';
-import img106 from '../../../assets/images/roomlist/img106.jpg';
-import img107 from '../../../assets/images/roomlist/img107.jpg';
-import img108 from '../../../assets/images/roomlist/img108.jpg';
-import img109 from '../../../assets/images/roomlist/img109.jpg';
-import img110 from '../../../assets/images/roomlist/img110.jpg';
-import img111 from '../../../assets/images/roomlist/img111.jpg';
-import img112 from '../../../assets/images/roomlist/img112.jpg';
-import img113 from '../../../assets/images/roomlist/img113.jpg';
-import img114 from '../../../assets/images/roomlist/img114.jpg';
-import img115 from '../../../assets/images/roomlist/img115.jpg';
-import img116 from '../../../assets/images/roomlist/img116.jpg';
+import { useNavigate } from "react-router-dom";
+
 
 const DetailsReservation = () => {
-    const [calendarData, setCalendarData] = useState([null, null]);
-    const [check_in, check_out] = calendarData;
 
-    useEffect = () => {
-        setdateop(false);
-        setListop(false);
-        setCalendarData([null, null]);
+    let navigate = useNavigate();// usehistory사용할 변수이름 선언
+
+    const [calendarData, setCalendarData] = useState([null, null]);//calendar에서 값을 가져와서 저장시키는 곳
+    const [check_in, check_out] = calendarData;//calendar에서 값을 가져와서 저장시키는 곳
+
+    useEffect = () => {// 경로로 접속시 이전에 입력한값들을 초기화시킴
+        setdateop(false);//저장된값이 없으면 보지않게만들어주는 on off값
+        setListop(false);//방정보를 표기해주는 togle값
+        setCalendarData([null, null]);//이전에 있던값을 초기화시킴
     }
-    const [modalop, setModelop] = useState(false);
-    const [listop, setListop] = useState(false);
-    const [dateop, setdateop] = useState(false);
+    const [modalop, setModelop] = useState(false);//캘린더 모달 on off state
+    const [listop, setListop] = useState(false);//방정보 표기 on off togle
+    const [dateop, setdateop] = useState(false);//날짜정보 표기 on off togle
 
     const ontogel = () => {
-        setModelop(!modalop);
-        setdateop(true);
+        setModelop(!modalop);//날짜 입력받기위해서 달력 modal을 켜주는 togle
+        setdateop(true);//값을 입력받으면 날짜가 존재하기떄문에 사용자에게 날짜정보를 보여주도록 ture로 변경해서 보여줌
     }
 
+    //아래는 날짜정보를 가져와서 두날짜사의 차값을구해서 총몇일 묵는지와같은 정보를 구하는 식
     const checkInDate =
         check_in != null && check_in.toLocaleString().split(' 오전')[0];
     const checkOutDate =
@@ -55,6 +45,69 @@ const DetailsReservation = () => {
 
     const checkDayResult = (end - start) / (1000 * 60 * 60 * 24);
 
+
+    const serchroom = () => {
+        const chek = {
+            check_in: dayjs(check_in).format('YYYY-MM-DD'),//가져온 데이터값을 전송하기전에 사용하기편한 형태로변환시킴 fotmat작업
+            check_out: dayjs(check_out).format('YYYY-MM-DD')//마찬가지 값또한 db의 변수명과동일하게설정하여 vo사용이 가능하게만듬
+        };
+        fetch("http://localhost:8095/reser/datecheck", {//fetch로 연결된 서버로 전송함
+            method: "POST",//전송 mapper를 설정
+            headers: { "Content-Type": "application/json" },//값을 json형식으로 보내므로 headers에 전송값을 설정해줌
+            body: JSON.stringify(chek),//보디에는 json형식으로 문자형으로 변경하여 위에서 저장한 값을 뿌려줌
+        })
+            .then((response) => {//성공시 서버에서 반환한 값을 json형태로변환
+                // JSON 데이터를 파싱하고 반환된 Promise를 반환합니다.
+                return response.json();
+            })
+            .then((data) => {
+                // 이제 data 변수에 JSON 데이터가 저장되어 있습니다.
+                setRoomlist(data);// json데이터를 usestate에 통채로저장시킴
+                setListop(true);//가져온값을 출력해줄 화면을 true로 만들어서 클라이언트의 눈에보이도록만들어줌
+            })
+            .catch((err) => {
+                alert(err);
+            });
+    }
+
+    const [roomlist, setRoomlist] = useState([]); //위에서 서버로부터 받아온값을 저장하는 state
+
+    const Setroom = (prors) => {//위에서 가져온값마다 사진이 다르기때문에 그사진의 경로를 설정해서 뿌려주기위해서 빠로 기능을 하나만듬
+        var img = "img" + prors.prors + ".jpg";//각방의 값을 넣어주고 확장자명을맞춰줌
+        return (
+            <img className="card-img-top" alt="wrappixel kit" src={require('../../../assets/images/roomlist/' + img)} />//이미지를 리턴시킴
+        )
+    }
+
+    const Reservationpage = (event) => {//예약하기라는 버튼을 눌렀을때 반응
+        var roominfo = {//세션하나에 여러개의 값을 저장하기위해서 json형식 즉 키값으로 데이터를 저장해줌 저장하는데이터는 예약상세페이지에서 필요한 체크인체크아웃및 방번호예약날짜등으로저장함
+            check_in: dayjs(check_in).format('YYYY-MM-DD'),
+            check_out: dayjs(check_out).format('YYYY-MM-DD'),
+            r_num: event.target.name,
+            total: checkDayResult
+        }
+        sessionStorage.setItem("roominfo", JSON.stringify(roominfo));//세선에 값을 roominfo라는 이름으로 저장함
+        navigate("/reservation");//그후 위에서 선언해준 navigate를 사용하여 바로 페이지를 전환시킴
+    }
+
+    const Roomlistview = roomlist.map((room) => (//map방식을 사용하여 존재하는 값만큼 반복함 roomlist에저장된값만큼 for을 사용한다고 보면됌.
+        <Col md="4">
+            <Card body className="card-shadow">
+                <CardTitle>{room.r_type}</CardTitle>
+                <CardText><Setroom prors={room.r_num} />< hr /><label style={{ fontSize: "20px" }}>적정 인원 : {room.r_size}</label><br />가격 : {room.r_price}</CardText>
+                <input type='button' name={room.r_num} onClick={Reservationpage} value={"예약하러가기"} />
+            </Card>
+        </Col >
+    )
+    );
+
+    //아래는 커스텀 css를 설정해주는 명령어들 
+    const fonth1 = {
+        marginTop: "30px",
+        fontSize: "35px",
+        color: "#333637",
+        fontWeight: "bold",
+    }
     const customStyles = {
         overlay: {
             backgroundColor: "rgba(0,0,0,0.5)",
@@ -79,58 +132,8 @@ const DetailsReservation = () => {
         margin: "auto"
 
     };
-    const serchroom = () => {
-        const chek = {
-            check_in: dayjs(check_in).format('YYYY-MM-DD'),
-            check_out: dayjs(check_out).format('YYYY-MM-DD')
-        };
-        console.log(JSON.stringify(chek));
-        fetch("http://localhost:8095/reser/datecheck", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(chek),
-        })
-            .then((response) => {
-                // JSON 데이터를 파싱하고 반환된 Promise를 반환합니다.
-                return response.json();
-            })
-            .then((data) => {
-                // 이제 data 변수에 JSON 데이터가 저장되어 있습니다.
-                setRoomlist(data);// JSON 데이터 출력
-                console.log(data);
-                console.log(data[0].r_num);
-                setListop(true);
-            })
-            .catch((err) => {
-                alert(err);
-            });
-    }
-    const [roomlist, setRoomlist] = useState([]);
-    const Setroom = (prors) => {
-        var img = "img" + prors.prors + ".jpg";
 
-        return (
-            <img className="card-img-top" alt="wrappixel kit" src={require('../../../assets/images/roomlist/' + img)} />
-        )
-    }
 
-    const Roomlistview =
-        roomlist.map((room) => (
-            <Col md="4">
-                <Card body className="card-shadow">
-                    <CardTitle>{room.r_type}</CardTitle>
-                    <CardText><Setroom prors={room.r_num} />< hr /><label style={{ fontSize: "20px" }}>적정 인원 : {room.r_size}</label><br />가격 : {room.r_price}</CardText>
-                    <Button>{room.r_num}</Button>
-                </Card>
-            </Col >
-        )
-        );
-    const fonth1 = {
-        marginTop: "30px",
-        fontSize: "35px",
-        color: "#333637",
-        fontWeight: "bold",
-    }
     return (
         <div>
             <Row style={fonth1} md="7" className="justify-content-center">
