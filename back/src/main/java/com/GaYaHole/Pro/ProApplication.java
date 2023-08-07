@@ -1,5 +1,6 @@
 package com.GaYaHole.Pro;
 
+import com.GaYaHole.Pro.entity.Option;
 import com.GaYaHole.Pro.entity.Reservation;
 import com.GaYaHole.Pro.entity.Room;
 import com.GaYaHole.Pro.entity.User;
@@ -34,23 +35,23 @@ public class ProApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-//		User user1 = new User("test","12345","경기도 안산시 이동","715-3","김테스트","010","1234","1234"
-//				,"test@test.com",1);
-//
-//		User user2 = new User("test2","12345","경기도 안산시 이동","715-3","김테스트2","010","1234","5978"
-//				,"test2@test.com",0);
-//
-//		Room room1 = new Room(101, 2, "디럭스 룸", 160000);
-//
-//		Room room2 = new Room(102, 3, "스탠다드 룸", 180000);
+		User user1 = new User("test","12345","경기도 안산시 이동","715-3","김테스트","010","1234","1234"
+				,"test@test.com",1);
+
+		User user2 = new User("test2","12345","경기도 안산시 이동","715-3","김테스트2","010","1234","5978"
+				,"test2@test.com",0);
+
+		Room room1 = new Room(101, 2, "디럭스 룸", 160000);
+
+		Room room2 = new Room(102, 3, "스탠다드 룸", 180000);
 
 		// 테스트 계정 생성
-		//userRepository.save(user1);
-		//userRepository.save(user2);
+		userRepository.save(user1);
+		userRepository.save(user2);
 
 		//16 개의 방 생성
-//		roomRepository.save(room1);
-//		roomRepository.save(room2);
+		roomRepository.save(room1);
+		roomRepository.save(room2);
 		roomRepository.save(new Room(103, 4, "패밀리 룸", 240000));
 		roomRepository.save(new Room(104, 2, "스위트 룸", 300000));
 		roomRepository.save(new Room(105, 2, "디럭스 룸", 160000));
@@ -66,6 +67,14 @@ public class ProApplication implements CommandLineRunner {
 		roomRepository.save(new Room(115, 4, "패밀리 룸", 240000));
 		roomRepository.save(new Room(116, 2, "스위트 룸", 300000));
 
+		optionRepository.save(new Option("A", "수영장", 20000, 0)); // 인당
+		optionRepository.save(new Option("B", "바베큐", 40000, 0));
+		optionRepository.save(new Option("C", "조식", 30000, 0)); // 인당
+		optionRepository.save(new Option("D", "사우나", 20000, 1)); // 인당
+		optionRepository.save(new Option("E", "엑스트라 배드", 40000, 1)); //인당
+		optionRepository.save(new Option("F", "VR", 100000, 2));
+		optionRepository.save(new Option("G", "키즈카페", 40000, 2));
+		optionRepository.save(new Option("H", "기념일행사", 300000, 3));
 //
 //		List<Room> testroom = roomRepository.test();
 //

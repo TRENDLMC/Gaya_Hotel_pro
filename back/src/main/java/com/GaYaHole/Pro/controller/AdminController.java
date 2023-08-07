@@ -3,8 +3,10 @@ package com.GaYaHole.Pro.controller;
 
 import com.GaYaHole.Pro.entity.Notice;
 import com.GaYaHole.Pro.entity.Reservation;
+import com.GaYaHole.Pro.entity.Room;
 import com.GaYaHole.Pro.entity.User;
 import com.GaYaHole.Pro.repository.*;
+import com.GaYaHole.Pro.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,12 +18,7 @@ import java.util.List;
 public class AdminController {
 
 
-
-    @Autowired
-    RoomRepository roomRepository;
-
-    @Autowired
-    AccountRepository accountRepository;
+    AdminService adminService;
 
     @Autowired
     NoticeRepository noticeRepository;
@@ -32,21 +29,19 @@ public class AdminController {
     @Autowired
     ReservationRepository reservationRepository;
 
-    @Transactional
     @PutMapping("/admin/modroom") //방 가격 수정
-    public int modRoom(@RequestParam int roomnum, @RequestParam String roomprice){
+    public int modRoom(@RequestBody Room room) throws Exception {
 
-        roomRepository.roomUpdate(roomnum, roomprice);
+        adminService.modRoomPrice(room);
 
-        System.out.println("확인");
 
         return 1;
     }
 
     @PostMapping("/admin/gProfit") //총 매출 확인
-    public int profit(){
-        int result=0;
-        result = accountRepository.totalAccounting();
+    public int profit() throws Exception {
+
+        int result =adminService.totalProfit();
 
         System.out.println("============== 총 매출 확인용 : "+result+" ==============");
 
@@ -54,46 +49,34 @@ public class AdminController {
     }
 
     @PostMapping("/admin/addnotice") //공지 추가
-    public String addnotice(@RequestBody Notice notice){
+    public String addnotice(@RequestBody Notice notice) throws Exception {
 
-        noticeRepository.save(notice);
+        adminService.addNotice(notice);
 
         return "공지 업로드";
 
     }
 
     @PostMapping("/admin/userinfo") //유저들 정보 조회
-    public List userinfo(){
+    public List userinfo() throws Exception {
 
-        List<User> users = userRepository.findAll();
-        System.out.println(users);
+        List<User> users = adminService.userinfo();
 
         return users;
     }
 
     @PostMapping("/admin/reservation") //전체 예약 조회
-    public List<Reservation> allreservation(){
+    public List<Reservation> allreservation() throws Exception {
 
-        List<Reservation> reservations = reservationRepository.findAll();
-
-        System.out.println(reservations);
+        List<Reservation> reservations = adminService.allreservation();
         return reservations;
 
     }
 
-//    @PostMapping("/admin/moduser1") //사용자 정보 수정 (-1, 0)
-//    public String moduser1(@RequestBody User user){
-//
-//        userRepository.save(user);
-//
-//        return "사용자 정보 수정";
-//
-//    }
-
     @PostMapping("/admin/moduser") //사용자 정보 수정 (-1, 0)
-    public String moduser(@RequestBody User user){
+    public String moduser(@RequestBody User user) throws Exception {
 
-        userRepository.moduser(user.getId(), user.getGrade());
+        adminService.modUsergrade(user);
 
         return "사용자 정보 수정";
 

@@ -32,7 +32,7 @@ public interface RoomRepository extends JpaRepository<Room, Integer> {
 
 
     @Query(value = "update room set r_price= :rprice  where r_num = :rnum", nativeQuery = true)
-    void roomUpdate (@Param ("rnum") int r_num, @Param ("rprice") String r_price);
+    void roomUpdate (@Param ("rnum") int r_num, @Param ("rprice") int r_price);
 
 
 }
