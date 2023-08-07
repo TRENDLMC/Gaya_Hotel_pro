@@ -122,7 +122,7 @@ const Header = () => {
                 </DropdownMenu>
               </UncontrolledDropdown>
               <NavItem>
-                <Link className="nav-link" to={"/reservation"}>
+                <Link className="nav-link" to={"/reservationlist"}>
                   예약
                 </Link>
               </NavItem>
