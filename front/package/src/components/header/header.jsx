@@ -17,9 +17,12 @@ import {
   DropdownMenu,
   DropdownItem,
 } from "reactstrap";
+import { set } from "date-fns";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+
+  const [loginSession, setLoginSession] = useState(null);
 
   const toggle = () => setIsOpen(!isOpen);
 
@@ -31,12 +34,13 @@ const Header = () => {
   useEffect(() => {
     setLoginSession(sessionStorage.getItem("id"));
     console.log(loginSession);
-  }, []);
-
-  const [loginSession, setLoginSession] = useState(null);
+    sessionCheck();
+  }, [loginSession]);
 
   const sessionClear = () => {
-    sessionStorage.removeItem("key");
+    sessionStorage.removeItem("id");
+    setLoginSession(null);
+    alert("로그아웃 되었습니다.");
   };
 
   const sessionCheck = () => {
