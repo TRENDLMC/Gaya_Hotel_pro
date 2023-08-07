@@ -1,18 +1,36 @@
 import { useEffect, useState } from 'react';
 import Calendar from './calendar'
 import Modal from "react-modal";
-import { Container, Row, Col, Label, } from 'reactstrap';
+import { Container, Row, Col, Label, Card, CardTitle, CardText, Button } from 'reactstrap';
 import * as dayjs from "dayjs";
+import img101 from '../../../assets/images/roomlist/img101.jpg';
+import img102 from '../../../assets/images/roomlist/img102.jpg';
+import img103 from '../../../assets/images/roomlist/img103.jpg';
+import img104 from '../../../assets/images/roomlist/img104.jpg';
+import img105 from '../../../assets/images/roomlist/img105.jpg';
+import img106 from '../../../assets/images/roomlist/img106.jpg';
+import img107 from '../../../assets/images/roomlist/img107.jpg';
+import img108 from '../../../assets/images/roomlist/img108.jpg';
+import img109 from '../../../assets/images/roomlist/img109.jpg';
+import img110 from '../../../assets/images/roomlist/img110.jpg';
+import img111 from '../../../assets/images/roomlist/img111.jpg';
+import img112 from '../../../assets/images/roomlist/img112.jpg';
+import img113 from '../../../assets/images/roomlist/img113.jpg';
+import img114 from '../../../assets/images/roomlist/img114.jpg';
+import img115 from '../../../assets/images/roomlist/img115.jpg';
+import img116 from '../../../assets/images/roomlist/img116.jpg';
 
-const DetailsReservation = ({ roomDetailData }) => {
+const DetailsReservation = () => {
     const [calendarData, setCalendarData] = useState([null, null]);
     const [check_in, check_out] = calendarData;
 
     useEffect = () => {
         setdateop(false);
+        setListop(false);
+        setCalendarData([null, null]);
     }
     const [modalop, setModelop] = useState(false);
-
+    const [listop, setListop] = useState(false);
     const [dateop, setdateop] = useState(false);
 
     const ontogel = () => {
@@ -47,7 +65,7 @@ const DetailsReservation = ({ roomDetailData }) => {
             width: "658px",
             height: "350px",
             padding: "0",
-            overflow: "auto",
+            overflow: "hidden",
         },
     };
 
@@ -67,7 +85,7 @@ const DetailsReservation = ({ roomDetailData }) => {
             check_out: dayjs(check_out).format('YYYY-MM-DD')
         };
         console.log(JSON.stringify(chek));
-        fetch("http://localhost:8095/dummy/datecheck", {
+        fetch("http://localhost:8095/reser/datecheck", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(chek),
@@ -78,13 +96,35 @@ const DetailsReservation = ({ roomDetailData }) => {
             })
             .then((data) => {
                 // 이제 data 변수에 JSON 데이터가 저장되어 있습니다.
-                console.log(data); // JSON 데이터 출력
-                console.log(data[10].r_num); // 원하는 값 출력
+                setRoomlist(data);// JSON 데이터 출력
+                console.log(data);
+                console.log(data[0].r_num);
+                setListop(true);
             })
             .catch((err) => {
-                alert("실패");
+                alert(err);
             });
     }
+    const [roomlist, setRoomlist] = useState([]);
+    const Setroom = (prors) => {
+        var img = "img" + prors.prors + ".jpg";
+
+        return (
+            <img className="card-img-top" alt="wrappixel kit" src={require('../../../assets/images/roomlist/' + img)} />
+        )
+    }
+
+    const Roomlistview =
+        roomlist.map((room) => (
+            <Col md="4">
+                <Card body className="card-shadow">
+                    <CardTitle>{room.r_type}</CardTitle>
+                    <CardText><Setroom prors={room.r_num} />< hr /><label style={{ fontSize: "20px" }}>적정 인원 : {room.r_size}</label><br />가격 : {room.r_price}</CardText>
+                    <Button>{room.r_num}</Button>
+                </Card>
+            </Col >
+        )
+        );
     const fonth1 = {
         marginTop: "30px",
         fontSize: "35px",
@@ -127,10 +167,35 @@ const DetailsReservation = ({ roomDetailData }) => {
             <div>
                 <Modal isOpen={modalop} ariaHideApp={false} style={customStyles}>
                     <Calendar setCalendarData={setCalendarData} />
-                    <input style={{ marginLeft: "300px" }} type='button' value={"닫기"} onClick={ontogel} />
+                    <input className="btn btn-info" style={{ marginLeft: "210px" }} type='button' value={"확인"} onClick={ontogel} />
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input className="btn btn-secondary" style={{}} type='button' value={"닫기"} onClick={ontogel} />
                 </Modal>
             </div>
+
+            {!listop && <div style={{ marginTop: "200px", fontSize: "30px", marginBottom: "200px" }} id="forms-component">
+                <Container>
+                    <Row md="20" className="justify-content-center">
+                        <Col></Col>
+                        <Col>조건을 입력해주십시오</Col>
+                        <Col></Col>
+                    </Row>
+                </Container>
+            </div>}
+            {listop && <div style={{ marginTop: "200px", fontSize: "30px", marginBottom: "200px" }} id="forms-component">
+                <Container>
+                    <Row md="12">
+                        {Roomlistview}
+                    </Row>
+                </Container>
+            </div>}
         </div >
     );
 };
+
+
+
+
+
+
 export default DetailsReservation;

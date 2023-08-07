@@ -39,7 +39,7 @@ const LoginForm = () => {
 
     console.log(JSON.stringify(loginInfo));
 
-    fetch("http://localhost:8095/dummy/login", {
+    fetch("http://localhost:8095/user/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(loginInfo),

@@ -34,7 +34,6 @@ const Components = () => {
                     <PortfolioComponent />
                     <BlogComponent />
                     <PageTable />
-                    <Pagelogin />
                 </div>
             </div>
             <Footer />

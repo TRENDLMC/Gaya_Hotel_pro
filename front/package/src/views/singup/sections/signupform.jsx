@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Container, Row, Col, Form, FormGroup, Label, Input, } from 'reactstrap';
 import DaumPostcode from 'react-daum-postcode';
 import Modal from "react-modal";
-import { da } from 'date-fns/locale';
 
 
 const PageForm = () => {
@@ -122,8 +121,7 @@ const PageForm = () => {
             alert("상세주소를 입력해주십시오");
             return;
         }
-
-        fetch("http://localhost:8095/dummy/join", {
+        fetch("http://localhost:8095/user/join", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(user),
@@ -145,7 +143,7 @@ const PageForm = () => {
             id: user.id
         }
         console.log(JSON.stringify(id));
-        fetch("http://localhost:8095/dummy/idcheck", {
+        fetch("http://localhost:8095/user/idcheck", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(id),
