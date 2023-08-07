@@ -81,10 +81,10 @@ public class UserController {
     }
 
     @PostMapping ("/user/mypage")
-    public List<Reservation> mypage(@RequestBody User user){ //id 받아오면 된다...
+    public List<Reservation> mypage(@RequestParam String id){ //id 받아오면 된다...
 
 
-        List<Reservation> info = reservationRepository.userinfo(user.getId());
+        List<Reservation> info = reservationRepository.userinfo(id);
 
 
         System.out.println("체크용 : " + info.get(0));
@@ -92,6 +92,12 @@ public class UserController {
 
 
         return info;
+    }
+
+    @PostMapping("/user/gradecheck")
+    public int gradecheck(@RequestBody User user){
+        Optional<User> user1=userRepository.findById(user.getId());
+        return user1.get().getGrade();
     }
 
 
