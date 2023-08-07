@@ -1,14 +1,33 @@
-import React, { useState } from "react";
+import React, { Component, useEffect, useState } from "react";
 import { Container, Row, Col, Form, FormGroup, Label, Input } from "reactstrap";
 import { HashLink as Link } from "react-router-hash-link";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const LoginForm = () => {
+  let navigate = useNavigate();
+
   const [loginInfo, setLoginInfo] = useState({
     id: "",
     pwd: "",
   });
 
-  const login = () => {
+  const [isLogin, setIsLogin] = useState(false); //로그인 관리
+
+  useEffect(() => {
+    if (sessionStorage.getItem("id") === null) {
+      // sessionStorage 에 name 라는 key 값으로 저장된 값이 없다면
+      console.log("isLogin ?? :: ", isLogin);
+    } else if (isLogin == true) {
+      navigate("/");
+    } else {
+      // sessionStorage 에 name 라는 key 값으로 저장된 값이 있다면
+      // 로그인 상태 변경
+      setIsLogin(true);
+      console.log("isLogin ?? :: ", isLogin);
+    }
+  });
+
+  const Login = async () => {
     if (loginInfo.id === "") {
       alert("아이디를 입력해주십시오");
       return;
@@ -17,7 +36,9 @@ const LoginForm = () => {
       alert("비밀번호를 입력해주십시오");
       return;
     }
+
     console.log(JSON.stringify(loginInfo));
+
     fetch("http://localhost:8095/dummy/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -25,13 +46,17 @@ const LoginForm = () => {
     })
       .then((response) => {
         return response.json();
-      }).then((data) => {
+      })
+      .then((data) => {
         console.log(data);
         if (data === 1) {
           alert("로그인 성공! 환영합니다." + loginInfo.id + " 님!");
           sessionStorage.setItem("id", loginInfo.id); // sessionStorage에 id를 user_id라는 key 값으로 저장
+          navigate("/");
+          // goToMain();
         } else {
-          alert("로그인 실패.")
+          alert("로그인 실패.");
+          window.location.reload();
         }
       })
       .catch((err) => {
@@ -90,7 +115,7 @@ const LoginForm = () => {
                 <Col md="12" className="text-center">
                   <input
                     type="button"
-                    onClick={login}
+                    onClick={Login}
                     className="btn btn-success waves-effect waves-light m-r-10 col-md-12"
                     value={"로그인"}
                   />
@@ -102,10 +127,13 @@ const LoginForm = () => {
                 <Label htmlFor="checkbox1"> 아이디 저장 </Label>
                 {/* <span>
                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                </span> */}
-                <Link className="nav-link" to={"/signup"}>
-                  아직 회원이 아니신가요?
-                </Link>
+                   </span> */}
+
+                <Container className="text-center">
+                  <Link className="nav-link text-center" to={"/signup"}>
+                    아직 회원이 아니신가요?
+                  </Link>
+                </Container>
               </div>
             </Col>
           </Row>
