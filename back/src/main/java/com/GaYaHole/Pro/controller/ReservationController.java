@@ -19,6 +19,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class ReservationController {
@@ -67,27 +68,19 @@ public class ReservationController {
     }
 
     @PostMapping("/reser/reservation") //예약하기
-    public String reserv (@RequestParam String id, @RequestParam int rnum, @RequestParam String optioncode,
-                          @RequestParam String checkin, @RequestParam String checkout, @RequestParam int totalprice )
+    public String reserv (@RequestBody Reservation reservation )
             throws ParseException{
-
         User user; Room room;
-        user = userRepository.userinfo(id);
-        room = roomRepository.roominfo(rnum);
+        user = reservation.getId();
+        Optional<User> user1=userRepository.findById(user.getId());
+        room = roomRepository.roominfo(reservation.getR_num().getR_num());
+        user=user1.get();
 
-        int renum = reservationRepository.numCount()+1;
-
-        SimpleDateFormat sidf = new SimpleDateFormat("yyyy-MM-dd");
-        Date check_in = sidf.parse(checkin);
-        Date check_out = sidf.parse(checkout);
-
-
-        Reservation reservation = Reservation.builder()
-                .reservation_num(renum)
-                .option_code(optioncode)
-                .check_in(check_in)
-                .check_out(check_out)
-                .total_price(totalprice)
+        reservation = Reservation.builder()
+                .option_code(reservation.getOption_code())
+                .check_in(reservation.getCheck_in())
+                .check_out(reservation.getCheck_out())
+                .total_price(reservation.getTotal_price())
                 .r_num(room)
                 .id(user)
                 .build();
@@ -95,8 +88,8 @@ public class ReservationController {
         reservationRepository.save(reservation);
 
         Accounting accounting = Accounting.builder()
-                .pay_number(renum)
-                .price(totalprice)
+                .pay_number(reservation.getReservation_num())
+                .price(reservation.getTotal_price())
                 .id(user)
                 .reservation_num(reservation)
                 .build();

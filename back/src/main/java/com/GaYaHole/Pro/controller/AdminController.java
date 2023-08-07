@@ -76,6 +76,7 @@ public class AdminController {
 
         List<Reservation> reservations = reservationRepository.findAll();
 
+        System.out.println(reservations);
         return reservations;
 
     }

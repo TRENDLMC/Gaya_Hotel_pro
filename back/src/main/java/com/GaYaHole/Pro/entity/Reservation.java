@@ -2,6 +2,7 @@ package com.GaYaHole.Pro.entity;
 
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -14,7 +15,8 @@ import java.util.Date;
 @ToString
 public class Reservation extends BaseEntity{
 
-    @Id
+    @Id @ColumnDefault("1")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int reservation_num;
 
     private int total_price;
