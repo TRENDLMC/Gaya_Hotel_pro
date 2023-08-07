@@ -42,6 +42,8 @@ public class UserServiceImpl implements UserService{
     @Override
     public List<Reservation> mypage(User user) {
         List<Reservation> info = reservationRepository.userinfo(user.getId());
+
+
         return info;
     }
 

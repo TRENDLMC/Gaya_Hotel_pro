@@ -1,5 +1,6 @@
 package com.GaYaHole.Pro.repository;
 
+import com.GaYaHole.Pro.entity.Option;
 import com.GaYaHole.Pro.entity.User;
 import org.junit.jupiter.api.Test;
 import org.mockito.internal.matchers.Null;
@@ -7,6 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Commit;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.IntStream;
 
 @SpringBootTest
@@ -14,6 +19,9 @@ public class UserRepositoryTests {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private OptionRepository optionRepository;
 
 //
 //    @Test
@@ -73,6 +81,34 @@ public class UserRepositoryTests {
         else{
             System.out.println( "로그인 실패");
         }
+
+    }
+
+    @Test
+    public void parsingTest(){
+
+        String option_code = "ABD";
+        List<String> optionList = new ArrayList<String>();
+
+        String[] splitStr = option_code.split("");
+        for(int i=0; i< splitStr.length; i++){
+            optionList.add(splitStr[i]);
+        }
+
+        System.out.println(optionList);
+
+
+        List<Option> options = new ArrayList<Option>();
+
+
+        for (int i=0; i<optionList.size(); i++){
+            options.add(optionRepository.optionselect(optionList.get(i)));
+        }
+
+
+
+        System.out.println(options);
+
 
     }
 }
