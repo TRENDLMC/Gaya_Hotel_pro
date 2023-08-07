@@ -29,18 +29,6 @@ public class ReservationController {
     @Autowired
     ReservationServiceImpl reservationService;
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private RoomRepository roomRepository;
-
-    @Autowired
-    private ReservationRepository reservationRepository;
-
-    @Autowired
-    private AccountRepository accountRepository;
-
 
     //http://localhost:8095/dummy/datecheck
     @PostMapping("/reser/datecheck") //체크인, 체크아웃 날짜에 따른 방 정보 출력

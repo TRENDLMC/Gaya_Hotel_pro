@@ -8,6 +8,7 @@ import com.GaYaHole.Pro.repository.AccountRepository;
 import com.GaYaHole.Pro.repository.ReservationRepository;
 import com.GaYaHole.Pro.repository.RoomRepository;
 import com.GaYaHole.Pro.repository.UserRepository;
+import com.GaYaHole.Pro.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,33 +23,13 @@ import java.util.*;
 public class UserController {
 
     @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private RoomRepository roomRepository;
-
-    @Autowired
-    private ReservationRepository reservationRepository;
-
-    @Autowired
-    private AccountRepository accountRepository;
+    UserServiceImpl userService;
 
 
     @PostMapping("/user/join")
     public String join (@RequestBody User user){
 
-        System.out.println("Id : "+user.getId());
-        System.out.println("pwd : "+user.getPwd());
-        System.out.println("Name : "+user.getName());
-        System.out.println("Add1 : "+user.getAdd1());
-        System.out.println("Add2 : "+user.getAdd2());
-        System.out.println("Email : " +user.getEmail());
-        System.out.println("pnum1 : "+user.getP_num1());
-        System.out.println("pnum2 : "+user.getP_num2());
-        System.out.println("pnum3 : "+user.getP_num3());
-        System.out.println("grade : "+user.getGrade());
-
-        userRepository.save(user);
+        userService.join(user);
 
         return "회원가입 완료";
     }
@@ -56,9 +37,8 @@ public class UserController {
     @PostMapping("/user/login")
     public int login(@RequestBody User user){
 
-        System.out.println(user.getId());
-        int result; //받아올 값 보기 편하게
-        result = userRepository.logintest(user.getId(),user.getPwd());
+        int result = userService.login(user);
+
         if(result==1){
             System.out.println( "로그인 성공");
         }
@@ -75,28 +55,24 @@ public class UserController {
     @PostMapping("/user/idcheck")
     public int idcheck(@RequestBody User user){
         int result;
-        result = userRepository.idtest(user.getId());
+        result = userService.idCheck(user);
         return result;
 
     }
 
     @PostMapping ("/user/mypage")
-    public List<Reservation> mypage(@RequestParam String id){ //id 받아오면 된다...
+    public List<Reservation> mypage(@RequestBody User user){ //id 받아오면 된다...
 
-
-        List<Reservation> info = reservationRepository.userinfo(id);
-
-
+        List<Reservation> info = userService.mypage(user);
         System.out.println("체크용 : " + info.get(0));
-        System.out.println("체크용 2 : " + info.get(1)); //test2를 넣으면 오류 (예약정보가 1개밖에 없어서)
-
 
         return info;
     }
 
     @PostMapping("/user/gradecheck")
     public int gradecheck(@RequestBody User user){
-        Optional<User> user1=userRepository.findById(user.getId());
+        Optional<User> user1=userService.gradeCheck(user);
+
         return user1.get().getGrade();
     }
 
