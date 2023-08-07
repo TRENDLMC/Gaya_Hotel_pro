@@ -16,10 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 public class UserController {
@@ -84,15 +81,17 @@ public class UserController {
     }
 
     @PostMapping ("/user/mypage")
-    public String mypage(@RequestBody User user){
+    public List<Reservation> mypage(@RequestParam String id){ //id 받아오면 된다...
 
-        User userinformation = userRepository.userinfo(user.getId());
-        Reservation reservation = reservationRepository.userinfo(user.getId());
-        int priceresult =  accountRepository.userinfo(user.getId());
 
-        //이거 무슨 형식으로 내보내지
+        List<Reservation> info = reservationRepository.userinfo(id);
 
-        return "마이페이지 조회";
+
+        System.out.println("체크용 : " + info.get(0));
+        System.out.println("체크용 2 : " + info.get(1)); //test2를 넣으면 오류 (예약정보가 1개밖에 없어서)
+
+
+        return info;
     }
 
 

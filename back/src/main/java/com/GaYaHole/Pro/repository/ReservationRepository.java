@@ -23,6 +23,6 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
     int numCount();
 
     @Query (value="select * from reservation where id = :userid", nativeQuery = true)
-    Reservation userinfo(@Param("userid") String id);
+    List<Reservation> userinfo(@Param("userid") String id);
 
 }
