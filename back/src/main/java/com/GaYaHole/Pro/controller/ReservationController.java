@@ -9,6 +9,8 @@ import com.GaYaHole.Pro.repository.AccountRepository;
 import com.GaYaHole.Pro.repository.ReservationRepository;
 import com.GaYaHole.Pro.repository.RoomRepository;
 import com.GaYaHole.Pro.repository.UserRepository;
+import com.GaYaHole.Pro.service.ReservationService;
+import com.GaYaHole.Pro.service.ReservationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,6 +25,9 @@ import java.util.Optional;
 
 @RestController
 public class ReservationController {
+
+    @Autowired
+    ReservationServiceImpl reservationService;
 
     @Autowired
     private UserRepository userRepository;
@@ -40,29 +45,7 @@ public class ReservationController {
     //http://localhost:8095/dummy/datecheck
     @PostMapping("/reser/datecheck") //체크인, 체크아웃 날짜에 따른 방 정보 출력
     public List<Room> datecheck(@RequestBody Reservation reservation) throws ParseException {
-        List<Room> ableRoomList = roomRepository.dateCal(reservation.getCheck_in(), reservation.getCheck_out());
-
-        //확인용으로 출력
-        if (ableRoomList.size() != 0) {
-            System.out.println("===========예약 가능한 방 목록============");
-
-            for (int i = 0; i < ableRoomList.size() - 1; i++) {
-                System.out.println("============== " + (i + 1) + "번째 방 ==============");
-
-                int roomnum = ableRoomList.get(i).getR_num();
-                int roomprice = ableRoomList.get(i).getR_price();
-                int roomsize = ableRoomList.get(i).getR_size();
-                String roomtype = ableRoomList.get(i).getR_type();
-
-                System.out.println("방 번호 : " + roomnum);
-                System.out.println("방 가격 : " + roomprice);
-                System.out.println("방 인원 : " + roomsize);
-                System.out.println("방 종류 : " + roomtype);
-
-                System.out.println("========================================");
-
-            }
-        }
+        List<Room> ableRoomList = reservationService.dateCheck(reservation);
 
         return ableRoomList; //방 리스트 반환
     }
@@ -70,31 +53,8 @@ public class ReservationController {
     @PostMapping("/reser/reservation") //예약하기
     public String reserv (@RequestBody Reservation reservation )
             throws ParseException{
-        User user; Room room;
-        user = reservation.getId();
-        Optional<User> user1=userRepository.findById(user.getId());
-        room = roomRepository.roominfo(reservation.getR_num().getR_num());
-        user=user1.get();
 
-        reservation = Reservation.builder()
-                .option_code(reservation.getOption_code())
-                .check_in(reservation.getCheck_in())
-                .check_out(reservation.getCheck_out())
-                .total_price(reservation.getTotal_price())
-                .r_num(room)
-                .id(user)
-                .build();
-
-        reservationRepository.save(reservation);
-
-        Accounting accounting = Accounting.builder()
-                .pay_number(reservation.getReservation_num())
-                .price(reservation.getTotal_price())
-                .id(user)
-                .reservation_num(reservation)
-                .build();
-
-        accountRepository.save(accounting);
+        reservationService.Reservation(reservation);
 
         return "예약 성공";
     }
