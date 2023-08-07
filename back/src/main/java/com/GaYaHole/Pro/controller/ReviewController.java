@@ -54,7 +54,7 @@ public class ReviewController {
         return "";
     }
 
-    @DeleteMapping("/delete/{reviewnum}")
+    @DeleteMapping("/remove/{reviewnum}")
     public String rdel (@PathVariable("reviewnum") int reviewnum) {
         Optional<Review> review =reviewRepository.findById(reviewnum);
         Review review1 =review.get();
