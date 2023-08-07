@@ -2,13 +2,17 @@ package com.GaYaHole.Pro.controller;
 
 
 import com.GaYaHole.Pro.entity.Notice;
+import com.GaYaHole.Pro.entity.User;
 import com.GaYaHole.Pro.repository.AccountRepository;
 import com.GaYaHole.Pro.repository.NoticeRepository;
 import com.GaYaHole.Pro.repository.RoomRepository;
+import com.GaYaHole.Pro.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class AdminController {
@@ -24,6 +28,9 @@ public class AdminController {
     @Autowired
     NoticeRepository noticeRepository;
 
+    @Autowired
+    UserRepository userRepository;
+
     @Transactional
     @PutMapping("/admin/modroom") //방 가격 수정
     public int modRoom(@RequestParam int roomnum, @RequestParam String roomprice){
@@ -35,7 +42,7 @@ public class AdminController {
         return 1;
     }
 
-    @PostMapping("/admin/gProfit")
+    @PostMapping("/admin/gProfit") //총 매출 확인
     public int profit(){
         int result=0;
         result = accountRepository.totalAccounting();
@@ -45,7 +52,7 @@ public class AdminController {
         return result;
     }
 
-    @PostMapping("/admin/addnotice")
+    @PostMapping("/admin/addnotice") //공지 추가
     public String addnotice(@RequestBody Notice notice){
 
         noticeRepository.save(notice);
@@ -53,4 +60,15 @@ public class AdminController {
         return "공지 업로드";
 
     }
+
+    @PostMapping("/admin/userinfo") //유저들 정보 조회
+    public List userinfo(){
+
+        List<User> users = userRepository.findAll();
+        System.out.println(users);
+
+        return users;
+    }
+
+    
 }
