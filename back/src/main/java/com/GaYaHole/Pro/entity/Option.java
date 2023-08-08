@@ -10,7 +10,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Option extends BaseEntity{
+public class Option {
 
     @Id
     private String option_code;

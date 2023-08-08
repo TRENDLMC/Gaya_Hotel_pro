@@ -1,6 +1,7 @@
 package com.GaYaHole.Pro.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
@@ -13,9 +14,10 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Reservation extends BaseEntity{
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class Reservation{
 
-    @Id @ColumnDefault("1")
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int reservation_num;
 

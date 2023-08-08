@@ -53,4 +53,14 @@ public class UserServiceImpl implements UserService{
 
         return user1;
     }
+
+    @Override
+    public User userinfo(User user) {
+       Optional<User> user1= userRepository.findById(user.getId());
+       if(user1.isPresent()) {
+          user1.get().setPwd(null);
+          return user1.get();
+       }
+       return null;
+    }
 }

@@ -13,7 +13,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Accounting extends BaseEntity{
+public class Accounting{
 
     @Id
     private int pay_number;

@@ -1,5 +1,6 @@
 package com.GaYaHole.Pro.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.Column;
@@ -13,7 +14,8 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Room extends BaseEntity{
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class Room {
     
     @Id
     private int r_num; //방 번호

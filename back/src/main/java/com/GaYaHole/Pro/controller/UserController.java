@@ -36,16 +36,13 @@ public class UserController {
 
     @PostMapping("/user/login")
     public int login(@RequestBody User user){
-
         int result = userService.login(user);
-
         if(result==1){
             System.out.println( "로그인 성공");
         }
         else{
             System.out.println( "로그인 실패");
         }
-
         // 반환 값 1 : 로그인 성공
         // 반환 값 0 : 로그인 실패
         return result;
@@ -62,19 +59,20 @@ public class UserController {
 
     @PostMapping ("/user/mypage")
     public List<Reservation> mypage(@RequestBody User user){ //id 받아오면 된다...
-
         List<Reservation> info = userService.mypage(user);
-        System.out.println("체크용 : " + info.get(0));
-
         return info;
     }
 
     @PostMapping("/user/gradecheck")
     public int gradecheck(@RequestBody User user){
         Optional<User> user1=userService.gradeCheck(user);
-
         return user1.get().getGrade();
     }
 
+    @PostMapping("/user/info")
+    public User userinfo(@RequestBody User user){
+        User user1=userService.userinfo(user);
+        return user1;
+    }
 
 }

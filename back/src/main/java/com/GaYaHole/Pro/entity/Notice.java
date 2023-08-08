@@ -13,7 +13,7 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Notice extends BaseEntity{
+public class Notice{
 
     @Column(nullable = false, length=500)
     private String n_content;

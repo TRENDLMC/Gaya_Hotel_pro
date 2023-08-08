@@ -13,4 +13,6 @@ public interface UserService {
     public int idCheck(User user);
     public List<Reservation> mypage (User user);
     public Optional<User> gradeCheck (User user);
+
+    public User userinfo(User user);
 }
