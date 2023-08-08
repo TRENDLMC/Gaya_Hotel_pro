@@ -21,7 +21,7 @@ const Memberform = () => {
 
     const boardstyle = {
         border: "5px solid",
-        backgroundColor: "lightgreen",
+        backgroundColor: "#c2a575",
         color: "black",
         fontSize: "20px",
         width: "15%",

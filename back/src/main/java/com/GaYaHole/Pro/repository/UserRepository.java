@@ -19,4 +19,6 @@ public interface UserRepository extends JpaRepository<User, String>{
 
     @Query(value="update user set grade = :modgrade where id = :idid", nativeQuery = true)
     void moduser(@Param("idid") String id, @Param("modgrade") int mgrade);
+
+     int countByIdAndPwd(String id,String pwd);
 }

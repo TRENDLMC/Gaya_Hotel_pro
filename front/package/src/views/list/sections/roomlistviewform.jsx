@@ -21,6 +21,8 @@ const DetailsReservation = () => {
         setListop(false);//방정보를 표기해주는 togle값
         setCalendarData([null, null]);//이전에 있던값을 초기화시킴
     }, []);
+
+
     const ontogel = () => {
         setModelop(!modalop);//날짜 입력받기위해서 달력 modal을 켜주는 togle
         setdateop(true);//값을 입력받으면 날짜가 존재하기떄문에 사용자에게 날짜정보를 보여주도록 ture로 변경해서 보여줌

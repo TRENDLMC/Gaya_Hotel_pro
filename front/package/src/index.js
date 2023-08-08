@@ -13,6 +13,7 @@ import * as dayjs from "dayjs";
 import isLeapYear from "dayjs/plugin/isLeapYear"; // 윤년 판단 플러그인
 import "dayjs/locale/ko"; // 한국어 가져오기
 import Roomlist from "./views/list/roomlist.jsx";
+import Memberinfo from "./views/memberinfo/memberinfo";
 
 dayjs.extend(isLeapYear); // 플러그인 등록
 dayjs.locale("ko"); // 언어 등록
@@ -28,6 +29,7 @@ root.render(
       <Route path="/signup" element={<Signup />} />
       <Route path="/reservation" element={<Reservation />} />
       <Route path="/reservationlist" element={<Roomlist />} />
+      <Route path="/mypage" element={<Memberinfo />} />
     </Routes>
   </HashRouter>
 );

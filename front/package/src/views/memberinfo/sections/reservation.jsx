@@ -1,16 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { Col, Container, Modal, Row } from 'reactstrap';
+import StarRating from "./starpont";
 
 
 
 const Readreservation = () => {
     const [Reservation, setreservation] = useState([]);
-
+    const [restarpont, setstarpont] = useState()
+    const [reviewcon, setreviewcon] = useState("");
     const [modelon, setmodalon] = useState(false);
+
+    const reviewchange = (event) => {
+        setreviewcon(event.target.value);
+    }
 
     const btn_togle = () => {
         setmodalon(!modelon);
     }
+
+
 
     useEffect(() => {
         var moduserinfo = {
@@ -24,11 +32,24 @@ const Readreservation = () => {
             return response.json();
         }).then((date) => {
             setreservation(date);
+            console.log(Reservation)
         }).catch((err) => {
             console.log(err);
         });
     }, []);
-
+    const customStyles = {
+        overlay: {
+            backgroundColor: "rgba(0,0,0,0.5)",
+        },
+        content: {
+            left: "0",
+            margin: "auto",
+            width: "500px",
+            height: "450px",
+            padding: "0",
+            overflow: "auto",
+        },
+    };
     const Reservationlist = Reservation.map((room) => (//map방식을 사용하여 존재하는 값만큼 반복함 roomlist에저장된값만큼 for을 사용한다고 보면됌.
         <Row>
             <Col>
@@ -51,6 +72,30 @@ const Readreservation = () => {
             </Col>
         </Row>
     ));
+    const addreview = () => {
+        var reviwe = {
+            content: reviewcon,
+            starpoint: restarpont,
+            id: { id: sessionStorage.getItem("id") },
+            r_num: { r_num: 102 },
+            reservation_num: { reservation_num: 1 }
+        }
+        console.log(JSON.stringify(reviwe));
+        fetch("http://localhost:8095/review/write", {
+            method: "POST",//조회
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(reviwe),
+        }).then((response) => {
+            if (response.ok) {
+                alert("리뷰 작성되었습니다.");
+                setmodalon(!modelon);
+            } else {
+                alert("실패")
+            }
+        }).catch((err) => {
+            console.log(err);
+        });
+    }
 
     return (
         <Container style={{ marginBottom: "200px" }}>
@@ -82,13 +127,52 @@ const Readreservation = () => {
             </Row>
             <hr /><br /><br />
             <br /><br />
-            {Reservation.length === 0 && <Row><Col></Col><Col>예약된 내역이 없습니다.</Col><Col></Col></Row>}
+            {Reservation.length === 0 &&
+                <Row>
+                    <Col>
+                    </Col>
+                    <Col>
+                        예약된 내역이 없습니다.
+                    </Col>
+                    <Col>
+                    </Col>
+                </Row>}
             {Reservation.length !== 0 && Reservationlist}
-            <Modal>
-                <input type="text" name={"content"} />
-                <input type="text" name={"starpoint"} />>
+            <Modal style={customStyles} isOpen={modelon}>
+                <Container>
+                    <Row>
+                        <Col></Col><Col style={{ fontSize: "25px" }}>리뷰작성 </Col><Col></Col>
+                    </Row>
+                    <Row>
+                        <Col md={2} style={{ fontSize: "25px" }}>
+                            리뷰
+                        </Col>
+                        <Col>
+                            <input type="text" onChange={reviewchange} style={{ width: "90%" }} />
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col md={3}>
+                        </Col>
+                        <Col md={7}>
+                            <StarRating setreview={setstarpont} />
+                        </Col>
+                        <Col>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col></Col>
+                        <Col>
+                            <input type="button" value={"작성"} onClick={addreview} />
+                        </Col>
+                        <Col>
+                            <input type="button" value={"취소"} onClick={btn_togle} />
+                        </Col>
+                        <Col></Col>
+                    </Row>
+                </Container>
             </Modal>
-        </Container>
+        </Container >
     )
 }
 

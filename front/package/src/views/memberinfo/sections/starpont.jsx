@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
-import { useState } from "react";
-import StarInput from "./StarInput";
+import { useEffect, useState } from "react";
+import StarInput from "./starinput";
 
 const Base = styled.section`
   display: flex;
@@ -34,9 +34,11 @@ const RatingField = styled.fieldset`
   }
 `;
 
-const StarRating = () => {
-    const [rating, setRating] = useState(0);
-
+const StarRating = ({ setreview }) => {
+    const [rating, setRating] = useState("");
+    useEffect(() => {
+        setreview(rating);
+    }, [rating])
     const handleClickRating = (value) => {
         setRating(value);
     };

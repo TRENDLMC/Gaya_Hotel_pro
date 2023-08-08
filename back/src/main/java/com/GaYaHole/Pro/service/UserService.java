@@ -13,6 +13,7 @@ public interface UserService {
     public int idCheck(User user);
     public List<Reservation> mypage (User user);
     public Optional<User> gradeCheck (User user);
-
     public User userinfo(User user);
+    public int countbyidandpwd(String id,String pwd);
+    public Optional<User> findById(String id);
 }

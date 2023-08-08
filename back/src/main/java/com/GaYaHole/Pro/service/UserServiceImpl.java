@@ -63,4 +63,13 @@ public class UserServiceImpl implements UserService{
        }
        return null;
     }
+    @Override
+    public int countbyidandpwd(String id, String pwd) {
+        return userRepository.countByIdAndPwd(id,pwd);
+    }
+
+    @Override
+    public Optional<User> findById(String id) {
+        return userRepository.findById(id);
+    }
 }
