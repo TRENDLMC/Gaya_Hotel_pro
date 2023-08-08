@@ -1,27 +1,26 @@
 import { useEffect, useState } from 'react';
 import Calendar from './calendar'
 import Modal from "react-modal";
-import { Container, Row, Col, Label, Card, CardTitle, CardText, Button } from 'reactstrap';
+import { Container, Row, Col, Label, Card, CardTitle, CardText } from 'reactstrap';
 import * as dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
 
 
 const DetailsReservation = () => {
-
-    let navigate = useNavigate();// usehistory사용할 변수이름 선언
-
-    const [calendarData, setCalendarData] = useState([null, null]);//calendar에서 값을 가져와서 저장시키는 곳
-    const [check_in, check_out] = calendarData;//calendar에서 값을 가져와서 저장시키는 곳
-
-    useEffect = () => {// 경로로 접속시 이전에 입력한값들을 초기화시킴
-        setdateop(false);//저장된값이 없으면 보지않게만들어주는 on off값
-        setListop(false);//방정보를 표기해주는 togle값
-        setCalendarData([null, null]);//이전에 있던값을 초기화시킴
-    }
+    const [roomlist, setRoomlist] = useState([]); //위에서 서버로부터 받아온값을 저장하는 state
+    let navigate12 = useNavigate();// usehistory사용할 변수이름 선언
     const [modalop, setModelop] = useState(false);//캘린더 모달 on off state
     const [listop, setListop] = useState(false);//방정보 표기 on off togle
     const [dateop, setdateop] = useState(false);//날짜정보 표기 on off togle
 
+    const [calendarData, setCalendarData] = useState([null, null]);//calendar에서 값을 가져와서 저장시키는 곳
+    const [check_in, check_out] = calendarData;//calendar에서 값을 가져와서 저장시키는 곳
+
+    useEffect(() => {
+        setdateop(false);//저장된값이 없으면 보지않게만들어주는 on off값
+        setListop(false);//방정보를 표기해주는 togle값
+        setCalendarData([null, null]);//이전에 있던값을 초기화시킴
+    }, []);
     const ontogel = () => {
         setModelop(!modalop);//날짜 입력받기위해서 달력 modal을 켜주는 togle
         setdateop(true);//값을 입력받으면 날짜가 존재하기떄문에 사용자에게 날짜정보를 보여주도록 ture로 변경해서 보여줌
@@ -70,7 +69,7 @@ const DetailsReservation = () => {
             });
     }
 
-    const [roomlist, setRoomlist] = useState([]); //위에서 서버로부터 받아온값을 저장하는 state
+
 
     const Setroom = (prors) => {//위에서 가져온값마다 사진이 다르기때문에 그사진의 경로를 설정해서 뿌려주기위해서 빠로 기능을 하나만듬
         var img = "img" + prors.prors + ".jpg";//각방의 값을 넣어주고 확장자명을맞춰줌
@@ -87,7 +86,7 @@ const DetailsReservation = () => {
             total: checkDayResult
         }
         sessionStorage.setItem("roominfo", JSON.stringify(roominfo));//세선에 값을 roominfo라는 이름으로 저장함
-        navigate("/reservation");//그후 위에서 선언해준 navigate를 사용하여 바로 페이지를 전환시킴
+        navigate12("/reservation");//그후 위에서 선언해준 navigate를 사용하여 바로 페이지를 전환시킴
     }
 
     const Roomlistview = roomlist.map((room) => (//map방식을 사용하여 존재하는 값만큼 반복함 roomlist에저장된값만큼 for을 사용한다고 보면됌.

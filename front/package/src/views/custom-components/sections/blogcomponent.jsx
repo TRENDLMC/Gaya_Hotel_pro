@@ -31,8 +31,8 @@ const BlogComponent = () => {
                             <Card>
                                 <a href="#"><img className="card-img-top" src={img2} alt="wrappixel kit" /></a>
                                 <div className="date-pos bg-info-gradiant">2월<span>2</span></div>
-                                <h5 className="font-medium m-t-30"><a href="#" className="link">돌려라 돌림판</a></h5>
-                                <p className="m-t-20">호텔 예약시 돌림판을 돌려 여러가지 서비스를 무료로 이용해보세요</p>
+                                <h5 className="font-medium m-t-30"><a href="#" className="link">수영장 오픈기념</a></h5>
+                                <p className="m-t-20">호텔예약시 무료로 수영장 이용하세요</p>
                                 <a href="#" className="linking text-themecolor m-t-10">상세보기<i className="ti-arrow-right"></i></a>
                             </Card>
                         </Col>

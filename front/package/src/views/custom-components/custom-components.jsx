@@ -19,6 +19,8 @@ import BlogComponent from "./sections/blogcomponent.jsx";
 import C2aComponent from "./sections/c2acomponent.jsx";
 import ContactComponent from "./sections/contactcomponent.jsx";
 import CallToAction from "../../components/call-to-action/CallToAction"
+import Roomlist from '../list/roomlist.jsx'
+import Memberform from "../memberinfo/memberinfo.jsx";
 
 const CustomComponents = () => {
     return (
@@ -26,18 +28,7 @@ const CustomComponents = () => {
             <Header />
             <div className="page-wrapper">
                 <div className="container-fluid">
-                    <HeaderBanner2 />
-                    <HeaderComponent />
-                    <BannerComponent />
-                    <FormBannerComponent />
-                    <FeatureComponent />
-                    <PricingComponent />
-                    <TeamComponent />
-                    <TestimonialComponent />
-                    <BlogComponent />
-                    <C2aComponent />
-                    <ContactComponent />
-                    <CallToAction />
+                    <Memberform />
                 </div>
             </div>
             <Footer />

@@ -10,7 +10,9 @@ import {
   NavbarToggler,
   Collapse,
 } from "reactstrap";
-import logo from "../../assets/images/logos/white-text.png";
+
+import logo from "../../assets/images/logos/vertical_logo.png";
+
 import {
   UncontrolledDropdown,
   DropdownToggle,
@@ -47,7 +49,6 @@ const Header = () => {
         return response.json();
       }).then((date) => {
         setUsergrade(date);
-        console.log(usergrade);
       }).catch((err) => {
         console.log(err);
       });
