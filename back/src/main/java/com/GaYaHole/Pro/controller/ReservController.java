@@ -1,7 +1,9 @@
 package com.GaYaHole.Pro.controller;
 
+import com.GaYaHole.Pro.entity.Option;
 import com.GaYaHole.Pro.entity.Review;
 import com.GaYaHole.Pro.entity.Room;
+import com.GaYaHole.Pro.repository.OptionRepository;
 import com.GaYaHole.Pro.repository.ReviewRepository;
 import com.GaYaHole.Pro.repository.RoomRepository;
 import lombok.extern.log4j.Log4j2;
@@ -22,6 +24,9 @@ public class ReservController {
     @Autowired
     private ReviewRepository reviewRepository;
 
+    @Autowired
+    private OptionRepository optionRepository;
+
     @GetMapping("/detail") // 방 정보 출력 - r_num
     public Optional<Room> detail(@RequestBody Room room) {
         log.info("r_num: " + room);
@@ -37,4 +42,20 @@ public class ReservController {
         return rev;
     }
 
+    @PostMapping("/option") // 옵션 출력
+    public List<Option> selectop(@RequestBody Room room) {
+        if (room.getR_type().equals("디럭스 룸")) {
+            List<Option> deluxe = optionRepository.optype(0);
+            return deluxe;
+        } else if (room.getR_type().equals("스탠다드 룸")) {
+            List<Option> standard = optionRepository.optype(1);
+            return standard;
+        } else if (room.getR_type().equals("패밀리 룸")) {
+            List<Option> family = optionRepository.optype(2);
+            return family;
+        } else {
+            List<Option> sweet = optionRepository.optype(3);
+            return sweet;
+        }
+    }
 }

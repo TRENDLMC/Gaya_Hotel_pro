@@ -5,11 +5,16 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.Map;
 
 public interface OptionRepository extends JpaRepository<Option, String> {
 
     @Query(value = "select * from option where option_code= :optioncode ", nativeQuery = true)
     Option optionselect  (@Param("optioncode") String optioncode);
+
+    // r_type에 따른 option_type 출력 ( 디럭스 / 스탠다드 / 패밀리 / 스위트)
+    @Query(value = "select * from option where option_type <= :type", nativeQuery = true)
+    List<Option> optype(int type);
 
 }
