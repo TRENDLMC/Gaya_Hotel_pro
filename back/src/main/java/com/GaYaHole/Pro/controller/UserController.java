@@ -1,9 +1,6 @@
 package com.GaYaHole.Pro.controller;
 
-import com.GaYaHole.Pro.entity.Accounting;
-import com.GaYaHole.Pro.entity.Reservation;
-import com.GaYaHole.Pro.entity.Room;
-import com.GaYaHole.Pro.entity.User;
+import com.GaYaHole.Pro.entity.*;
 import com.GaYaHole.Pro.repository.*;
 import com.GaYaHole.Pro.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +15,12 @@ public class UserController {
 
     @Autowired
     UserServiceImpl userService;
+
+    @Autowired
+    OptionRepository optionRepository;
+
+    @Autowired
+    ReservationRepository reservationRepository;
 
 
     @PostMapping("/user/join")
@@ -50,11 +53,24 @@ public class UserController {
     }
 
     @PostMapping ("/user/mypage")
-    public List<Reservation> mypage(@RequestBody User user){ //id 받아오면 된다...
-
+    public List<Map<String,Object>> mypage(@RequestBody User user){ //id 받아오면 된다...
         List<Reservation> info = userService.mypage(user);
-
-        return info;
+        List<Map<String,Object>> list = new ArrayList<>();
+//        List<Reservation> info = reservationRepository.opcode(user.getId());
+        for (int i=0; i<info.size(); i++) {                             // 옵션 코드 파싱
+            String code = info.get(i).getOption_code();
+            Map<String,Object>  map = new HashMap<>();
+            List<Option> optionList = new ArrayList<>();
+            for (int j=0; j<info.get(i).getOption_code().length(); j++) {
+                String str2 = code.substring(j,1);
+                Optional<Option> option = optionRepository.findById(str2);
+                Option option1=option.get();
+                map.put("imt"+j,option1);
+            }
+            map.put("res_num",info.get(i));
+            list.add(map);
+        }
+        return list;
     }
 
     @PostMapping("/user/gradecheck")
