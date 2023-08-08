@@ -35,6 +35,7 @@ const RoomOption = forwardRef((props, ref) => {
         {/* 맨위로 올라갈수 있는 버튼이 항상 존재하게 */}
         <Row>
           <Col className="col-md" style={Row3Styles}>
+            옵션 <br />
             상세 내용
           </Col>
         </Row>

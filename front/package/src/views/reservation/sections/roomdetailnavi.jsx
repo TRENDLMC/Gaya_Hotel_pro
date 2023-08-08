@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Container, Row, Col, Form, FormGroup, Label, Input } from "reactstrap";
-import "../../../assets/scss/userCustom/roomdetail.scss";
 
 const RoomNavi = ({ scrollRef }) => {
   // 리뷰 리스트 출력시 필요한 정보 객체
@@ -65,9 +64,11 @@ const RoomNavi = ({ scrollRef }) => {
   // CSS 나중에
   return (
     <Container id="navContainer">
+      {/* 스크롤 내리면 화면 맨 위에 고정되게  */}
+
       <nav className="navBar">
         {DETAIL_NAV.map(({ idx, name }) => (
-          <navBtn
+          <div
             key={idx}
             ref={(ref) => (navRef.current[idx] = ref)}
             onClick={() => {
@@ -76,7 +77,7 @@ const RoomNavi = ({ scrollRef }) => {
             style={Row2Styles}
           >
             {name}
-          </navBtn>
+          </div>
         ))}
       </nav>
     </Container>
