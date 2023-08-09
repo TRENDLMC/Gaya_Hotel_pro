@@ -27,7 +27,7 @@ public class ReservController {
     @Autowired
     private OptionRepository optionRepository;
 
-    @GetMapping("/detail") // 방 정보 출력 - r_num
+    @PostMapping("/detail") // 방 정보 출력 - r_num
     public Optional<Room> detail(@RequestBody Room room) {
         log.info("r_num: " + room);
         Optional<Room> rom = roomRepository.findById(room.getR_num());
@@ -35,7 +35,7 @@ public class ReservController {
         return rom;
     }
 
-    @GetMapping("/review") // 리뷰 출력 - r_num
+    @PostMapping("/review") // 리뷰 출력 - r_num
     public List<Review> rreview(@RequestBody Room room) {
         log.info("review: " + room.getR_num());
         List<Review> rev = reviewRepository.test111(room.getR_num());
