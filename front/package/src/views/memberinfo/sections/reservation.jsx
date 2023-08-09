@@ -17,9 +17,6 @@ const Readreservation = () => {
     const btn_togle = () => {
         setmodalon(!modelon);
     }
-
-
-
     useEffect(() => {
         var moduserinfo = {
             id: sessionStorage.getItem("id"),
@@ -32,11 +29,11 @@ const Readreservation = () => {
             return response.json();
         }).then((date) => {
             setreservation(date);
-            console.log(Reservation)
         }).catch((err) => {
             console.log(err);
         });
     }, []);
+
     const customStyles = {
         overlay: {
             backgroundColor: "rgba(0,0,0,0.5)",
@@ -50,28 +47,56 @@ const Readreservation = () => {
             overflow: "auto",
         },
     };
-    const Reservationlist = Reservation.map((room) => (//map방식을 사용하여 존재하는 값만큼 반복함 roomlist에저장된값만큼 for을 사용한다고 보면됌.
-        <Row>
-            <Col>
-                {room.reservation_num}
-            </Col>
-            <Col>
-                {room.check_in}
-            </Col>
-            <Col>
-                {room.check_out}
-            </Col>
-            <Col>
-                {room.option_code}
-            </Col>
-            <Col>
-                {room.total_price}
-            </Col>
-            <Col>
-                <input type="button" onClick={btn_togle} value={"리뷰작성"}></input>
-            </Col>
-        </Row>
-    ));
+    const Reservationlist = () => {
+        if (Reservation.length !== undefined) {
+            return (
+                Reservation.map((Res, index) => (//map방식을 사용하여 존재하는 값만큼 반복함 roomlist에저장된값만큼 for을 사용한다고 보면됌.
+                    <Row key={index}>
+                        <Col>
+                            {Res.res_num.reservation_num}
+                        </Col>
+                        <Col>
+                            {new Date(Res.res_num.check_in).toLocaleDateString()}
+                        </Col>
+                        <Col>
+
+                            {new Date(Res.res_num.check_out).toLocaleDateString()}
+                        </Col>
+                        {Object.keys(Res).filter(key => key.startsWith("imt")).map(optionKey => (
+                            <Col key={optionKey}>
+                                <p>{Res[optionKey].option_content}</p>
+                            </Col>
+                        ))
+                        }
+                        <Col>
+                            {Res.res_num.total_price}
+                        </Col>
+                        <Col>
+                            <input type="button" onClick={btn_togle} value={"리뷰작성"}></input>
+                        </Col>
+                    </Row >
+
+                ))
+            )
+        } else {
+            return (
+                <Row >
+                    <Col>
+                    </Col>
+                    <Col>
+                        예약된 내역이 없습니다.
+                    </Col>
+                    <Col>
+                    </Col>
+                </Row>
+
+            )
+        }
+    }
+
+
+
+
     const addreview = () => {
         var reviwe = {
             content: reviewcon,
@@ -127,17 +152,7 @@ const Readreservation = () => {
             </Row>
             <hr /><br /><br />
             <br /><br />
-            {Reservation.length === 0 &&
-                <Row>
-                    <Col>
-                    </Col>
-                    <Col>
-                        예약된 내역이 없습니다.
-                    </Col>
-                    <Col>
-                    </Col>
-                </Row>}
-            {Reservation.length !== 0 && Reservationlist}
+            <Reservationlist />
             <Modal style={customStyles} isOpen={modelon}>
                 <Container>
                     <Row>

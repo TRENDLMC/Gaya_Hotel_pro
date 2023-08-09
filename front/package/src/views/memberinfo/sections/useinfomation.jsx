@@ -5,6 +5,8 @@ import Modal from "react-modal";
 
 const Userinfo = () => {
 
+    const [isOpen, setIsOpen] = useState(false); //모달창을 띄우는 togle형 버튼
+
     const [useinfomation, setuserinfomation] = useState([]);
     const [reonly, setreonly] = useState(true);
     const [modalop, setmodal] = useState(false);
@@ -17,7 +19,9 @@ const Userinfo = () => {
     const usermodify = () => {
         setmodal(!modalop);
     }
-
+    const isopne = () => {
+        setIsOpen(!isOpen)
+    }
     useEffect(() => {
         let moduserinfo = {
             id: sessionStorage.getItem("id"),
@@ -85,6 +89,12 @@ const Userinfo = () => {
             console.log(err);
         });
     }
+    const completeHandler = (data) => {
+        setuserinfomation({ ...useinfomation, add1: data.roadAddress });//주소를 user에 저장해줌.
+        isopne();
+    }
+
+
     const constr = {
         width: "30%",
     }
@@ -99,6 +109,19 @@ const Userinfo = () => {
             height: "200px",
             padding: "0",
             overflow: "hidden",
+        },
+    };
+    const postcustomStyles = {
+        overlay: {
+            backgroundColor: "rgba(0,0,0,0.5)",
+        },
+        content: {
+            left: "0",
+            margin: "auto",
+            width: "500px",
+            height: "450px",
+            padding: "0",
+            overflow: "auto",
         },
     };
     return (
@@ -122,15 +145,14 @@ const Userinfo = () => {
                                 <br />
                                 <input className="form-control" value={useinfomation.add1} name="add1" disabled={reonly} onChange={useinfomof} />
                                 <Col>
-                                    {!reonly && <input type='button' className="btn btn-inverse waves-effect waves-light" value={"우편번호검색"} />}
+                                    {!reonly && <input type='button' className="btn btn-inverse waves-effect waves-light" value={"우편번호검색"} onClick={isopne} />}
                                 </Col>
-                                <Modal isOpen={false} ariaHideApp={false} >
-                                    <DaumPostcode >
-                                    </DaumPostcode>
-                                    <button style={{ marginLeft: "200px" }} className="btn btn-inverse waves-effect waves-light" >닫기</button>
+                                <Modal style={postcustomStyles} isOpen={isOpen} ariaHideApp={false} >
+                                    <DaumPostcode onComplete={completeHandler} />
+                                    <button style={{ marginLeft: "200px" }} className="btn btn-inverse waves-effect waves-light" onClick={isopne}>닫기</button>
                                 </Modal>
                                 <br />
-                                <input className="form-control" type="text" name="add2" value={useinfomation.add2} disabled={reonly} />
+                                <input className="form-control" type="text" name="add2" value={useinfomation.add2} disabled={reonly} onChange={useinfomof} />
                             </FormGroup>
                             <Label>전화번호</Label>
                             <Container>
@@ -176,7 +198,7 @@ const Userinfo = () => {
                     </Form>
                 </Row>
             </Modal>
-        </div>
+        </div >
     );
 }
 
