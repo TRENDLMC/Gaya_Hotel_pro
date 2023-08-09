@@ -115,13 +115,14 @@ const RoomDetail = () => {
     }
   };
 
+  // 선택된 옵션 리스트 출력
   const showSelectedOptions = selectedOption.map(
     (
       sOption //map방식을 사용하여 존재하는 값만큼 반복함 roomlist에저장된값만큼 for을 사용한다고 보면됌.
     ) => {
       return (
         <Row>
-          <Col>{sOption.option_content}</Col>
+          {sOption.option_content}
         </Row>
       );
     }
@@ -266,12 +267,17 @@ const RoomDetail = () => {
                       ariaHideApp={false}
                       style={customStyles}
                     >
-                      <Container style={InfoStyle}>
-                        <Row>선택된 옵션 </Row>
+                      <Container style={InfoStyle} >
+                        {/* <Col style={InfoStyle} md="6">
+                          정보창
+                          <Row style={InfoStyle}>선택된 옵션 </Row>
                         {showSelectedOptions}
+                        </Col>
+                        <Col style={InfoStyle} md="6">
+                          결제 총 금액 창
+
                         <Row>총 결제 금액 : {totalPay}</Row>
-                      </Container>
-                      <input
+                        <input
                         className="btn btn-info"
                         style={{ marginLeft: "210px" }}
                         type="button"
@@ -293,6 +299,63 @@ const RoomDetail = () => {
                           setSelectedOption([]);
                         }}
                       />
+                        </Col> */}
+
+                       
+                        <Row>
+                        {/* 모달창 왼쪽 */}
+                        <Col style={InfoStyle} md="6">
+                          <Row style={InfoStyle}>
+                            <Col>객실 번호</Col>
+                            <Col>ㅎㅇ</Col>
+                          </Row>
+                          <Row style={InfoStyle}>
+                            <Col>객실 종류</Col>
+                            <Col>ㅎㅇ</Col>
+                          </Row>
+                          <Row style={InfoStyle}>
+                            <Col>객실 최대 인원</Col>
+                            <Col>ㅎㅇ</Col>
+                          </Row>
+                          <Row style={InfoStyle}>
+                            <Col>체크인 날짜</Col>
+                            <Col>ㅎㅇ</Col>
+                          </Row>
+                          <Row style={InfoStyle}>
+                            <Col>체크아웃 날짜</Col>
+                            <Col>ㅎㅇ</Col>
+                          </Row>
+                          <Row style={InfoStyle}>
+                            <Row>선택된 옵션 </Row>
+                            
+                            <Col style={InfoStyle}>
+                            {showSelectedOptions}
+                            </Col>
+                          </Row>
+                        </Col>
+
+                        {/* 모달창 오른쪽 */}
+                        <Col style={InfoStyle} md="6">
+                          결제 총 금액 창
+
+                        <Row>총 결제 금액 : {totalPay}</Row>
+                        <input
+                        className="btn btn-info"
+                        style={{ marginLeft: "210px" }}
+                        type="button"
+                        value={"확인"}
+                        onClick={(event) => {
+                          //모달창 상태 토글
+                          ontogel();
+                          // 선택된 옵션 초기화
+                          setSelectedOption([]);
+                          // 결제 팝업창
+                        }}
+                      />
+                          </Col>
+                        </Row>    
+                      </Container>
+                      
                     </Modal>
                   </Col>
                 </Container>
