@@ -14,11 +14,13 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @ToString
 public class Notice{
+    
+    @Id
+    private int n_num;
 
     @Column(nullable = false, length=500)
     private String n_content;
 
-    @Id
     @Column(nullable = false, length=50)
     private String n_title;
 }
