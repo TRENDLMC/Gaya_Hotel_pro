@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class AdminController {
@@ -64,10 +65,10 @@ public class AdminController {
     }
 
     @PostMapping("/admin/reservation") //전체 예약 조회
-    public List<Reservation> allreservation() throws Exception {
+    public List<Map<String, Object>> allreservation() throws Exception {
 
-        List<Reservation> reservations = adminService.allreservation();
-        return reservations;
+        List<Map<String, Object>> allresvlist = adminService.allreservation();
+        return allresvlist;
 
     }
 
@@ -78,5 +79,11 @@ public class AdminController {
 
         return "사용자 정보 수정";
 
+    }
+
+    @GetMapping("/admin/rooms")     // 전체 방 정보 조회
+    public List<Room> allrooms() throws Exception {
+        List<Room> rooms = adminService.allrooms();
+        return rooms;
     }
 }

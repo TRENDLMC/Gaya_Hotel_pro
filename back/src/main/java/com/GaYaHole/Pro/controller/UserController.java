@@ -60,10 +60,9 @@ public class UserController {
         for (int i=0; i<info.size(); i++) {                             // 옵션 코드 파싱
             String code = info.get(i).getOption_code();
             Map<String,Object>  map = new HashMap<>();
-            List<Option> optionList = new ArrayList<>();
+            char[] str2 = code.toCharArray();
             for (int j=0; j<info.get(i).getOption_code().length(); j++) {
-                String str2 = code.substring(j,1);
-                Optional<Option> option = optionRepository.findById(str2);
+                Optional<Option> option = optionRepository.findById(code);
                 Option option1=option.get();
                 map.put("imt"+j,option1);
             }

@@ -19,5 +19,6 @@ public interface AdminService {
     public List userinfo() throws Exception;
     public List allreservation() throws Exception;
     public void modUsergrade(User user) throws Exception;
+    public List allrooms() throws Exception;
 
 }
