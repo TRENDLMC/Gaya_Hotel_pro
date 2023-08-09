@@ -48,8 +48,26 @@ public class AdminController {
     public String addnotice(@RequestBody Notice notice) throws Exception {
         adminService.addNotice(notice);
         return "공지 업로드";
-
     }
+
+    @GetMapping("/admin/notice")// 공지 조회
+    public List<Notice> allnotice(Notice notice) throws Exception {
+        List<Notice> allnotice = adminService.allNotice();
+        return allnotice;
+    }
+
+    @PostMapping("/admin/modnotice")    // 공지 수정
+    public String modnotice(@RequestBody Notice notice) throws Exception {
+        adminService.modNotice(notice);
+        return "공지 수정";
+    }
+
+    @DeleteMapping("/admin/{n_num}")  // 공지 삭제
+    public String delnotice(@PathVariable("n_num") int n_num) throws Exception {
+        adminService.delNotice(n_num);
+        return "공지 삭제";
+    }
+
 
     @GetMapping("/admin/userinfo") //유저들 정보 조회
     public List userinfo() throws Exception {

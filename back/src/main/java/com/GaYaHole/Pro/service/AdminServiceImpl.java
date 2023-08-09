@@ -4,6 +4,7 @@ import com.GaYaHole.Pro.entity.*;
 import com.GaYaHole.Pro.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.*;
 
@@ -42,6 +43,22 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public void addNotice(Notice notice) throws Exception {
         noticeRepository.save(notice);
+    }
+
+    @Override
+    public List<Notice> allNotice() throws Exception {   // 공지 조회
+        List<Notice> ncheck = noticeRepository.findAll();
+        return ncheck;
+    }
+
+    @Override
+    public void modNotice(Notice notice) throws Exception { // 공지 수정
+        noticeRepository.save(notice);
+    }
+
+    @Override
+    public void delNotice(int n_num) throws Exception {     // 공지 삭제
+        noticeRepository.deleteById(n_num);
     }
 
     @Override
