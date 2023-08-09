@@ -1,41 +1,32 @@
 import React, { useState } from "react";
 import { Col, Container, Row } from 'reactstrap';
 import Adminres from "./adminres";
+import Admintabel from "./adminnotice";
+import Adminuserinfo from "./adminuserinfo";
 
 
 const Adminform = () => {
     const [resopne, setresopne] = useState(true);
     const [useropne, setuseropne] = useState(false);
     const [notice, setnotice] = useState(false);
-    const [price, setprice] = useState(false);
+
 
     const resbtn = () => {
         setresopne(true);
         setuseropne(false);
         setnotice(false);
-        setprice(false);
     }
 
     const usebtn = () => {
         setresopne(false);
         setuseropne(true);
         setnotice(false);
-        setprice(false);
     }
     const noticebtn = () => {
         setresopne(false);
         setuseropne(false);
         setnotice(true);
-        setprice(false);
     }
-    const pricebtn = () => {
-        setresopne(false);
-        setuseropne(false);
-        setnotice(false);
-        setprice(true);
-    }
-
-
     const boardstyle = {
         border: "5px solid",
         backgroundColor: "#c2a575",
@@ -63,22 +54,17 @@ const Adminform = () => {
                     <hr />
                 </Col>
                 <Col>
-                    <input type='button' onClick={usebtn} value={"총매출확인"} />
-                    <hr />
-                </Col>
-                <Col>
                     <input type='button' onClick={noticebtn} value={"공지사항"} />
                     <hr />
                 </Col>
                 <Col>
-                    <input type='button' onClick={pricebtn} value={"회원조회"} />
+                    <input type='button' onClick={usebtn} value={"회원조회"} />
                     <hr />
                 </Col>
             </Container>
-            {price && <div></div>}
             {resopne && <Adminres />}
-            {useropne && <div></div>}
-            {notice && <div></div>}
+            {useropne && <Adminuserinfo />}
+            {notice && <Admintabel />}
         </div >
     )
 }

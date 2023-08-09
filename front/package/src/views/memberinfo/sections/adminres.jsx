@@ -1,13 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { FaClosedCaptioning } from "react-icons/fa";
 import { Col, Container, Row } from 'reactstrap';
+import Adminprice from "./adminprice";
 
 
 
 const Adminres = () => {
 
     const [totReservation, setreservation] = useState([]);
+    useEffect(() => {
+        async function fetchData() {
+            fetch("http://localhost:8095/admin/reservation")
+                .then((response) => {
+                    return response.json();
+                }).then((data) => {
+                    setreservation(data);
+                })
+        }
+        fetchData();
+    }, [])
 
     const TotalReservation = () => {
+
         if (totReservation.length !== undefined) {
             return (
                 totReservation.map((Res, index) => (//map방식을 사용하여 존재하는 값만큼 반복함 roomlist에저장된값만큼 for을 사용한다고 보면됌.
@@ -77,14 +91,14 @@ const Adminres = () => {
                     <Col>
                         총결제금액
                     </Col>
-                    <Col>
-                        리뷰작성
-                    </Col>
                 </Row>
-            </Container>
-            <Container>
+                <hr />
+                <br />
                 <TotalReservation />
+                <hr />
+                <Adminprice />
             </Container>
+
         </>
     )
 }

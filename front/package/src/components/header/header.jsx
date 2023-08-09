@@ -32,7 +32,6 @@ const Header = () => {
     backgroundColor: "#8f103d",
   };
 
-
   useEffect(() => {
     setLoginSession(sessionStorage.getItem("id"));
     var id = {

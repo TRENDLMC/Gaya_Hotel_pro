@@ -32,11 +32,7 @@ public class AdminController {
     @Autowired
     ReservationRepository reservationRepository;
 
-    @PutMapping("/admin/modroom") //방 가격 수정
-    public int modRoom(@RequestBody Room room) throws Exception {
-        adminService.modRoomPrice(room);
-        return 1;
-    }
+
     @GetMapping("/admin/gProfit") //총 매출 확인
     public int profit() throws Exception {
         String result =adminService.totalProfit();
@@ -56,14 +52,18 @@ public class AdminController {
     }
 
     @GetMapping("/admin/ndetail")    // 공지 상세
-    public Optional<Notice> ndetail(@RequestBody Notice notice) throws Exception{
-        Optional<Notice> ndet = noticeRepository.findById(notice.getN_num());
-        return ndet;
+    public Notice ndetail(@Param("n_num") int n_num) throws Exception{
+        Optional<Notice> ndet = noticeRepository.findById(n_num);
+        if(ndet.isPresent()){
+            Notice notice=ndet.get();
+            return notice;
+        }
+        return null;
     }
 
-    @PostMapping("/admin/modnotice")    // 공지 수정
+    @PutMapping("/admin/modnotice")    // 공지 수정
     public String modnotice(@RequestBody Notice notice) throws Exception {
-        adminService.modNotice(notice);
+       adminService.modNotice(notice);
         return "공지 수정";
     }
 
@@ -86,7 +86,7 @@ public class AdminController {
         return allresvlist;
     }
 
-    @PostMapping("/admin/moduser") //사용자 정보 수정 (-1, 0)
+    @PutMapping("/admin/moduser") //사용자 정보 수정 (-1, 0)
     public String moduser(@RequestBody User user) throws Exception {
         adminService.modUsergrade(user);
         return "사용자 정보 수정";

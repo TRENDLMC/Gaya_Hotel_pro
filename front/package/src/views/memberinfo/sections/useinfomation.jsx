@@ -75,7 +75,6 @@ const Userinfo = () => {
     }
 
     const submituserinfo = () => {
-        console.log(useinfomation);
         fetch("http://localhost:8095/user/modify", {
             method: "PUT",//조회
             headers: { "Content-Type": "application/json" },
