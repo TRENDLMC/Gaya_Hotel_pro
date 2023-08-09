@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 public class AdminController {
@@ -36,47 +37,37 @@ public class AdminController {
         adminService.modRoomPrice(room);
         return 1;
     }
-
-    @PostMapping("/admin/gProfit") //총 매출 확인
+    @GetMapping("/admin/gProfit") //총 매출 확인
     public int profit() throws Exception {
 
-        int result =adminService.totalProfit();
-
+        String result =adminService.totalProfit();
         System.out.println("============== 총 매출 확인용 : "+result+" ==============");
-
-        return result;
+        return result==null ? 0 :Integer.parseInt(result);
     }
+
 
     @PostMapping("/admin/addnotice") //공지 추가
     public String addnotice(@RequestBody Notice notice) throws Exception {
-
         adminService.addNotice(notice);
-
         return "공지 업로드";
 
     }
 
-    @PostMapping("/admin/userinfo") //유저들 정보 조회
+    @GetMapping("/admin/userinfo") //유저들 정보 조회
     public List userinfo() throws Exception {
-
         List<User> users = adminService.userinfo();
-
         return users;
     }
 
-    @PostMapping("/admin/reservation") //전체 예약 조회
+    @GetMapping("/admin/reservation") //전체 예약 조회
     public List<Map<String, Object>> allreservation() throws Exception {
-
         List<Map<String, Object>> allresvlist = adminService.allreservation();
         return allresvlist;
-
     }
 
     @PostMapping("/admin/moduser") //사용자 정보 수정 (-1, 0)
     public String moduser(@RequestBody User user) throws Exception {
-
         adminService.modUsergrade(user);
-
         return "사용자 정보 수정";
 
     }
