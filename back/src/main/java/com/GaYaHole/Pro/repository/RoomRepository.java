@@ -21,10 +21,10 @@ public interface RoomRepository extends JpaRepository<Room, Integer> {
     //날짜 계산 메소드 (체크인 체크아웃 둘다)
     @Query(value="select * from room where r_num not in (" +
             "(select r_num from reservation r2 where r2.check_in "+
-            " between date( :cidate) and date ( :codate) "+
+            " between date( :cidate) and date ( :codate)-1 "+
             " union "+
             "(select r_num from reservation r2 where r2.check_out "+
-            "between date( :cidate) and date ( :codate) )) )", nativeQuery = true)
+            "between date( :cidate)+1 and date ( :codate) )) )", nativeQuery = true)
     List<Room> dateCal (@Param("cidate") Date checkin, @Param("codate") Date checkout);
 
     @Query(value="select* from room where r_num = :rnum", nativeQuery = true)
