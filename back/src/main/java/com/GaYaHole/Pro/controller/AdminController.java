@@ -43,17 +43,22 @@ public class AdminController {
         return result==null ? 0 :Integer.parseInt(result);
     }
 
-
     @PostMapping("/admin/addnotice") //공지 추가
     public String addnotice(@RequestBody Notice notice) throws Exception {
         adminService.addNotice(notice);
         return "공지 업로드";
     }
 
-    @GetMapping("/admin/notice")// 공지 조회
+    @GetMapping("/admin/notice")    // 공지 조회
     public List<Notice> allnotice(Notice notice) throws Exception {
         List<Notice> allnotice = adminService.allNotice();
         return allnotice;
+    }
+
+    @GetMapping("/admin/ndetail")    // 공지 상세
+    public Optional<Notice> ndetail(@RequestBody Notice notice) throws Exception{
+        Optional<Notice> ndet = noticeRepository.findById(notice.getN_num());
+        return ndet;
     }
 
     @PostMapping("/admin/modnotice")    // 공지 수정
