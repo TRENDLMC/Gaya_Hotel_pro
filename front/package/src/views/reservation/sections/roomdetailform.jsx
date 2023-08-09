@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { Container, Row, Col, Form, FormGroup, Label, Input } from "reactstrap";
+import Modal from "react-modal";
 
 const RoomDetail = () => {
   const SERVER_URL = "http://localhost:8095/";
@@ -13,10 +14,6 @@ const RoomDetail = () => {
   useEffect(() => {
     getRoomDetail(RoomInfo.r_num);
   }, []);
-
-  // useEffect(() => {
-  //   // setTotalPay(opto);
-  // }, [totalPay]);
 
   // 결제 시 필요한 정보 객체
   const [paymentInfo, setPaymentInfo] = useState({
@@ -92,6 +89,44 @@ const RoomDetail = () => {
       });
   };
 
+  const [selectedOption, setSelectedOption] = useState([]);
+
+  const selectedOptions = () => {
+    if (optionList !== undefined) {
+      // 방에서 가능한 옵션 리스트에서 체크된 옵션 리스트를 비교하여 있으면 리스트에 저장
+      // 방에서 가능한 옵션 리스트
+      const options = optionList;
+      // arr 은 선택된 옵션들의 리스트
+      const arr = checkedList.split("");
+      // console.log(arr.sort());
+      // console.log(typeof arr[0]);
+      // console.log(JSON.stringify(options[0]));
+      for (let i = 0; i < options.length; i++) {
+        for (let j = 0; j < arr.length; j++) {
+          console.log("arr j : " + arr[j]);
+          console.log("option i : " + JSON.stringify(options[i].option_code));
+          if ('"' + arr[j] + '"' === JSON.stringify(options[i].option_code)) {
+            console.log("성공");
+            selectedOption.push(options[i]);
+          }
+        }
+      }
+      setSelectedOption(selectedOption);
+    }
+  };
+
+  const showSelectedOptions = selectedOption.map(
+    (
+      sOption //map방식을 사용하여 존재하는 값만큼 반복함 roomlist에저장된값만큼 for을 사용한다고 보면됌.
+    ) => {
+      return (
+        <Row>
+          <Col>{sOption.option_content}</Col>
+        </Row>
+      );
+    }
+  );
+
   const Row1Style = {
     height: "500px",
     width: "100%",
@@ -102,22 +137,6 @@ const RoomDetail = () => {
     border: "solid",
   };
 
-  const optionListView = optionList.map(
-    (
-      option //map방식을 사용하여 존재하는 값만큼 반복함 roomlist에저장된값만큼 for을 사용한다고 보면됌.
-    ) => (
-      <Row>
-        <Col className="checkbox" key={option.option_code}>
-          <input type="checkbox" id={option.option_code} />
-          <label htmlFor={option.option_code}>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{option.option_content}
-          </label>
-        </Col>
-        <Col md="5">{option.option_price}원</Col>
-      </Row>
-    )
-  );
-
   const optionListView2 = optionList.map(
     (
       option //map방식을 사용하여 존재하는 값만큼 반복함 roomlist에저장된값만큼 for을 사용한다고 보면됌.
@@ -127,12 +146,12 @@ const RoomDetail = () => {
           <input
             type="checkbox"
             id={option.option_code}
+            value={option.option_price}
             onChange={(e) => {
-              onCheckedItem(e.target.checked, e.target.id);
+              onCheckedItem(e.target.checked, e.target.id, e.target.value);
             }}
           />
           <label htmlFor={option.option_code}>
-            <span></span>
             {option.option_code} : {option.option_content}
           </label>
         </label>
@@ -142,17 +161,38 @@ const RoomDetail = () => {
 
   const [checkedList, setCheckedList] = useState("");
   const onCheckedItem = useCallback(
-    (checked, item) => {
+    (checked, code, value) => {
       if (checked) {
-        setCheckedList(checkedList + item);
-        console.log(checkedList);
+        setCheckedList(checkedList + code);
+        setTotalPay(totalPay + Number(value));
       } else if (!checked) {
-        setCheckedList(checkedList.replace(item, ""));
-        console.log(checkedList);
+        setCheckedList(checkedList.replace(code, ""));
+        setTotalPay(totalPay - Number(value));
       }
     },
-    [checkedList]
+    [checkedList, totalPay]
   );
+
+  //결제 정보 모달창 상태
+
+  const customStyles = {
+    overlay: {
+      backgroundColor: "rgba(0,0,0,0.5)",
+    },
+    content: {
+      left: "0",
+      margin: "auto",
+      width: "658px",
+      height: "350px",
+      padding: "0",
+      overflow: "hidden",
+    },
+  };
+
+  const ontogel = () => {
+    setModelop(!modalop); //날짜 입력받기위해서 달력 modal을 켜주는 togle
+  };
+  const [modalop, setModelop] = useState(false); //결제창 모달 on off state
 
   return (
     <div>
@@ -198,7 +238,7 @@ const RoomDetail = () => {
               </Row>
               <Row style={InfoStyle}>
                 <Col style={InfoStyle}>옵션 선택</Col>
-                {optionListView}
+                {/* {optionListView} */}
                 {optionListView2}
               </Row>
               {/* {miniOptions} */}
@@ -208,7 +248,52 @@ const RoomDetail = () => {
               <Row style={InfoStyle}>
                 <Container>
                   <Col style={InfoStyle}>
-                    <button type="submit">예약하기</button>
+                    <Col md="2" className="text-center">
+                      <input
+                        type="button"
+                        style={{ marginTop: "5px" }}
+                        onClick={(event) => {
+                          ontogel();
+                          selectedOptions();
+                        }}
+                        className="btn btn-success waves-effect waves-light m-r-5 col-md-10"
+                        value={"결제"}
+                      />
+                    </Col>
+                    {/* 최종 예약 정보창 모달 */}
+                    <Modal
+                      isOpen={modalop}
+                      ariaHideApp={false}
+                      style={customStyles}
+                    >
+                      <Container style={InfoStyle}>
+                        <Row>선택된 옵션 </Row>
+                        {showSelectedOptions}
+                        <Row>총 결제 금액 : {totalPay}</Row>
+                      </Container>
+                      <input
+                        className="btn btn-info"
+                        style={{ marginLeft: "210px" }}
+                        type="button"
+                        value={"확인"}
+                        onClick={(event) => {
+                          ontogel();
+                          // 선택된 옵션 초기화
+                          setSelectedOption([]);
+                        }}
+                      />
+                      <input
+                        className="btn btn-secondary"
+                        style={{}}
+                        type="button"
+                        value={"닫기"}
+                        onClick={(event) => {
+                          ontogel();
+                          // 선택된 옵션 초기화
+                          setSelectedOption([]);
+                        }}
+                      />
+                    </Modal>
                   </Col>
                 </Container>
               </Row>

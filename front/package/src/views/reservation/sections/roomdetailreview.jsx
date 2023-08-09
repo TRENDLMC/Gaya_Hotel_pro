@@ -90,18 +90,22 @@ const ReviewList = () => {
     border: "solid",
   };
 
-  const reviewListView = reviewList.map(
-    (
-      review //map방식을 사용하여 존재하는 값만큼 반복함 roomlist에저장된값만큼 for을 사용한다고 보면됌.
-    ) => (
-      <Row style={Row3Styles}>
-        <Col md="2">{review.starpoint}</Col>
-        <Col md="7">{review.content}</Col>
-        <Col md="3">{review.review_num}</Col>
-        {/* 작성자 아이디가 들어가야 하나 테스트 용으로 review_num으로 대체 */}
-      </Row>
-    )
-  );
+  const reviewListView = () => {
+    if (reviewList !== undefined) {
+      return reviewList.map(
+        (
+          review //map방식을 사용하여 존재하는 값만큼 반복함 roomlist에저장된값만큼 for을 사용한다고 보면됌.
+        ) => (
+          <Row style={Row3Styles}>
+            <Col md="2">{review.starpoint}</Col>
+            <Col md="7">{review.content}</Col>
+            <Col md="3">{review.review_num}</Col>
+            {/* 작성자 아이디가 들어가야 하나 테스트 용으로 review_num으로 대체 */}
+          </Row>
+        )
+      );
+    }
+  };
 
   const searchReview = (r_num) => {
     const rrum = { r_num };
