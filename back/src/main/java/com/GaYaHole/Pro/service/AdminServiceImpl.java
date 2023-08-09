@@ -34,8 +34,8 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public int totalProfit() throws Exception {
-        int result = accountRepository.totalAccounting();
+    public String totalProfit() throws Exception {
+        String result = accountRepository.totalAccounting();
         return  result;
     }
 
@@ -55,19 +55,19 @@ public class AdminServiceImpl implements AdminService {
     public List<Map<String, Object>> allreservation() throws Exception {
         List<Reservation> reservations = reservationRepository.findAll();
         List<Map<String, Object>> allresvlist = new ArrayList<>();
-
-        for (int i=0; i<reservations.size(); i++) {
-            String opcode = reservations.get(i).getOption_code();
-            Map<String, Object> map = new HashMap<>();
-            char[] str = opcode.toCharArray();
-            for (int j=0; j<str.length; j++) {
-                Optional<Option> option = optionRepository.findById(String.valueOf(str[j]));
-                if (option.isPresent()) {
-                    Option option2 = option.get();
-                    map.put("imt" + j, option2);
+        for (int i=0; i<reservations.size(); i++) {                             // 옵션 코드 파싱
+            String code = reservations.get(i).getOption_code();
+            char[] codech=code.toCharArray();
+            Map<String,Object>  map = new HashMap<>();
+            for (int j=0; j<reservations.get(i).getOption_code().length(); j++) {
+                String str2 = String.valueOf(codech[j]);
+                Optional<Option> option = optionRepository.findById(str2);
+                if(option.isPresent()) {
+                    Option option1 = option.get();
+                    map.put("imt" + j, option1);
                 }
             }
-            map.put("res_num", reservations.get(i));
+            map.put("res_num",reservations.get(i));
             allresvlist.add(map);
         }
 

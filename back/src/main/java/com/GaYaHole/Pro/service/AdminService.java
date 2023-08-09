@@ -14,7 +14,7 @@ import java.util.List;
 public interface AdminService {
     
     public void modRoomPrice(Room room) throws Exception;
-    public int totalProfit() throws Exception;
+    public String totalProfit() throws Exception;
     public void addNotice(Notice notice) throws Exception;
     public List userinfo() throws Exception;
     public List allreservation() throws Exception;

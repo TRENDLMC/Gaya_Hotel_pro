@@ -3,9 +3,7 @@ package com.GaYaHole.Pro.entity;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -14,8 +12,8 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @ToString
 public class Notice{
-    
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int n_num;
 
     @Column(nullable = false, length=500)

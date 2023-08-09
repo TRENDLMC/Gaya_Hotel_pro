@@ -39,9 +39,7 @@ public class AdminController {
     }
     @GetMapping("/admin/gProfit") //총 매출 확인
     public int profit() throws Exception {
-
         String result =adminService.totalProfit();
-        System.out.println("============== 총 매출 확인용 : "+result+" ==============");
         return result==null ? 0 :Integer.parseInt(result);
     }
 

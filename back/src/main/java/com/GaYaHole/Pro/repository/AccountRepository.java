@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 public interface AccountRepository extends JpaRepository<Accounting, Integer> {
 
     @Query(value = "select sum(price) from accounting", nativeQuery = true)
-    int totalAccounting ();
+    String totalAccounting ();
 
     @Query(value="select sum(price) from accounting where id =  :userid", nativeQuery = true)
     int userinfo(@Param("userid") String id);
