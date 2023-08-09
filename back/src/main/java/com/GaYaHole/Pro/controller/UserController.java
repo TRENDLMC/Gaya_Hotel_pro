@@ -56,15 +56,16 @@ public class UserController {
     public List<Map<String,Object>> mypage(@RequestBody User user){ //id 받아오면 된다...
         List<Reservation> info = userService.mypage(user);
         List<Map<String,Object>> list = new ArrayList<>();
-//        List<Reservation> info = reservationRepository.opcode(user.getId());
         for (int i=0; i<info.size(); i++) {                             // 옵션 코드 파싱
             String code = info.get(i).getOption_code();
             Map<String,Object>  map = new HashMap<>();
             char[] str2 = code.toCharArray();
-            for (int j=0; j<info.get(i).getOption_code().length(); j++) {
-                Optional<Option> option = optionRepository.findById(code);
-                Option option1=option.get();
-                map.put("imt"+j,option1);
+            for (int j=0; j<str2.length; j++) {
+                Optional<Option> option = optionRepository.findById(String.valueOf(str2[j]));
+                if(option.isPresent()) {
+                    Option option1 = option.get();
+                    map.put("imt" + j, option1);
+                }
             }
             map.put("res_num",info.get(i));
             list.add(map);

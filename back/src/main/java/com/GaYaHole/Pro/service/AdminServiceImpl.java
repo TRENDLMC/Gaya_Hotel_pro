@@ -60,10 +60,12 @@ public class AdminServiceImpl implements AdminService {
             String opcode = reservations.get(i).getOption_code();
             Map<String, Object> map = new HashMap<>();
             char[] str = opcode.toCharArray();
-            for (int j=0; j<reservations.get(i).getOption_code().length(); j++) {
-                Optional<Option> option = optionRepository.findById(opcode);
-                Option option2 = option.get();
-                map.put(""+j, option2);
+            for (int j=0; j<str.length; j++) {
+                Optional<Option> option = optionRepository.findById(String.valueOf(str[j]));
+                if (option.isPresent()) {
+                    Option option2 = option.get();
+                    map.put("imt" + j, option2);
+                }
             }
             map.put("res_num", reservations.get(i));
             allresvlist.add(map);
