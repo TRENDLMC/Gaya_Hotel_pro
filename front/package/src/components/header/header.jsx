@@ -113,7 +113,11 @@ const Header = () => {
                   호텔소개 <i className="fa fa-angle-down m-l-5"></i>
                 </DropdownToggle>
                 <DropdownMenu className="b-none animated fadeInUp">
-                  <DropdownItem>호텔 소개</DropdownItem>
+                  <DropdownItem>
+                    <Link to={"/info"}>
+                      호텔소개
+                    </Link>
+                  </DropdownItem>
                   <DropdownItem>방 소개</DropdownItem>
                   <DropdownItem>서비스소개</DropdownItem>
                   <DropdownItem divider />

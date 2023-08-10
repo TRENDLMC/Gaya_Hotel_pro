@@ -13,8 +13,10 @@ import Login from "./views/login/login.jsx";
 import Memberinfo from "./views/memberinfo/memberinfo";
 import Reservation from "./views/reservation/reservation";
 import Signup from "./views/singup/signup.jsx";
-import { FailPage } from "./views/pay/sections/fail";
-import { SuccessPage } from './views/pay/sections/success';
+import {FailPage} from "./views/pay/sections/fail";
+import {SuccessPage} from './views/pay/sections/success';
+import Information from "./views/infomation/info";
+
 
 dayjs.extend(isLeapYear); // 플러그인 등록
 dayjs.locale("ko"); // 언어 등록
@@ -32,6 +34,7 @@ root.render(
       <Route path="/mypage" element={<Memberinfo />} />
       <Route path="/fail" element={<FailPage />} />
       <Route path="/success" element={<SuccessPage />} />
+      <Route path="/info" element={<Information />} />
     </Routes>
   </BrowserRouter>
 );

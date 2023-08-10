@@ -36,6 +36,14 @@ a:hover,
 a:focus {
     text-decoration: none;
 }
+// 드롭다운 방문한 링크
+a:visited {
+    color: #8d97ad;
+    &:hover,
+    &:focus {
+        color: $dark;
+    }
+}
 
 a.link {
     color: $headingtext;
