@@ -35,19 +35,21 @@ const Header = () => {
   useEffect(() => {
     setLoginSession(sessionStorage.getItem("id"));
     var id = {
-      id: sessionStorage.getItem("id")
-    }
+      id: sessionStorage.getItem("id"),
+    };
     fetch("http://localhost:8095/user/gradecheck", {
-      method: "POST",//조회
+      method: "POST", //조회
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(id),
     })
       .then((response) => {
         return response.json();
-      }).then((date) => {
+      })
+      .then((date) => {
         sessionStorage.setItem("grade", date);
         setGrade(date);
-      }).catch((err) => {
+      })
+      .catch((err) => {
         console.log(err);
       });
     sessionCheck();
@@ -78,16 +80,16 @@ const Header = () => {
   const gradeCheck = () => {
     if (grade === 1) {
       return (
-        <Link className="nav-link" to={"/mypage"} >
+        <Link className="nav-link" to={"/mypage"}>
           관리자페이지
         </Link>
-      )
+      );
     } else {
       return (
         <Link className="nav-link" to={"/mypage"}>
           마이페이지
         </Link>
-      )
+      );
     }
   };
   /*--------------------------------------------------------------------------------*/
@@ -98,7 +100,7 @@ const Header = () => {
     <div style={bannerst}>
       <Container>
         <Navbar className="navbar-expand-lg h2-nav">
-          <NavbarBrand href="#">
+          <NavbarBrand href="/">
             <img src={logo} alt="wrapkit" />
           </NavbarBrand>
           <NavbarToggler onClick={toggle}>
