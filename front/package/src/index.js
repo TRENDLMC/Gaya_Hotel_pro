@@ -7,12 +7,14 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./assets/scss/style.scss";
 import reportWebVitals from "./reportWebVitals";
-import Components from "./views/components/components.jsx";
+import Home from "./views/home/home.jsx";
 import Roomlist from "./views/list/roomlist.jsx";
 import Login from "./views/login/login.jsx";
 import Memberinfo from "./views/memberinfo/memberinfo";
 import Reservation from "./views/reservation/reservation";
 import Signup from "./views/singup/signup.jsx";
+import { FailPage } from "./views/pay/sections/fail";
+import { SuccessPage } from './views/pay/sections/success';
 
 dayjs.extend(isLeapYear); // 플러그인 등록
 dayjs.locale("ko"); // 언어 등록
@@ -22,12 +24,14 @@ var hist = createBrowserHistory();
 root.render(
   <BrowserRouter history={hist}>
     <Routes>
-      <Route path="/" element={<Components />} />
+      <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/reservation" element={<Reservation />} />
       <Route path="/reservationlist" element={<Roomlist />} />
       <Route path="/mypage" element={<Memberinfo />} />
+      <Route path="/fail" element={<FailPage />} />
+      <Route path="/success" element={<SuccessPage />} />
     </Routes>
   </BrowserRouter>
 );
