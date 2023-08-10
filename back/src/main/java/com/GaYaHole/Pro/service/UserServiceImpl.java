@@ -1,10 +1,13 @@
 package com.GaYaHole.Pro.service;
 
+import com.GaYaHole.Pro.entity.Option;
 import com.GaYaHole.Pro.entity.Reservation;
 import com.GaYaHole.Pro.entity.User;
 import com.GaYaHole.Pro.repository.ReservationRepository;
 import com.GaYaHole.Pro.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,12 +25,28 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void join(User user) {
+
+        BCryptPasswordEncoder changePwd = new BCryptPasswordEncoder();
+        user.setPwd(changePwd.encode(user.getPwd()));
+
         userRepository.save(user);
     }
 
     @Override
     public int login(User user) {
-        return userRepository.logintest(user.getId(), user.getPwd());
+
+      //  User user2 = userRepository.userinfo(user.getId());
+        Optional<User> user2 = userRepository.findById(user.getId());
+        BCryptPasswordEncoder hashPwd = new BCryptPasswordEncoder();
+        if(hashPwd.matches(user2.get().getPwd(), user.getPwd())){
+                System.out.println("맞음");
+            return userRepository.logintest(user.getId(), user2.get().getPwd());
+        }
+        else{
+            System.out.println("안 맞음");
+            return userRepository.logintest(user.getId(), user2.get().getPwd());
+        }
+
 
 
     }
