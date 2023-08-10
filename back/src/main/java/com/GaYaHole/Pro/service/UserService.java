@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface UserService {
 
     public void join(User user);
-    public int login(User user);
+    public String login(User user);
     public int idCheck(User user);
     public List<Reservation> mypage (User user);
     public Optional<User> gradeCheck (User user);

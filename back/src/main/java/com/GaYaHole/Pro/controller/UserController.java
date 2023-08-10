@@ -30,10 +30,11 @@ public class UserController {
     }
 
     @PostMapping("/user/login")
-    public int login(@RequestBody User user){
-        int result = userService.login(user);
-        if(result==1){
+    public String login(@RequestBody User user){
+        String result = userService.login(user);
+        if(result!=null){
             System.out.println( "로그인 성공");
+            System.out.println(result);
         }
         else{
             System.out.println( "로그인 실패");

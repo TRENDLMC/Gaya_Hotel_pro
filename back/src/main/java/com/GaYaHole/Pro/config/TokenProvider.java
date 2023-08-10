@@ -10,13 +10,14 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
+import java.util.Optional;
 
 @Slf4j
 @Service
 public class TokenProvider {
     private static final String SECRET_KEY = "FlRpX30pMqDbiAkmlfArbrmVkDD4RqISskGZmBFax5oGVxzXXWUzTR5JyskiHMIV9M1Oicegkpi46AdvrcX1E6CmTUBc6IFbTPiD";
 
-    public String create(User userEntity) {
+    public String create(Optional<User> user) {
         // 기한 지금으로부터 1일로 설정
         Date expiryDate = Date.from(
                 Instant.now()
@@ -40,7 +41,7 @@ public class TokenProvider {
                 // header에 들어갈 내용 및 서명을 하기 위한 SECRET_KEY
                 .signWith(SignatureAlgorithm.HS512, SECRET_KEY)
                 // payload에 들어갈 내용
-                .setSubject(userEntity.getId()) // sub
+                .setSubject(user.get().getId()) // sub
                 .setIssuer("demo app") // iss
                 .setIssuedAt(new Date()) // iat
                 .setExpiration(expiryDate) // exp

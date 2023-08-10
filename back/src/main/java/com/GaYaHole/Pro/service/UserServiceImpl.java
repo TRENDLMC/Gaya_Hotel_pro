@@ -1,5 +1,7 @@
 package com.GaYaHole.Pro.service;
 
+import com.GaYaHole.Pro.config.JwtAuthenticationFilter;
+import com.GaYaHole.Pro.config.TokenProvider;
 import com.GaYaHole.Pro.entity.Option;
 import com.GaYaHole.Pro.entity.Reservation;
 import com.GaYaHole.Pro.entity.User;
@@ -10,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.ServletRequest;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,10 +21,16 @@ public class UserServiceImpl implements UserService{
 
 
     @Autowired
+    TokenProvider tokenProvider;
+    @Autowired
     UserRepository userRepository;
 
     @Autowired
     ReservationRepository reservationRepository;
+
+    @Autowired
+    JwtAuthenticationFilter jwtAuthenticationFilter;
+
 
     @Override
     public void join(User user) {
@@ -33,18 +42,42 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public int login(User user) {
+    public String login(User user) {
 
-      //  User user2 = userRepository.userinfo(user.getId());
+//        User user3 = userRepository.userinfo(user.getId());
+//        Optional<User> user2 = findById(user.getId());
+//
+//        BCryptPasswordEncoder hashPwd = new BCryptPasswordEncoder();
+//        System.out.println("user 패스워드 : " + user.getPwd());
+//        System.out.println("user3 패스워드 : " + user3.getPwd());
+//
+//        if(hashPwd.matches(user3.getPwd(), user.getPwd())){
+//                System.out.println("맞음");
+//
+//            String token=tokenProvider.create(user3);
+//            return token;
+//        }
+//        else{
+//            System.out.println("안 맞음");
+//            return null;
+//        }
+
+        //  User user2 = userRepository.userinfo(user.getId());
         Optional<User> user2 = userRepository.findById(user.getId());
         BCryptPasswordEncoder hashPwd = new BCryptPasswordEncoder();
-        if(hashPwd.matches(user2.get().getPwd(), user.getPwd())){
-                System.out.println("맞음");
-            return userRepository.logintest(user.getId(), user2.get().getPwd());
+
+
+        System.out.println("user 패스워드 : " + user.getPwd());
+       System.out.println("user2 패스워드 : " + user2.get().getPwd());
+
+        if(hashPwd.matches(user.getPwd(), user2.get().getPwd())){
+            System.out.println("맞음");
+            String token = tokenProvider.create(user2);
+            return token;
         }
         else{
             System.out.println("안 맞음");
-            return userRepository.logintest(user.getId(), user2.get().getPwd());
+            return null;
         }
 
 
