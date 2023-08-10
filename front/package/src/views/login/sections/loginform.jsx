@@ -17,7 +17,7 @@ const LoginForm = () => {
     if (sessionStorage.getItem("id") === null) {
       // sessionStorage 에 name 라는 key 값으로 저장된 값이 없다면
       console.log("isLogin ?? :: ", isLogin);
-    } else if (isLogin == true) {
+    } else if (isLogin === true) {
       navigate("/");
     } else {
       // sessionStorage 에 name 라는 key 값으로 저장된 값이 있다면
@@ -45,18 +45,17 @@ const LoginForm = () => {
       body: JSON.stringify(loginInfo),
     })
       .then((response) => {
-        return response.json();
+        return response.text();
       })
       .then((data) => {
-        console.log(data);
-        if (data === 1) {
-          alert("로그인 성공! 환영합니다." + loginInfo.id + " 님!");
-          sessionStorage.setItem("id", loginInfo.id); // sessionStorage에 id를 user_id라는 key 값으로 저장
-          navigate("/");
-          // goToMain();
-        } else {
+        if (data === null) {
           alert("로그인 실패.");
           window.location.reload();
+        } else {
+          alert("로그인 성공! 환영합니다." + loginInfo.id + " 님!");
+          sessionStorage.setItem("token", data);
+          sessionStorage.setItem("id", loginInfo.id); // sessionStorage에 id를 user_id라는 key 값으로 저장
+          navigate("/");
         }
       })
       .catch((err) => {

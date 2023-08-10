@@ -71,12 +71,10 @@ public class UserServiceImpl implements UserService{
        System.out.println("user2 패스워드 : " + user2.get().getPwd());
 
         if(hashPwd.matches(user.getPwd(), user2.get().getPwd())){
-            System.out.println("맞음");
             String token = tokenProvider.create(user2);
             return token;
         }
         else{
-            System.out.println("안 맞음");
             return null;
         }
 
