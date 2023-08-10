@@ -8,17 +8,19 @@ import Adminprice from "./adminprice";
 const Adminres = () => {
 
     const [totReservation, setreservation] = useState([]);
+
     useEffect(() => {
-        async function fetchData() {
-            fetch("http://localhost:8095/admin/reservation")
-                .then((response) => {
-                    return response.json();
-                }).then((data) => {
-                    setreservation(data);
-                })
-        }
         fetchData();
     }, [])
+
+    function fetchData() {
+        fetch("http://localhost:8095/admin/reservation")
+            .then((response) => {
+                return response.json();
+            }).then((data) => {
+                setreservation(data);
+            })
+    }
 
     const TotalReservation = () => {
 
@@ -28,6 +30,12 @@ const Adminres = () => {
                     <Row key={index}>
                         <Col>
                             {Res.res_num.reservation_num}
+                        </Col>
+                        <Col>
+                            {Res.res_num.r_num.r_num}
+                        </Col>
+                        <Col>
+                            {Res.res_num.r_num.r_type}
                         </Col>
                         <Col>
                             {new Date(Res.res_num.check_in).toLocaleDateString()}
@@ -78,6 +86,12 @@ const Adminres = () => {
                 <Row>
                     <Col>
                         예약번호
+                    </Col>
+                    <Col>
+                        방번호
+                    </Col>
+                    <Col>
+                        방등급
                     </Col>
                     <Col>
                         체크인

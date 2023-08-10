@@ -56,6 +56,12 @@ const Readreservation = () => {
                             {Res.res_num.reservation_num}
                         </Col>
                         <Col>
+                            {Res.res_num.r_num.r_num}
+                        </Col>
+                        <Col>
+                            {Res.res_num.r_num.r_type}
+                        </Col>
+                        <Col>
                             {new Date(Res.res_num.check_in).toLocaleDateString()}
                         </Col>
                         <Col>
@@ -133,6 +139,12 @@ const Readreservation = () => {
             <Row>
                 <Col>
                     예약번호
+                </Col>
+                <Col>
+                    방번호
+                </Col>
+                <Col>
+                    방등급
                 </Col>
                 <Col>
                     체크인
