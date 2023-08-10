@@ -23,6 +23,7 @@ public class Reservation{
 
     private int total_price;
 
+    private String order_id;
 
     private Date check_in;
 

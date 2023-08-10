@@ -49,6 +49,7 @@ public class ReservationServiceImpl implements ReservationService{
                 .check_in(reservation.getCheck_in())
                 .check_out(reservation.getCheck_out())
                 .total_price(reservation.getTotal_price())
+                .order_id(reservation.getOrder_id())
                 .r_num(room)
                 .id(user)
                 .build();
