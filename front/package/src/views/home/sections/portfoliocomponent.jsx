@@ -11,6 +11,9 @@ import img6 from '../../../assets/images/portfolio/img6.jpg';
 
 
 const PortfolioComponent = () => {
+    const cardStyle () = > {
+
+    }
     return (
         <div>
             <div className="spacer">
