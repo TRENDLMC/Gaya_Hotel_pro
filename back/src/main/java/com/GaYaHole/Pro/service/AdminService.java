@@ -16,7 +16,7 @@ import java.util.Optional;
 
 public interface AdminService {
     
-    public void modRoomPrice(Room room) throws Exception;
+
     public String totalProfit() throws Exception;
     public void addNotice(Notice notice) throws Exception;
     public List userinfo() throws Exception;

@@ -29,10 +29,6 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     OptionRepository optionRepository;
 
-    @Override
-    public void modRoomPrice(Room room) throws Exception {
-        roomRepository.roomUpdate(room.getR_num(), room.getR_price());
-    }
 
     @Override
     public String totalProfit() throws Exception {
@@ -64,7 +60,6 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public List<User> userinfo() throws Exception {
         List<User> users = userRepository.findAll();
-
         return users;
     }
 
