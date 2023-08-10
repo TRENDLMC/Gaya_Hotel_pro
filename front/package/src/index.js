@@ -30,6 +30,8 @@ root.render(
       <Route path="/reservation" element={<Reservation />} />
       <Route path="/reservationlist" element={<Roomlist />} />
       <Route path="/mypage" element={<Memberinfo />} />
+      <Route path="/fail" element={<FailPage />} />
+      <Route path="/success" element={<SuccessPage />} />
     </Routes>
   </HashRouter>
 );
