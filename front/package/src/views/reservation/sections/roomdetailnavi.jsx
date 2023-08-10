@@ -1,9 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Container, Row, Col, Form, FormGroup, Label, Input } from "reactstrap";
+import { Container } from "reactstrap";
 
 const RoomNavi = ({ scrollRef }) => {
   // 리뷰 리스트 출력시 필요한 정보 객체
-  const [optionList, setOptionList] = useState({});
   const [navIndex, setNavIndex] = useState(null);
   const navRef = useRef([]);
 
@@ -43,23 +42,6 @@ const RoomNavi = ({ scrollRef }) => {
     height: "100px",
     border: "solid",
   };
-
-  // return (
-  //   <Container>
-  //     {/* 스크롤 내리면 화면 맨 위에 고정되게  */}
-  //     <Row>
-  //       <Col className="col-md-4" style={Row2Styles}>
-  //         Navi 1
-  //       </Col>
-  //       <Col className="col-md-4" style={Row2Styles}>
-  //         Navi 2
-  //       </Col>
-  //       <Col className="col-md-4" style={Row2Styles}>
-  //         Navi 3
-  //       </Col>
-  //     </Row>
-  //   </Container>
-  // );
 
   // CSS 나중에
   return (

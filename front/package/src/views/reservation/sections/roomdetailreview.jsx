@@ -81,16 +81,16 @@ const ReviewList = () => {
   useEffect(() => {
     //string으로 저장된 roomlist에서의 정보를 다시 JSON 형태로 되돌림
     const roomInfo = JSON.parse(sessionStorage.getItem("roominfo"));
-    // console.log(roomInfo.r_num);
+    console.log(roomInfo.r_num);
     searchReview(roomInfo.r_num);
-    console.log(reviewList);
+    console.log("리뷰리스트 : " + reviewList);
   }, []);
 
   const Row3Styles = {
     border: "solid",
   };
 
-  const reviewListView = () => {
+  const ReviewListView = () => {
     if (reviewList !== undefined) {
       return reviewList.map(
         (
@@ -109,6 +109,7 @@ const ReviewList = () => {
 
   const searchReview = (r_num) => {
     const rrum = { r_num };
+    console.log(rrum);
     fetch(SERVER_URL + "reserv/review", {
       //fetch로 연결된 서버로 전송함
       method: "POST", //전송 mapper를 설정
@@ -122,7 +123,7 @@ const ReviewList = () => {
       })
       .then((data) => {
         // 이제 data 변수에 JSON 데이터가 저장되어 있습니다.
-        console.log(data);
+        console.log("리뷰 data : " + data);
         setReviewList(data); // json데이터를 usestate에 통채로저장시킴
       })
       .catch((err) => {
@@ -139,7 +140,7 @@ const ReviewList = () => {
         <Col md="3">작성자</Col>
       </Row>
 
-      {reviewListView}
+      <ReviewListView />
     </Container>
   );
 };

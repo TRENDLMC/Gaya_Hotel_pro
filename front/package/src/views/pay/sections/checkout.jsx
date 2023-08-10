@@ -1,105 +1,24 @@
-// import { useEffect, useRef, useState } from "react";
-// import { loadPaymentWidget } from "@tosspayments/payment-widget-sdk";
-// import { nanoid } from "nanoid";
-
-// //test_sk_OALnQvDd2VJXogwRnoN8Mj7X41mN 테스트 시크릿 키
-// const selector = "#payment-widget";
-// const clientKey = "test_ck_YyZqmkKeP8gg7keqn1d8bQRxB9lG";
-// const customerKey = "YbX2HuSlsC9uVJW6NMRMj";
-
-// export function CheckoutPage() {
-//   const paymentWidgetRef = useRef(null);
-//   const paymentMethodsWidgetRef = useRef(null);
-//   const [price, setPrice] = useState(50_000);
-
-//   useEffect(() => {
-//     (async () => {
-//       const paymentWidget = await loadPaymentWidget(clientKey, customerKey);
-
-//       const paymentMethodsWidget = paymentWidget.renderPaymentMethods(
-//         selector,
-//         { value: price }
-//       );
-
-//       paymentWidgetRef.current = paymentWidget;
-//       paymentMethodsWidgetRef.current = paymentMethodsWidget;
-//     })();
-//   }, []);
-
-//   useEffect(() => {
-//     const paymentMethodsWidget = paymentMethodsWidgetRef.current;
-
-//     if (paymentMethodsWidget == null) {
-//       return;
-//     }
-
-//     paymentMethodsWidget.updateAmount(
-//       price,
-//       paymentMethodsWidget.UPDATE_REASON.COUPON
-//     );
-//   }, [price]);
-
-//   return (
-//     <div>
-//       <h1>주문서</h1>
-//       <span>{`${price.toLocaleString()}원`}</span>
-//       <div>
-//         <label>
-//           <input
-//             type="checkbox"
-//             onChange={(event) => {
-//               setPrice(event.target.checked ? price - 5_000 : price + 5_000);
-//             }}
-//           />
-//           5,000원 할인 쿠폰 적용
-//         </label>
-//       </div>
-//       <div id="payment-widget" />
-//       <button
-//         onClick={async () => {
-//           const paymentWidget = paymentWidgetRef.current;
-
-//           try {
-//             await paymentWidget?.requestPayment({
-//               orderId: nanoid(),
-//               orderName: "토스 티셔츠 외 2건",
-//               customerName: "김토스",
-//               customerEmail: "customer123@gmail.com",
-//               successUrl: `${window.location.origin}/success`,
-//               failUrl: `${window.location.origin}/fail`,
-//             });
-//           } catch (error) {
-//             // handle error
-//           }
-//         }}
-//       >
-//         결제하기
-//       </button>
-//     </div>
-//   );
-// }
-
-
-import { useEffect, useRef, useState } from "react" 
+import { useEffect, useRef, useState } from "react";
 import {
   PaymentWidgetInstance,
   loadPaymentWidget,
   ANONYMOUS,
-} from "@tosspayments/payment-widget-sdk" 
+} from "@tosspayments/payment-widget-sdk";
+import { nanoid } from "nanoid";
 
-const clientKey = "test_ck_YyZqmkKeP8gg7keqn1d8bQRxB9lG" 
-const customerKey = "xgntPDAOHU56X4nL8YL-v" 
+const clientKey = "test_ck_YyZqmkKeP8gg7keqn1d8bQRxB9lG";
+const customerKey = "xgntPDAOHU56X4nL8YL-v";
 
-export function CheckoutPage() {
-  const paymentWidgetRef = useRef(null) 
-  const paymentMethodsWidgetRef = useRef(null) 
-  const [price, setPrice] = useState(50000) 
+export function CheckoutPage(payinfo, reservationinfo) {
+  const paymentWidgetRef = useRef(null);
+  const paymentMethodsWidgetRef = useRef(null);
+  const [price, setPrice] = useState(0);
 
   useEffect(() => {
     (async () => {
       // ------  결제위젯 초기화 ------
       // 비회원 결제에는 customerKey 대신 ANONYMOUS를 사용하세요.
-      const paymentWidget = await loadPaymentWidget(clientKey, customerKey)  // 회원 결제
+      const paymentWidget = await loadPaymentWidget(clientKey, customerKey); // 회원 결제
       // const paymentWidget = await loadPaymentWidget(clientKey, ANONYMOUS)  // 비회원 결제
 
       // ------  결제위젯 렌더링 ------
@@ -109,23 +28,29 @@ export function CheckoutPage() {
       const paymentMethodsWidget = paymentWidget.renderPaymentMethods(
         "#payment-widget",
         price
-      ) 
+      );
 
-      // ------  이용약관 렌더링 ------
+      // 최종 가격 렌더링
+      // setPrice(payinfo.payinfo.total_pay);
+      // 혹시 몰라서 100원으로 해둠
+      setPrice(100);
+      console.log(payinfo);
+      console.log(JSON.stringify(payinfo.reservationinfo));
+
+      // ------  이용약관 렌더링 ------sdaa
       // 이용약관 UI를 렌더링할 위치를 지정합니다. `#agreement`와 같은 CSS 선택자를 추가하세요.
       // https://docs.tosspayments.com/reference/widget-sdk#renderagreement선택자
-      paymentWidget.renderAgreement("#agreement") 
-
-      paymentWidgetRef.current = paymentWidget 
-      paymentMethodsWidgetRef.current = paymentMethodsWidget 
-    })() 
-  }, []) 
+      paymentWidget.renderAgreement("#agreement");
+      paymentWidgetRef.current = paymentWidget;
+      paymentMethodsWidgetRef.current = paymentMethodsWidget;
+    })();
+  }, []);
 
   useEffect(() => {
-    const paymentMethodsWidget = paymentMethodsWidgetRef.current 
+    const paymentMethodsWidget = paymentMethodsWidgetRef.current;
 
     if (paymentMethodsWidget == null) {
-      return 
+      return;
     }
 
     // ------ 금액 업데이트 ------
@@ -134,8 +59,8 @@ export function CheckoutPage() {
     paymentMethodsWidget.updateAmount(
       price,
       paymentMethodsWidget.UPDATE_REASON.COUPON
-    ) 
-  }, [price]) 
+    );
+  }, [price]);
 
   return (
     <div>
@@ -146,7 +71,7 @@ export function CheckoutPage() {
           <input
             type="checkbox"
             onChange={(event) => {
-              setPrice(event.target.checked ? price - 5000 : price + 5000) 
+              setPrice(event.target.checked ? price - 5000 : price + 5000);
             }}
           />
           5,000원 할인 쿠폰 적용
@@ -156,7 +81,11 @@ export function CheckoutPage() {
       <div id="agreement" />
       <button
         onClick={async () => {
-          const paymentWidget = paymentWidgetRef.current 
+          const paymentWidget = paymentWidgetRef.current;
+          sessionStorage.setItem(
+            "reservinfo",
+            JSON.stringify(payinfo.reservationinfo)
+          );
 
           try {
             // ------ '결제하기' 버튼 누르면 결제창 띄우기 ------
@@ -164,19 +93,19 @@ export function CheckoutPage() {
             // https://docs.tosspayments.com/reference/widget-sdk#requestpayment결제-정보
             // 아래 4개는 필수 입력 사항임.
             await paymentWidget?.requestPayment({
-              orderId: "89VsVukGsuuosn30-dt27",
-              orderName: "토스 티셔츠 외 2건",
+              orderId: nanoid(),
+              orderName: `${payinfo.payinfo.roomNum} 호 객실`,
               successUrl: `${window.location.origin}/success`,
               failUrl: `${window.location.origin}/fail`,
-            }) 
+            });
           } catch (error) {
             // 에러 처리하기
-            console.error(error) 
+            console.error(error);
           }
         }}
       >
         결제하기
       </button>
     </div>
-  ) 
+  );
 }

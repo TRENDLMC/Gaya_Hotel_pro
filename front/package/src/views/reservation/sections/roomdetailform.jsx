@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { Container, Row, Col, Form, FormGroup, Label, Input } from "reactstrap";
 import Modal from "react-modal";
+import { CheckoutPage } from "./../../pay/sections/checkout";
 
 const RoomDetail = () => {
   const SERVER_URL = "http://localhost:8095/";
@@ -8,6 +9,16 @@ const RoomDetail = () => {
   // 세션 스토리지 roomInfo -> 방리스트 페이지에서 받아온 방 정보 JSON
   const [detailInfo, setDetailInfo] = useState([]);
   const RoomInfo = JSON.parse(sessionStorage.getItem("roominfo"));
+  const seesionId = sessionStorage.getItem("id");
+  const [SavedReservation, setSavedReservation] = useState({
+    check_in: "",
+    check_out: "",
+    option_code: "",
+    total_price: "",
+    id: "",
+    r_rum: "",
+    order_id: "",
+  });
   // [Object object] JSON파일을 풀어서 로그에 보낼려면 Stringify
   // 처음 페이지가 렌더링 될시 방 정보,체크인,체크아웃,
 
@@ -19,9 +30,6 @@ const RoomDetail = () => {
   const [paymentInfo, setPaymentInfo] = useState({
     id: "",
     roomNum: "",
-    tmp_checkin: "",
-    tmp_checkout: "",
-    options: "",
     total_pay: "",
   });
 
@@ -120,11 +128,7 @@ const RoomDetail = () => {
     (
       sOption //map방식을 사용하여 존재하는 값만큼 반복함 roomlist에저장된값만큼 for을 사용한다고 보면됌.
     ) => {
-      return (
-        <Row>
-          {sOption.option_content}
-        </Row>
-      );
+      return <Row>{sOption.option_content}</Row>;
     }
   );
 
@@ -160,13 +164,18 @@ const RoomDetail = () => {
     }
   );
 
+  // 체크박스 체크 및 해제시 리스트에 추가 제거
   const [checkedList, setCheckedList] = useState("");
   const onCheckedItem = useCallback(
     (checked, code, value) => {
+      // 체크 했을시
       if (checked) {
+        // checkList에 추가 및 총 가격 증가
         setCheckedList(checkedList + code);
         setTotalPay(totalPay + Number(value));
+        //체크 해제시
       } else if (!checked) {
+        // checkList에서 제거 및 총 가격 감소
         setCheckedList(checkedList.replace(code, ""));
         setTotalPay(totalPay - Number(value));
       }
@@ -174,17 +183,16 @@ const RoomDetail = () => {
     [checkedList, totalPay]
   );
 
-  //결제 정보 모달창 상태
-
-  const customStyles = {
+  //결제 정보 모달창 Style
+  const modalStyles = {
     overlay: {
       backgroundColor: "rgba(0,0,0,0.5)",
     },
     content: {
       left: "0",
       margin: "auto",
-      width: "658px",
-      height: "350px",
+      width: "1100px",
+      height: "600px",
       padding: "0",
       overflow: "hidden",
     },
@@ -256,6 +264,24 @@ const RoomDetail = () => {
                         onClick={(event) => {
                           ontogel();
                           selectedOptions();
+                          setPaymentInfo({
+                            id: seesionId,
+                            room_Num: detailInfo.r_num,
+                            total_pay: totalPay,
+                          });
+                          // db에 저장될 예약 정보
+                          setSavedReservation({
+                            id: seesionId,
+                            r_num: detailInfo.r_num,
+                            total_price: totalPay,
+                            check_in: RoomInfo.check_in,
+                            check_out: RoomInfo.check_out,
+                            option_code: checkedList,
+                            order_id: "",
+                          });
+                          console.log(
+                            "저장된 예약정보" + JSON.stringify(SavedReservation)
+                          );
                         }}
                         className="btn btn-success waves-effect waves-light m-r-5 col-md-10"
                         value={"결제"}
@@ -265,97 +291,63 @@ const RoomDetail = () => {
                     <Modal
                       isOpen={modalop}
                       ariaHideApp={false}
-                      style={customStyles}
+                      style={modalStyles}
                     >
-                      <Container style={InfoStyle} >
-                        {/* <Col style={InfoStyle} md="6">
-                          정보창
-                          <Row style={InfoStyle}>선택된 옵션 </Row>
-                        {showSelectedOptions}
-                        </Col>
-                        <Col style={InfoStyle} md="6">
-                          결제 총 금액 창
+                      <Container style={{ height: "100%", border: "solid" }}>
+                        <Row style={{ height: "100%" }}>
+                          {/* 모달창 왼쪽 */}
+                          <Col style={InfoStyle} md="6">
+                            <Row style={InfoStyle}>
+                              <Col>객실 번호</Col>
+                              <Col>{detailInfo.r_num}</Col>
+                            </Row>
+                            <Row style={InfoStyle}>
+                              <Col>객실 종류</Col>
+                              <Col>{detailInfo.r_type}</Col>
+                            </Row>
+                            <Row style={InfoStyle}>
+                              <Col>객실 최대 인원</Col>
+                              <Col>{detailInfo.r_size}</Col>
+                            </Row>
+                            <Row style={InfoStyle}>
+                              <Col>체크인 날짜</Col>
+                              <Col>{detailInfo.tmp_checkin}</Col>
+                            </Row>
+                            <Row style={InfoStyle}>
+                              <Col>체크아웃 날짜</Col>
+                              <Col>{detailInfo.tmp_checkout}</Col>
+                            </Row>
+                            <Row style={InfoStyle}>
+                              <Row>선택된 옵션 </Row>
 
-                        <Row>총 결제 금액 : {totalPay}</Row>
-                        <input
-                        className="btn btn-info"
-                        style={{ marginLeft: "210px" }}
-                        type="button"
-                        value={"확인"}
-                        onClick={(event) => {
-                          ontogel();
-                          // 선택된 옵션 초기화
-                          setSelectedOption([]);
-                        }}
-                      />
-                      <input
-                        className="btn btn-secondary"
-                        style={{}}
-                        type="button"
-                        value={"닫기"}
-                        onClick={(event) => {
-                          ontogel();
-                          // 선택된 옵션 초기화
-                          setSelectedOption([]);
-                        }}
-                      />
-                        </Col> */}
-
-                       
-                        <Row>
-                        {/* 모달창 왼쪽 */}
-                        <Col style={InfoStyle} md="6">
-                          <Row style={InfoStyle}>
-                            <Col>객실 번호</Col>
-                            <Col>ㅎㅇ</Col>
-                          </Row>
-                          <Row style={InfoStyle}>
-                            <Col>객실 종류</Col>
-                            <Col>ㅎㅇ</Col>
-                          </Row>
-                          <Row style={InfoStyle}>
-                            <Col>객실 최대 인원</Col>
-                            <Col>ㅎㅇ</Col>
-                          </Row>
-                          <Row style={InfoStyle}>
-                            <Col>체크인 날짜</Col>
-                            <Col>ㅎㅇ</Col>
-                          </Row>
-                          <Row style={InfoStyle}>
-                            <Col>체크아웃 날짜</Col>
-                            <Col>ㅎㅇ</Col>
-                          </Row>
-                          <Row style={InfoStyle}>
-                            <Row>선택된 옵션 </Row>
-                            
-                            <Col style={InfoStyle}>
-                            {showSelectedOptions}
-                            </Col>
-                          </Row>
-                        </Col>
-
-                        {/* 모달창 오른쪽 */}
-                        <Col style={InfoStyle} md="6">
-                          결제 총 금액 창
-
-                        <Row>총 결제 금액 : {totalPay}</Row>
-                        <input
-                        className="btn btn-info"
-                        style={{ marginLeft: "210px" }}
-                        type="button"
-                        value={"확인"}
-                        onClick={(event) => {
-                          //모달창 상태 토글
-                          ontogel();
-                          // 선택된 옵션 초기화
-                          setSelectedOption([]);
-                          // 결제 팝업창
-                        }}
-                      />
+                              <Col style={InfoStyle}>{showSelectedOptions}</Col>
+                            </Row>
+                            결제 총 금액 창<Row>총 결제 금액 : {totalPay}</Row>
+                            <input
+                              className="btn btn-info"
+                              style={{ marginLeft: "210px" }}
+                              type="button"
+                              value={"확인"}
+                              onClick={(event) => {
+                                //모달창 상태 토글
+                                ontogel();
+                                // 선택된 옵션 초기화
+                                setSelectedOption([]);
+                              }}
+                            />
                           </Col>
-                        </Row>    
+
+                          {/* 모달창 오른쪽 */}
+
+                          <Col style={InfoStyle} md="6">
+                            {/* 토스 결제 창 */}
+                            <CheckoutPage
+                              payinfo={paymentInfo}
+                              reservationinfo={SavedReservation}
+                            />
+                          </Col>
+                        </Row>
                       </Container>
-                      
                     </Modal>
                   </Col>
                 </Container>
