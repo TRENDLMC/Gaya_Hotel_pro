@@ -9,13 +9,15 @@ const Readreservation = () => {
     const [restarpont, setstarpont] = useState()
     const [reviewcon, setreviewcon] = useState("");
     const [modelon, setmodalon] = useState(false);
+    const [temnum, settemnum] = useState("");
 
     const reviewchange = (event) => {
         setreviewcon(event.target.value);
     }
 
-    const btn_togle = () => {
+    const btn_togle = (event) => {
         setmodalon(!modelon);
+        settemnum(event.target.id);
     }
     useEffect(() => {
         var moduserinfo = {
@@ -78,7 +80,7 @@ const Readreservation = () => {
                             {Res.res_num.total_price}
                         </Col>
                         <Col>
-                            <input type="button" onClick={btn_togle} value={"리뷰작성"}></input>
+                            <input type="button" id={index} onClick={btn_togle} value={"리뷰작성"}></input>
                         </Col>
                     </Row >
 
@@ -108,8 +110,8 @@ const Readreservation = () => {
             content: reviewcon,
             starpoint: restarpont,
             id: { id: sessionStorage.getItem("id") },
-            r_num: { r_num: 102 },
-            reservation_num: { reservation_num: 1 }
+            r_num: { r_num: Reservation[temnum].res_num.r_num.r_num },
+            reservation_num: { reservation_num: Reservation[temnum].res_num.reservation_num }
         }
         console.log(JSON.stringify(reviwe));
         fetch("http://localhost:8095/review/write", {
@@ -127,6 +129,13 @@ const Readreservation = () => {
             console.log(err);
         });
     }
+
+
+
+
+
+
+
 
     return (
         <Container style={{ marginBottom: "200px" }}>
@@ -164,7 +173,9 @@ const Readreservation = () => {
             </Row>
             <hr /><br /><br />
             <br /><br />
+
             <Reservationlist />
+
             <Modal style={customStyles} isOpen={modelon}>
                 <Container>
                     <Row>

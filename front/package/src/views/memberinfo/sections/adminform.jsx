@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Col, Container, Row } from 'reactstrap';
 import Adminres from "./adminres";
-import Admintabel from "./adminnotice";
+import Admintable from "./adminnotice";
 import Adminuserinfo from "./adminuserinfo";
 
 
@@ -64,7 +64,7 @@ const Adminform = () => {
             </Container>
             {resopne && <Adminres />}
             {useropne && <Adminuserinfo />}
-            {notice && <Admintabel />}
+            {notice && <Admintable />}
         </div >
     )
 }
