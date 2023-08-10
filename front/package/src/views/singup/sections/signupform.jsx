@@ -18,7 +18,6 @@ const PageForm = () => {
         setIsOpen(false); //추가
     }
 
-    // 달력의 Modal 스타일
     const customStyles = {
         overlay: {
             backgroundColor: "rgba(0,0,0,0.5)",

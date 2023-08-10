@@ -53,6 +53,9 @@ const Adminres = () => {
                         <Col>
                             {Res.res_num.total_price}
                         </Col>
+                        <Col>
+                            {Res.res_num.user.id}
+                        </Col>
                     </Row >
 
                 ))
@@ -104,6 +107,9 @@ const Adminres = () => {
                     </Col>
                     <Col>
                         총결제금액
+                    </Col>
+                    <Col>
+                        예약자아이디
                     </Col>
                 </Row>
                 <hr />

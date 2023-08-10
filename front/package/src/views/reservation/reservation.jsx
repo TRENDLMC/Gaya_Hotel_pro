@@ -22,9 +22,9 @@ const Reservation = () => {
       <div className="page-wrapper">
         <div className="container-fluid">
           <RoomDetail />
-          <RoomNavi scrollRef={scrollRef} />
-          <RoomContent ref={scrollRef} />
-          <RoomOption ref={scrollRef} />
+          {/*<RoomNavi scrollRef={scrollRef} />*/}
+          {/* <RoomContent ref={scrollRef} /> */}
+          {/* <RoomOption ref={scrollRef} /> */}
           <ReviewList />
         </div>
       </div>
