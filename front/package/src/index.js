@@ -14,6 +14,8 @@ import isLeapYear from "dayjs/plugin/isLeapYear"; // 윤년 판단 플러그인
 import "dayjs/locale/ko"; // 한국어 가져오기
 import Roomlist from "./views/list/roomlist.jsx";
 import Memberinfo from "./views/memberinfo/memberinfo";
+import { FailPage } from "./views/pay/sections/fail";
+import { SuccessPage } from './views/pay/sections/success';
 
 dayjs.extend(isLeapYear); // 플러그인 등록
 dayjs.locale("ko"); // 언어 등록
