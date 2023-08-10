@@ -16,6 +16,7 @@ import Roomlist from "./views/list/roomlist.jsx";
 import Memberinfo from "./views/memberinfo/memberinfo";
 import { FailPage } from "./views/pay/sections/fail";
 import { SuccessPage } from './views/pay/sections/success';
+import { BrowserRouter } from "react-router-dom";
 
 dayjs.extend(isLeapYear); // 플러그인 등록
 dayjs.locale("ko"); // 언어 등록
@@ -23,8 +24,8 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 
 var hist = createBrowserHistory();
 root.render(
-  <HashRouter history={hist}>
-    <Routes>
+  <BrowserRouter history={hist}>
+  <Routes>
       <Route path="/custom-components" element={<CustomComponents />} />
       <Route path="/" element={<Components />} />
       <Route path="/login" element={<Login />} />
@@ -35,7 +36,8 @@ root.render(
       <Route path="/fail" element={<FailPage />} />
       <Route path="/success" element={<SuccessPage />} />
     </Routes>
-  </HashRouter>
+  </BrowserRouter>
+
 );
 
 // If you want to start measuring performance in your app, pass a function
