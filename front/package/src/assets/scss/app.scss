@@ -9,6 +9,10 @@ File: scss
 This is the font import from the google api 
 *******************/
 @import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800');
+@import url('https://fonts.googleapis.com/css2?family=Gugi&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Do+Hyeon&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbit&display=swap');
+
 /******************* 
 Global Styles 
 *******************/
@@ -16,6 +20,8 @@ Global Styles
 * {
     outline: none;
 }
+
+.title
 
 body {
     background: $bodycolor;
@@ -35,14 +41,6 @@ html {
 a:hover,
 a:focus {
     text-decoration: none;
-}
-// 드롭다운 방문한 링크
-a:visited {
-    color: #8d97ad;
-    &:hover,
-    &:focus {
-        color: $dark;
-    }
 }
 
 a.link {
@@ -594,7 +592,6 @@ Text Colors
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    text-fill-color: transparent;
 }
 
 .text-info-gradiant {
@@ -602,7 +599,6 @@ Text Colors
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    text-fill-color: transparent;
 }
 
 html body {
@@ -1326,6 +1322,23 @@ Buttons
     }
 }
 
+.btn-secondary-gradiant {
+    @include linear-gradient (to right, $secondary 0%, $dark 100%);
+    border: 0px;
+
+    &:hover {
+        @include linear-gradient (to right, $dark 0%, $secondary 100%);
+
+    }
+
+    &.active,
+    &:active,
+    &:focus {
+        box-shadow: 0px;
+        opacity: 1;
+    }
+}
+
 .btn-outline-secondary {
     background-color: $white;
     color: $secondary;
@@ -1333,12 +1346,54 @@ Buttons
 
     &:hover,
     &:focus,
-    &.focus {}
+    &.focus {
+        background: $secondary;
+        color: $white;
+        border-color: $secondary;
+    }
 
     &.active,
     &:active,
     &:focus {
         background: $dark;
+    }
+}
+
+.btn-outline-gaya {
+    color: #8f103d;
+    background-color: $white;
+    border-color: #8f103d;
+    transition: 0.2s ease-in;
+
+    &:hover,
+    &:focus,
+    &.focus {
+        background: #8f103d;
+        color: $white;
+        border-color: #8f103d;
+    }
+
+    &.active,
+    &:active,
+    &:focus {
+        background: rgba(143, 16, 61, 0.5);
+    }
+}
+
+.btn-gaya-gradiant {
+    @include linear-gradient (to right, #8f103d 0%, rgb(143, 16, 61) 100%);
+    border: 0px;
+
+    &:hover {
+        @include linear-gradient (to right, rgb(143, 16, 61) 0%, #8f103d 100%);
+
+    }
+
+    &.active,
+    &:active,
+    &:focus {
+        box-shadow: 0px;
+        opacity: 1;
     }
 }
 
