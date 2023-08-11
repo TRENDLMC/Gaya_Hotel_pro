@@ -160,8 +160,23 @@ const RoomDetail = () => {
         //     {option.option_code} : {option.option_content}
         //   </label>
         // </label>
-        <Row md="2" style={InfoStyle}>
-          <div class="checkbox-wrapper">
+        // <Col md="6">
+        //   <div class="checkbox-wrapper">
+        //     <input
+        //       type="checkbox"
+        //       id={option.option_code}
+        //       value={option.option_price}
+        //       onChange={(e) => {
+        //         onCheckedItem(e.target.checked, e.target.id, e.target.value);
+        //       }}
+        //     />
+        //     <label for={option.option_code}>
+        //       {option.option_code} : {option.option_content}
+        //     </label>
+        //   </div>
+        // </Col>
+        <Col md="6">
+          <div class="col text-center box" style={{ border: "solid" }}>
             <input
               type="checkbox"
               id={option.option_code}
@@ -170,11 +185,11 @@ const RoomDetail = () => {
                 onCheckedItem(e.target.checked, e.target.id, e.target.value);
               }}
             />
-            <label for={option.option_code}>
+            <label htmlFor={option.option_code}>
               {option.option_code} : {option.option_content}
             </label>
           </div>
-        </Row>
+        </Col>
       );
     }
   );
@@ -270,59 +285,59 @@ const RoomDetail = () => {
                   </Row>
                   <Row>
                     <Col>
-                      {detailInfo.total}박 {detailInfo.total + 1} 일
+                      {detailInfo.total}박 {detailInfo.total + 1}일
                     </Col>
                   </Row>
                 </Col>
               </Row>
               <hr />
               <Row style={InfoStyle}>
-                <Col>
-                  <Row>
-                    <Col style={InfoStyle}>옵션 선택</Col>
-                    <Col>
-                      <TooltipPopover />
-                    </Col>
-                  </Row>
-                  {optionListView}
+                <Col
+                  style={{
+                    fontSize: "22px",
+                    paddingTop: "6px",
+                    paddingLeft: "40px",
+                  }}
+                >
+                  옵션 선택
                 </Col>
                 <Col>
-                  <Row style={InfoStyle}>총 결제 금액 </Row>
-                  <Row style={InfoStyle}> {totalPay}</Row>
-                  <Row style={InfoStyle}>
-                    <Col className="text-center">
-                      <input
-                        type="button"
-                        style={{ marginTop: "5px" }}
-                        onClick={(event) => {
-                          ontogel();
-                          selectedOptions();
-                          setPaymentInfo({
-                            id: seesionId,
-                            room_Num: detailInfo.r_num,
-                            total_pay: totalPay,
-                          });
-                          // db에 저장될 예약 정보
-                          setSavedReservation({
-                            id: seesionId,
-                            r_num: detailInfo.r_num,
-                            total_price: totalPay,
-                            check_in: RoomInfo.check_in,
-                            check_out: RoomInfo.check_out,
-                            option_code: checkedList,
-                            order_id: "",
-                          });
-                          console.log(
-                            "저장된 예약정보" + JSON.stringify(SavedReservation)
-                          );
-                        }}
-                        className="btn btn-gaya-gradiant col-md-12"
-                        value={"결제"}
-                      />
-                    </Col>
-                  </Row>
+                  <TooltipPopover />
                 </Col>
               </Row>
+              <Row>{optionListView}</Row>
+              <Col style={InfoStyle}>총 결제 금액 </Col>
+              <Col style={InfoStyle}> {totalPay}</Col>
+              <Col className="text-center">
+                <input
+                  type="button"
+                  style={{ marginTop: "5px" }}
+                  onClick={(event) => {
+                    ontogel();
+                    selectedOptions();
+                    setPaymentInfo({
+                      id: seesionId,
+                      room_Num: detailInfo.r_num,
+                      total_pay: totalPay,
+                    });
+                    // db에 저장될 예약 정보
+                    setSavedReservation({
+                      id: seesionId,
+                      r_num: detailInfo.r_num,
+                      total_price: totalPay,
+                      check_in: RoomInfo.check_in,
+                      check_out: RoomInfo.check_out,
+                      option_code: checkedList,
+                      order_id: "",
+                    });
+                    console.log(
+                      "저장된 예약정보" + JSON.stringify(SavedReservation)
+                    );
+                  }}
+                  className="btn btn-gaya-gradiant col-md-12"
+                  value={"결제"}
+                />
+              </Col>
             </Container>
           </Col>
           {/* 예약하기 버튼을 누르면 결제 모달창이 뜨게  */}
