@@ -22,21 +22,13 @@ public class AdminController {
 
     @Autowired
     AdminServiceImpl adminService;
-
     @Autowired
     NoticeRepository noticeRepository;
 
-    @Autowired
-    UserRepository userRepository;
-
-    @Autowired
-    ReservationRepository reservationRepository;
-
-
     @GetMapping("/admin/gProfit") //총 매출 확인
     public int profit() throws Exception {
-        String result =adminService.totalProfit();
-        return result==null ? 0 :Integer.parseInt(result);
+        String result =adminService.totalProfit(); //Service에서 총 매출 받아오기
+        return result==null ? 0 :Integer.parseInt(result); //String 값으로 받아와서 int로 변환
     }
 
     @PostMapping("/admin/addnotice") //공지 추가
@@ -74,28 +66,31 @@ public class AdminController {
     }
 
 
-    @GetMapping("/admin/userinfo") //유저들 정보 조회
+    @GetMapping("/admin/userinfo") //관리자 -> 전체 사용자 조회
     public List userinfo() throws Exception {
         List<User> users = adminService.userinfo();
+        //리스트 형태로 사용자 정보를 받아온다.
         return users;
     }
 
-    @GetMapping("/admin/reservation") //전체 예약 조회
+    @GetMapping("/admin/reservation") //관리자 -> 전체 예약 조회
     public List<Map<String, Object>> allreservation() throws Exception {
         List<Map<String, Object>> allresvlist = adminService.allreservation();
+        //리스트 형태로 예약 정보를 받아온다.
         return allresvlist;
     }
 
-    @PutMapping("/admin/moduser") //사용자 정보 수정 (-1, 0)
+    @PutMapping("/admin/moduser") //관리자 -> 사용자 정보 수정
     public String moduser(@RequestBody User user) throws Exception {
         adminService.modUsergrade(user);
         return "사용자 정보 수정";
 
     }
 
-    @GetMapping("/admin/rooms")     // 전체 방 정보 조회
+    @GetMapping("/admin/rooms") //관리자 -> 방 정보 확인
     public List<Room> allrooms() throws Exception {
         List<Room> rooms = adminService.allrooms();
+        //리스트 형태로 방 정보를 받아온다.
         return rooms;
     }
 }

@@ -23,6 +23,7 @@ public class WebSecurityConfig  {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/*").permitAll()
+                //리액트에서 접근 설정 해놔서 & 메인화면, 로그인, 회원가입은 접근 가능하도록 한다
                 .and().httpBasic()
                 .disable()
                 .sessionManagement()
@@ -39,5 +40,5 @@ public class WebSecurityConfig  {
     public BCryptPasswordEncoder encodePassword(){
         return new BCryptPasswordEncoder();
     }
-
+    //비밀번호 암호화를 위한 BCryptPasswordEncoder
 }
