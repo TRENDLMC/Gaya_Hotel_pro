@@ -27,6 +27,7 @@ public class ReservController {
     @Autowired
     private OptionRepository optionRepository;
 
+
     @PostMapping("/detail") // 방 정보 출력 - r_num
     public Optional<Room> detail(@RequestBody Room room) {
         log.info("r_num: " + room);

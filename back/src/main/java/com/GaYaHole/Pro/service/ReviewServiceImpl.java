@@ -1,29 +1,16 @@
 package com.GaYaHole.Pro.service;
 
-import com.GaYaHole.Pro.entity.Reservation;
+
 import com.GaYaHole.Pro.entity.Review;
-import com.GaYaHole.Pro.entity.Room;
-import com.GaYaHole.Pro.entity.User;
-import com.GaYaHole.Pro.repository.ReservationRepository;
 import com.GaYaHole.Pro.repository.ReviewRepository;
-import com.GaYaHole.Pro.repository.RoomRepository;
-import com.GaYaHole.Pro.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.Optional;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
     @Autowired
     private ReviewRepository reviewRepository;
-    @Autowired
-    UserRepository userRepository;
-    @Autowired
-    RoomRepository roomRepository;
-    @Autowired
-    ReservationRepository reservationRepository;
-
 
     @Override
     public void regreview(Review review) {

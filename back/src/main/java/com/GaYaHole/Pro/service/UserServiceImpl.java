@@ -33,79 +33,56 @@ public class UserServiceImpl implements UserService{
 
 
     @Override
-    public void join(User user) {
+    public void join(User user) { //회원가입
 
         BCryptPasswordEncoder changePwd = new BCryptPasswordEncoder();
         user.setPwd(changePwd.encode(user.getPwd()));
+        //비밀번호를 BCrypt 형식으로 DB에 저장한다
 
         userRepository.save(user);
     }
 
     @Override
-    public String login(User user) {
+    public String login(User user) { //로그인
 
-//        User user3 = userRepository.userinfo(user.getId());
-//        Optional<User> user2 = findById(user.getId());
-//
-//        BCryptPasswordEncoder hashPwd = new BCryptPasswordEncoder();
-//        System.out.println("user 패스워드 : " + user.getPwd());
-//        System.out.println("user3 패스워드 : " + user3.getPwd());
-//
-//        if(hashPwd.matches(user3.getPwd(), user.getPwd())){
-//                System.out.println("맞음");
-//
-//            String token=tokenProvider.create(user3);
-//            return token;
-//        }
-//        else{
-//            System.out.println("안 맞음");
-//            return null;
-//        }
-
-        //  User user2 = userRepository.userinfo(user.getId());
         Optional<User> user2 = userRepository.findById(user.getId());
         BCryptPasswordEncoder hashPwd = new BCryptPasswordEncoder();
-
-
-        System.out.println("user 패스워드 : " + user.getPwd());
-       System.out.println("user2 패스워드 : " + user2.get().getPwd());
+        //로그인 시 비밀번호를 BCrypt 형식으로 바꿔서 비교한다
 
         if(hashPwd.matches(user.getPwd(), user2.get().getPwd())){
+            //비밀번호가 일치하면 토큰 발급
             String token = tokenProvider.create(user2);
             return token;
         }
         else{
+            //일치하지 않으면 발급하지 않는다
             return null;
         }
-
-
 
     }
 
     @Override
-    public int idCheck(User user) {
+    public int idCheck(User user) { //아이디 중복체크
        int result;
        result = userRepository.idtest(user.getId());
        return result;
     }
 
     @Override
-    public List<Reservation> mypage(User user) {
+    public List<Reservation> mypage(User user) { //사용자 마이페이지
         List<Reservation> info = reservationRepository.userinfo(user.getId());
-
-
         return info;
     }
 
     @Override
-    public Optional<User> gradeCheck(User user) {
+    public Optional<User> gradeCheck(User user) { //사용자 등급 확인
         Optional<User> user1 = userRepository.findById(user.getId());
-
+        //아이디를 기준으로 사용자의 정보를 가져와서 확인한다
         return user1;
     }
 
     @Override
-    public User userinfo(User user) {
+    public User userinfo(User user) { //사용자 존재 여부 확인
        Optional<User> user1= userRepository.findById(user.getId());
        if(user1.isPresent()) {
           user1.get().setPwd(null);
@@ -113,6 +90,7 @@ public class UserServiceImpl implements UserService{
        }
        return null;
     }
+
     @Override
     public int countbyidandpwd(String id, String pwd) {
         return userRepository.countByIdAndPwd(id,pwd);

@@ -1,7 +1,6 @@
 package com.GaYaHole.Pro.service;
 
 import com.GaYaHole.Pro.entity.Review;
-import org.hibernate.mapping.List;
 
 import java.util.Optional;
 
