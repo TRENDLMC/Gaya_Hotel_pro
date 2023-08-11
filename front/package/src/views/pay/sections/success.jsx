@@ -20,7 +20,7 @@ export function SuccessPage() {
     console.log(tmp);
 
     fetch(SERVER_URL + "reser/reservation", {
-      //fetch로 연결된 서버로 전송함
+      //fetch로 연결된 서버로 전송함df
       method: "POST", //전송 mapper를 설정
       headers: { "Content-Type": "application/json" }, //값을 json형식으로 보내므로 headers에 전송값을 설정해줌
       body: JSON.stringify(tmp), //보디에는 json형식으로 문자형으로 변경하여 위에서 저장한 값을 뿌려줌

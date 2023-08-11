@@ -1,34 +1,15 @@
-import React, { useState } from 'react';
-import {
-  Container,
-  NavbarBrand,
-  Navbar,
-  Nav,
-  NavItem,
-  NavbarToggler,
-  Collapse,
-} from "reactstrap";
-import {
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-} from "reactstrap";
+import React from "react";
+import { NavItem } from "reactstrap";
+
 import { HashLink as Link } from "react-router-hash-link";
 
-
-
 const Leftnavi = () => {
-
-
   return (
     <div nav inNavbar>
-
       <NavItem>
-        <Link to={"/info"} state={{ num: 1 }} >
+        <Link to={"/info"} state={{ num: 1 }}>
           호텔소개
         </Link>
-
       </NavItem>
       <NavItem>
         <Link to={"/info"} state={{ num: 2 }}>
@@ -51,12 +32,7 @@ const Leftnavi = () => {
         </Link>
       </NavItem>
     </div>
-
-  )
-
-
-
-
-}
+  );
+};
 
 export default Leftnavi;

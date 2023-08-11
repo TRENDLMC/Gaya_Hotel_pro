@@ -4,6 +4,9 @@
  * Copyright 2011-2018 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
+
+@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Do+Hyeon&display=swap');
+
 :root {
   --blue: #007bff;
   --indigo: #6610f2;
@@ -137,12 +140,12 @@ sup {
   top: -.5em; }
 
 a {
-  color: #007bff;
+  color: var(--dark);
   text-decoration: none;
   background-color: transparent;
   -webkit-text-decoration-skip: objects; }
   a:hover {
-    color: #0056b3;
+    color: var(--dark);
     text-decoration: underline; }
 
 a:not([href]):not([tabindex]) {
@@ -1609,11 +1612,13 @@ textarea.form-control {
   @media screen and (prefers-reduced-motion: reduce) {
     .btn {
       transition: none; } }
-  .btn:hover, .btn:focus {
+  .btn:hover, .btn.focus {
     text-decoration: none; }
   .btn:focus, .btn.focus {
     outline: 0;
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); }
+    box-shadow: 0 0 0 0.2rem
+     /* rgba(0, 123, 255, 0.25);  */
+    }
   .btn.disabled, .btn:disabled {
     opacity: 0.65; }
   .btn:not(:disabled):not(.disabled) {
@@ -2206,8 +2211,9 @@ input[type="button"].btn-block {
     text-decoration: none;
     background-color: #007bff; }
   .dropdown-item.disabled, .dropdown-item:disabled {
-    color: #6c757d;
+    color: #16181b;
     background-color: transparent; }
+ 
 
 .dropdown-menu.show {
   display: block; }
