@@ -7,25 +7,25 @@ import Adminprice from "./adminprice";
 
 const Adminres = () => {
 
-    const [totReservation, setreservation] = useState([]);
-
-    useEffect(() => {
-        fetchData();
+    const [totReservation, setreservation] = useState([]);//예약정보를 저장해줌
+    //전체 예약리스트를 가져오는 컴포넌트
+    useEffect(() => {//처음에만실행함
+        fetchData();//예약정보를 가져옴
     }, [])
 
     function fetchData() {
-        fetch("http://localhost:8095/admin/reservation")
+        fetch("http://localhost:8095/admin/reservation")//get방식이므로 따로정보를담아주지않음.
             .then((response) => {
                 return response.json();
             }).then((data) => {
-                setreservation(data);
+                setreservation(data);//파싱후 저장해줌
             })
     }
 
     const TotalReservation = () => {
 
-        if (totReservation.length !== undefined) {
-            return (
+        if (totReservation.length !== undefined) {//값의 존재여무 체크해줌 
+            return (//리턴됀json의 형식이  리스트->맵형식으로 담겨있기때문에 파싱과정이 복잡함
                 totReservation.map((Res, index) => (//map방식을 사용하여 존재하는 값만큼 반복함 roomlist에저장된값만큼 for을 사용한다고 보면됌.
                     <Row key={index}>
                         <Col>
@@ -39,17 +39,21 @@ const Adminres = () => {
                         </Col>
                         <Col>
                             {new Date(Res.res_num.check_in).toLocaleDateString()}
+                            {/* 값을 가져오면서문자형식으로dete가 변경되기떄문에 date타입으로 형변활을시켜줌. */}
                         </Col>
                         <Col>
 
                             {new Date(Res.res_num.check_out).toLocaleDateString()}
                         </Col>
-                        {Object.keys(Res).filter(key => key.startsWith("imt")).map(optionKey => (
-                            <Col key={optionKey}>
-                                <p>{Res[optionKey].option_content}</p>
-                            </Col>
-                        ))
-                        }
+                        <Row>
+                            {Object.keys(Res).filter(key => key.startsWith("imt")).map(optionKey => (
+                                <Col key={optionKey}>
+                                    {Res[optionKey].option_content}
+                                </Col>
+
+                            ))
+                            }
+                        </Row>
                         <Col>
                             {Res.res_num.total_price}
                         </Col>

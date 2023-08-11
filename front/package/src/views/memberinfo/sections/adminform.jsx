@@ -6,11 +6,10 @@ import Adminuserinfo from "./adminuserinfo";
 
 
 const Adminform = () => {
+    //아래내용들은 각 버튼을 눌렀을때 보여줘야할값들을 설정하기위해서 만든것 
     const [resopne, setresopne] = useState(true);
     const [useropne, setuseropne] = useState(false);
     const [notice, setnotice] = useState(false);
-
-
     const resbtn = () => {
         setresopne(true);
         setuseropne(false);
@@ -27,6 +26,8 @@ const Adminform = () => {
         setuseropne(false);
         setnotice(true);
     }
+
+
     const boardstyle = {
         border: "5px solid",
         backgroundColor: "#c2a575",
@@ -62,6 +63,7 @@ const Adminform = () => {
                     <hr />
                 </Col>
             </Container>
+            {/* {true면 값을 출력 false면 값을 출력하지않음.} */}
             {resopne && <Adminres />}
             {useropne && <Adminuserinfo />}
             {notice && <Admintable />}
