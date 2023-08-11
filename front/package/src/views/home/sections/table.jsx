@@ -1,7 +1,76 @@
-import React from 'react';
-import { Container, Row, Col, Table } from 'reactstrap';
+import React, { useEffect, useState } from 'react';
+import { Container, Row, Col, Table, Modal, Input, Label } from 'reactstrap';
+
 
 const PageTable = () => {
+
+    const [notice, setnotice] = useState([]);
+    const [modalop, setmodalopp] = useState(false);
+    const [detail, setdetail] = useState([]);
+
+    useEffect(() => {
+        fetchData();
+    }, [])
+
+    async function fetchData() {
+        fetch("http://localhost:8095/admin/notice")
+            .then((response) => {
+                return response.json();
+            }).then((data) => {
+                setnotice(data);
+            }).catch((err) => {
+                console.log(err);
+            })
+    }
+
+    const Readnotice = (event) => {
+        fetch("http://localhost:8095/admin/ndetail?n_num=" + event.target.id)
+            .then((response) => {
+                return response.json();
+            }).then((data) => {
+                setdetail(data);
+            }).catch((err) => {
+                console.log(err);
+            })
+        setmodalopp(true);
+    }
+    const Notice = () => {
+        if (notice !== undefined) {
+            return notice.map((notice) => (
+                <tr key={notice.n_num}>
+                    <td>
+                        {notice.n_num}
+                    </td>
+                    <td>
+                        <input style={{ border: "none", backgroundColor: "white" }} type='button' value={notice.n_title} id={notice.n_num} onClick={Readnotice} />
+                    </td>
+                    <th><span className="label label-danger">admin</span></th>
+                </tr>
+            ));
+        } else {
+            return (
+                <tr>
+                    <td colSpan={3}>
+                        작성된 공지가 없습니다.
+                    </td>
+                </tr>
+            );
+        }
+    }
+
+    const customStyles = {
+        overlay: {
+            backgroundColor: "rgba(0,0,0,0.5)",
+        },
+        content: {
+            left: "0",
+            margin: "auto",
+            width: "500px",
+            height: "450px",
+            padding: "0",
+            overflow: "auto",
+        },
+    };
     return (
         <div>
             <div className="spacer" id="table-component">
@@ -28,24 +97,12 @@ const PageTable = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>환불안내</td>
-                                        <td>22-01-08</td>
-                                        <td><span className="label label-danger">admin</span> </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>찾아오시는길</td>
-                                        <td>22-01-08</td>
-                                        <td><span className="label label-info">member</span> </td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>서비스이용 약관</td>
-                                        <td>22-01-08</td>
-                                        <td><span className="label label-warning">developer</span> </td>
-                                    </tr>
+                                    <Notice />
+                                    <Modal isOpen={modalop} style={customStyles} ariaHideApp={false}>
+                                        <input value={detail.n_title} name={"n_title"} disabled />
+                                        <input value={detail.n_content} name={"n_content"} disabled />
+                                        <input type='button' value={"닫기"} onClick={() => { setmodalopp(false) }} />
+                                    </Modal>
                                 </tbody>
                             </Table>
                         </div>
@@ -57,3 +114,7 @@ const PageTable = () => {
 }
 
 export default PageTable;
+
+
+
+
