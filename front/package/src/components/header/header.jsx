@@ -114,15 +114,31 @@ const Header = () => {
                 </DropdownToggle>
                 <DropdownMenu className="b-none animated fadeInUp">
                   <DropdownItem>
-                    <Link to={"/info"}>
+                    <Link to={"/info"} state={{ num: 1 }} >
                       호텔소개
                     </Link>
                   </DropdownItem>
-                  <DropdownItem>방 소개</DropdownItem>
-                  <DropdownItem>서비스소개</DropdownItem>
+                  <DropdownItem >
+                    <Link to={"/info"} state={{ num: 2 }} >
+                      방소개
+                    </Link>
+                  </DropdownItem>
+                  <DropdownItem>
+                    <Link to={"/info"} state={{ num: 3 }} >
+                      서비스 소개
+                    </Link>
+                  </DropdownItem>
                   <DropdownItem divider />
-                  <DropdownItem>찾아오시는길</DropdownItem>
-                  <DropdownItem>예약안내</DropdownItem>
+                  <DropdownItem >
+                    <Link to={"/info"} state={{ num: 4 }} >
+                      찾오시는길
+                    </Link>
+                  </DropdownItem>
+                  <DropdownItem>
+                    <Link to={"/info"} state={{ num: 5 }} >
+                      예약안내
+                    </Link>
+                  </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
               <NavItem>
