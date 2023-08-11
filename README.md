@@ -7,6 +7,13 @@
 :heavy_check_mark: SpringBoot와 ReactJS를 활용한 FullStack 호텔 웹사이트 <br>
 :heavy_check_mark:  여긴 뭐쓰지 <br><br>
 
+
+  const addComma = (price) => {
+    let returnString = price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return returnString;
+  }
+
+
 ### :pushpin: 프로그램 소개 
 :wine_glass: 호텔 웹사이트 <br>
 :date: 0731 - 0810 약 2주간 진행 <br><br>
