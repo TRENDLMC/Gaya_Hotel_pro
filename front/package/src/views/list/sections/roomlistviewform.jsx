@@ -115,22 +115,24 @@ const DetailsReservation = () => {
           className="card-shadow"
           style={{
             // border: "solid 1px rgb(143, 16, 61)",
-            boxShadow: "1px 1px 1px 1px rgb(143, 16, 61,0.5)",
+            boxShadow: "1px 1px 1px 1px rgb(143, 16, 61,0.8)",
             padding: "10px",
+            textAlign: "center",
           }}
         >
-          <CardTitle className="text-align-center" style={{ fontSize: "25px" }}>
+          <CardTitle
+            className="text-align-center"
+            style={{ fontSize: "25px", fontFamily: "Orbit" }}
+          >
             {room.r_num}호
           </CardTitle>
           <CardText>
             <Setroom prors={room.r_num} />
             <hr style={{ marginBottom: "0px" }} />
-            <label
-              style={{ fontSize: "14px", color: "gray", textAlign: "center" }}
-            >
+            <label style={{ fontSize: "14px", color: "gray" }}>
               {room.r_size}인실 {room.r_type}
             </label>
-            <span style={{ fontSize: "24px", fontFamily: "Gugi" }}>
+            <span style={{ fontSize: "20px", fontFamily: "Montserrat" }}>
               &nbsp;&nbsp;&nbsp;&nbsp;{room.r_price}원
             </span>
           </CardText>
@@ -169,13 +171,13 @@ const DetailsReservation = () => {
   };
 
   const styled = {
-    marginTop: "50px",
+    margin: "50px auto",
     border: "5px solid #c2a575",
     color: "black",
     padding: "40px 20px 40px 20px",
     width: "80%",
-    margin: "auto",
     height: "140px",
+    textAlign: "center",
   };
 
   return (
@@ -188,7 +190,7 @@ const DetailsReservation = () => {
       <div id="forms-component">
         <Container md="12">
           <Row md="12" style={styled} className="justify-content-center">
-            <Col md="3" className="text-center">
+            <Col md="3">
               <input
                 type="button"
                 onClick={ontogel}
@@ -198,19 +200,19 @@ const DetailsReservation = () => {
               />
             </Col>
             <Col md="2" className="text-center">
-              <Label>체크인 날짜</Label>
+              <Label>입실 날짜</Label>
               <div>{dateop && dayjs(check_in).format("YYYY-MM-DD")}</div>
             </Col>
             <Col md="2" className="text-center">
-              <Label>체크아웃 날짜</Label>
+              <Label>퇴실 날짜</Label>
               <div>{dateop && dayjs(check_out).format("YYYY-MM-DD")}</div>
             </Col>
             <Col md="2" className="text-center">
               <Label>총 숙박 예정일</Label>
               <div>
-                {dateop && checkDayResult - 1}
-                {dateop && "박"}
                 {dateop && checkDayResult}
+                {dateop && "박"}
+                {dateop && checkDayResult + 1}
                 {dateop && "일"}{" "}
               </div>
             </Col>

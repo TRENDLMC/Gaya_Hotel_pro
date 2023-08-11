@@ -49,10 +49,10 @@ public class ProApplication implements CommandLineRunner {
 		optionRepository.save(new Option("B", "바베큐", 40000, 0));
 		optionRepository.save(new Option("C", "조식", 30000, 0)); // 인당
 		optionRepository.save(new Option("D", "사우나", 20000, 1)); // 인당
-		optionRepository.save(new Option("E", "엑스트라 배드", 40000, 1)); //인당
+		optionRepository.save(new Option("E", "추가침대", 40000, 1)); //인당
 		optionRepository.save(new Option("F", "VR", 100000, 2));
 		optionRepository.save(new Option("G", "키즈카페", 40000, 2));
-		optionRepository.save(new Option("H", "기념일행사", 300000, 3));
+		optionRepository.save(new Option("H", "기념행사", 300000, 3));
 
 	}
 

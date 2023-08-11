@@ -9,7 +9,6 @@ import Footer from "../../components/footer/footer.jsx";
 import RoomDetail from "./sections/roomdetailform.jsx";
 import RoomNavi from "./sections/roomdetailnavi.jsx";
 import RoomContent from "./sections/rommdetailcontent.jsx";
-import RoomReviewList from "./sections/roomdetailreview.jsx";
 import RoomOption from "./sections/roomdetailoption.jsx";
 import ReviewList from "./sections/roomdetailreview.jsx";
 
