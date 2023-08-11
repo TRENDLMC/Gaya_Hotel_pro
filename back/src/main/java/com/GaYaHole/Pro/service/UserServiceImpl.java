@@ -93,7 +93,15 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public int countbyidandpwd(String id, String pwd) {
-        return userRepository.countByIdAndPwd(id,pwd);
+        Optional<User> user2 = userRepository.findById(id);
+        BCryptPasswordEncoder hashPwd = new BCryptPasswordEncoder();
+
+        if(hashPwd.matches(pwd, user2.get().getPwd() )){
+            return 1;
+        }
+        else{
+            return 0;
+        }
     }
 
     @Override
