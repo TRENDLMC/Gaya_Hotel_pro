@@ -31,7 +31,8 @@
 
 #### :black_nib:ERD
 
-![ERD](https://github.com/TRENDLMC/Gaya_Hotel_pro/assets/114639084/736122e0-a2b8-402c-894d-99ebc4598b33)
+![ERD](https://github.com/TRENDLMC/Gaya_Hotel_pro/assets/114639084/c896c800-4c10-4ebe-b732-b050c26a47f0)
+
 
 
 #### :black_nib:유스케이스 
