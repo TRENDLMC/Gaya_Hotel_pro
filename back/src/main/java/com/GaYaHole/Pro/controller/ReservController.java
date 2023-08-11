@@ -36,26 +36,26 @@ public class ReservController {
         return rom;
     }
 
-    @PostMapping("/review") // 리뷰 출력 - r_num
+    @PostMapping("/review") // 리뷰 출력 - r_num (service에서 쿼리 입력)
     public List<Review> rreview(@RequestBody Room room) {
         log.info("review: " + room.getR_num());
         List<Review> rev = reviewRepository.test111(room.getR_num());
         return rev;
     }
 
-    @PostMapping("/option") // 옵션 출력
+    @PostMapping("/option") // 옵션 출력 - type에 입력값 이하의 값을 갖고있는 옵션 출력
     public List<Option> selectop(@RequestBody Room room) {
         if (room.getR_type().equals("디럭스 룸")) {
-            List<Option> deluxe = optionRepository.optype(0);
+            List<Option> deluxe = optionRepository.optype(0);           // 0옵션 출력
             return deluxe;
         } else if (room.getR_type().equals("스탠다드 룸")) {
-            List<Option> standard = optionRepository.optype(1);
+            List<Option> standard = optionRepository.optype(1);         // 0,1옵션 출력
             return standard;
         } else if (room.getR_type().equals("패밀리 룸")) {
-            List<Option> family = optionRepository.optype(2);
+            List<Option> family = optionRepository.optype(2);           // 0, 1, 2옵션 출력
             return family;
         } else {
-            List<Option> sweet = optionRepository.optype(3);
+            List<Option> sweet = optionRepository.optype(3);            // 0, 1, 2, 3옵션 출력
             return sweet;
         }
     }

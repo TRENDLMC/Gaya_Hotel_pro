@@ -13,7 +13,8 @@ public class ReviewServiceImpl implements ReviewService {
     private ReviewRepository reviewRepository;
 
     @Override
-    public void regreview(Review review) {
+    public void regreview(Review review) {  // 리뷰 작성
+
 //        Optional<User> user = userRepository.findById(review.getId().getId());
 //        Optional<Room> room = roomRepository.findById(review.getR_num().getR_num());
 //        Optional<Reservation> reservation = reservationRepository.findById(review.getReservation_num().getReservation_num());
@@ -32,22 +33,23 @@ public class ReviewServiceImpl implements ReviewService {
 //        Review review1 = Review.builder().id(user1).r_num(room1).reservation_num(reservation1).content(review.getContent())
 //                .starpoint(review.getStarpoint())
 //                .build();
+
         reviewRepository.save(review);
     }
 
     @Override
     public void ureview(Review review) {
         reviewRepository.save(review);
-    }
+    }           // 리뷰 수정
 
     @Override
     public void rdel(int review_num) {
         reviewRepository.deleteById(review_num);
-    }
+    }   // 리뷰 삭제
 
     @Override
     public Optional<Review> rdet(int review_num) {
-        Optional<Review> reviewdetail = reviewRepository.findById(review_num);
+        Optional<Review> reviewdetail = reviewRepository.findById(review_num);      // 리뷰 상세
 
         return reviewdetail;
     }

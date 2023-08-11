@@ -17,25 +17,25 @@ public class ReviewController {
     @Autowired
     private ReviewService reviewService;
 
-    @PostMapping("/write")
+    @PostMapping("/write")  // 리뷰 추가
     public String regreview (@RequestBody Review review) {
         reviewService.regreview(review);
         return "작성되었습니다";
     }
 
-    @PutMapping("/update")
+    @PutMapping("/update")  // 리뷰 수정
     public String ureview (@RequestBody Review review) {
         reviewService.ureview(review);
         return "수정 완료";
     }
 
-    @DeleteMapping("/remove/{reviewnum}")
-    public String rdel(@RequestBody Review review) {
-        reviewService.rdel(review.getReview_num());
+    @DeleteMapping("/remove/{reviewnum}")   // 리뷰 삭제
+    public String rdel(@PathVariable("review_num") int review_num) {
+        reviewService.rdel(review_num);
         return "삭제 완료";
     }
 
-    @GetMapping("/read")
+    @GetMapping("/read")    // 리뷰 상세
     public Optional<Review> rdet(@RequestBody Review review) {
         Optional<Review> reviewdetail = reviewService.rdet(review.getReview_num());
         return reviewdetail;

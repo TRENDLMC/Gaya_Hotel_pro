@@ -37,13 +37,13 @@ public class AdminController {
         return "공지 업로드";
     }
 
-    @GetMapping("/admin/notice")    // 공지 조회
+    @GetMapping("/admin/notice")    // 공지 조회 - 전체 목록 불러와서 출력
     public List<Notice> allnotice(Notice notice) throws Exception {
         List<Notice> allnotice = adminService.allNotice();
         return allnotice;
     }
 
-    @GetMapping("/admin/ndetail")    // 공지 상세
+    @GetMapping("/admin/ndetail")    // 공지 상세 - 번호 입력받고 해당 번호의 데이터 출력
     public Notice ndetail(@Param("n_num") int n_num) throws Exception{
         Optional<Notice> ndet = noticeRepository.findById(n_num);
         if(ndet.isPresent()){
