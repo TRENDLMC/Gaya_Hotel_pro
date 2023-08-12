@@ -9,6 +9,8 @@ import { Container, Row, Col } from "reactstrap";
 import { useLocation } from "react-router-dom";
 import Kakao from "./sections/Kakao.jsx";
 import HotelRoominfomation from "./sections/hotelinfo.jsx";
+import RoomInfomation from "./sections/roominfomation.jsx";
+import Resrvinfomation from "./sections/reservinfomation.jsx";
 
 //scss
 
@@ -41,8 +43,8 @@ const Information = () => {
           </Col>
           <Col md="9" style={{ border: "none" }}>
             {open[1] && <HotelRoominfomation />}
-            {open[2] && "2 칸"}
-            {open[4] && "3 칸"}
+            {open[2] && <RoomInfomation />}
+            {open[4] && <Resrvinfomation />}
             {open[3] && <Kakao />}
           </Col>
         </Row>
