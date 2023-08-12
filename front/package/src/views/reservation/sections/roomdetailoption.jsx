@@ -1,47 +1,36 @@
-import React, { useState, forwardRef } from "react";
-import { Container, Row, Col, Form, FormGroup, Label, Input } from "reactstrap";
+import React, { useRef, forwardRef } from "react";
+import { Container, Row, Col } from "reactstrap";
 
-// const RoomOption = () => {
+// const RoomContent = forwardRef((props, ref) => {
 //   // 세션 스토리지 roomInfo
 
 //   const SERVER_URL = "http://localhost:8095/";
 
-//   // 방 정보 받기
-
-//   const Row3Styles = {
-//     border: "solid",
-//   };
-
-//   return (
-//     <Container>
-//       {/* 맨위로 올라갈수 있는 버튼이 항상 존재하게 */}
-//       <Row>
-//         <Col className="col-md" style={Row3Styles}>
-//           옵션 내용
-//         </Col>
-//       </Row>
-//     </Container>
-//   );
-// };
-
-const RoomOption = forwardRef((props, ref) => {
+const RoomContent = forwardRef((props, ref) => {
   const Row3Styles = {
-    border: "solid",
+    textAlign: "center",
+    fontFamily: "Orbit",
+    fontSize: "50px",
   };
-
   return (
-    <section ref={(reviewRef) => (ref.current[2] = reviewRef)}>
+    <section ref={(reviewRef) => (ref.current[1] = reviewRef)}>
       <Container>
-        {/* 맨위로 올라갈수 있는 버튼이 항상 존재하게 */}
-        <Row>
+        <hr />
+        <Row style={{ margin: "80px 0 80px 0" }}>
+          <Col></Col>
           <Col className="col-md" style={Row3Styles}>
-            옵션 <br />
-            상세 내용
+            추가 옵션 소개
           </Col>
+          <Col></Col>
+        </Row>
+        <Row>
+          <Col md="1"></Col>
+          <Col></Col>
+          <Col md="1"></Col>
         </Row>
       </Container>
     </section>
   );
 });
 
-export default RoomOption;
+export default RoomContent;

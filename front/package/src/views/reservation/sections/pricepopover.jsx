@@ -1,13 +1,5 @@
 import React, { useState } from "react";
-import {
-  Button,
-  Popover,
-  PopoverHeader,
-  PopoverBody,
-  Container,
-  Row,
-  Col,
-} from "reactstrap";
+import { Button, Popover, PopoverHeader, PopoverBody, Col } from "reactstrap";
 
 const PopoverItem = (props) => {
   const [popoverOpen, setPopoverOpen] = useState(false);
@@ -19,11 +11,10 @@ const PopoverItem = (props) => {
   return (
     <span>
       <Button
-        className="mr-1"
         color="secondary"
         id={"Popover-" + props.id}
         type="button"
-        style={{ width: "100px", padding: "5px" }}
+        style={{ width: "100px", padding: "5px", margin: "0" }}
       >
         {props.item.text}
       </Button>
@@ -33,7 +24,7 @@ const PopoverItem = (props) => {
         target={"Popover-" + props.id}
         toggle={toggle.bind(null)}
       >
-        <PopoverHeader>Popover Title</PopoverHeader>
+        <PopoverHeader>추가 옵션 요금 안내</PopoverHeader>
         <PopoverBody>수영장 : 20000원</PopoverBody>
       </Popover>
     </span>
@@ -44,24 +35,18 @@ const TooltipPopover = () => {
   const popovers = [
     {
       placement: "top",
-      text: "가격 안내",
+      text: "요금 안내",
     },
   ];
 
   return (
-    <div>
-      <Container>
-        <Row>
-          <Col md="12" className="text-center">
-            <div className="button-box">
-              {popovers.map((popover, i) => {
-                return <PopoverItem key={i} item={popover} id={i} />;
-              })}
-            </div>
-          </Col>
-        </Row>
-      </Container>
-    </div>
+    <Col className="text-center">
+      <div className="button-box">
+        {popovers.map((popover, i) => {
+          return <PopoverItem key={i} item={popover} id={i} />;
+        })}
+      </div>
+    </Col>
   );
 };
 

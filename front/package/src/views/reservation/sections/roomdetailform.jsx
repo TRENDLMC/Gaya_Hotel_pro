@@ -24,6 +24,11 @@ const RoomDetail = () => {
   // 처음 페이지가 렌더링 될시 방 정보,체크인,체크아웃,
 
   useEffect(() => {
+    console.log("룸 인포 : " + RoomInfo.r_num);
+    let roomNum = RoomInfo.r_num;
+    console.log(
+      "사진 경로 : " + "../../../assets/images/roomlist/img" + roomNum + ".jpg"
+    );
     getRoomDetail(RoomInfo.r_num);
   }, []);
 
@@ -36,11 +41,21 @@ const RoomDetail = () => {
 
   const [optionList, setOptionList] = useState([]);
 
+  const Showimg = () => {
+    let roomNum = RoomInfo.r_num;
+    return (
+      <img
+        className="card-img-top"
+        alt="wrappixel kit"
+        src={require("../../../assets/images/roomlist/img" + roomNum + ".jpg")}
+        style={{ margin: "0px 0 0px 0", height: "100%" }}
+      />
+    );
+  };
   //옵션 리스트가 변할때마다 useEffect 로 총 결제 금액이 실시간으로 변함
   const [totalPay, setTotalPay] = useState();
 
   // 방정보 받기
-
   const getRoomDetail = (r_num) => {
     const rrum = { r_num };
 
@@ -133,15 +148,6 @@ const RoomDetail = () => {
     }
   );
 
-  const Row1Style = {
-    width: "100%",
-    border: "solid",
-  };
-
-  const InfoStyle = {
-    border: "solid",
-  };
-
   const optionListView = optionList.map(
     (
       option //map방식을 사용하여 존재하는 값만큼 반복함 방 타입에 따른 옵션이 추가됨
@@ -175,20 +181,18 @@ const RoomDetail = () => {
         //     </label>
         //   </div>
         // </Col>
-        <Col md="6">
-          <div class="col text-center box" style={{ border: "solid" }}>
-            <input
-              type="checkbox"
-              id={option.option_code}
-              value={option.option_price}
-              onChange={(e) => {
-                onCheckedItem(e.target.checked, e.target.id, e.target.value);
-              }}
-            />
-            <label htmlFor={option.option_code}>
-              {option.option_code} : {option.option_content}
-            </label>
-          </div>
+        <Col md="6" className="box">
+          <input
+            type="checkbox"
+            id={option.option_code}
+            value={option.option_price}
+            onChange={(e) => {
+              onCheckedItem(e.target.checked, e.target.id, e.target.value);
+            }}
+          />
+          <label htmlFor={option.option_code}>
+            {option.option_code} : {option.option_content}
+          </label>
         </Col>
       );
     }
@@ -241,73 +245,126 @@ const RoomDetail = () => {
     fontFamily: "Orbit",
   };
 
+  const Row1Style = {
+    border: "solid 1px #8f103d",
+    padding: "25px 25px 25px 25px",
+    borderRadius: "10px",
+  };
+
+  const InfoStyle = {
+    border: "solid",
+  };
+  // 금액 천단위마다 , 찍는 펑션
+  const addComma = (price) => {
+    let returnString = price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return returnString;
+  };
+
   return (
     <div>
       <div>
-        <Row style={fonth1} className="justify-content-center">
-          <Col md="2" className="text-center" style={{}}>
-            <label>예&nbsp;&nbsp;&nbsp;약</label>
-          </Col>
-        </Row>
+        <Col>
+          <Row style={fonth1} className="justify-content-center">
+            <Col md="2" className="text-center">
+              <label>예&nbsp;&nbsp;&nbsp;약</label>
+            </Col>
+          </Row>
+        </Col>
       </div>
 
-      <Container>
+      <Container
+        style={
+          {
+            //  fontFamily: "Orbit"
+          }
+        }
+      >
         <Row>
-          <Col style={Row1Style} className="cl-md-6">
-            <div>사진 칸</div>
+          <Col md="6" style={{ padding: "15px" }}>
+            <Showimg />
           </Col>
-          {/* 사용가능한 방 옵션 선택시 스트링으로 저장할수 있게 */}
-          <Col className="cl-md-6" style={Row1Style}>
-            <Container>
-              <Row style={{ fontSize: "30px", margin: "15px 0 0 10px" }}>
+          <Col md="6" style={Row1Style}>
+            <Row style={{ fontSize: "30px", fontFamily: "Orbit" }}>
+              <Col style={{ marginLeft: "20px" }}>
                 객실 번호 : {detailInfo.r_num} 호실
-              </Row>
-              <hr />
-              <Row style={{ fontSize: "20px", marginLeft: "5px" }}>
-                <Col md="3">{detailInfo.r_type}</Col>
-                <Col>{detailInfo.r_size} 인실</Col>
-              </Row>
-              <hr />
-              <Row>
-                <Col style={{ textAlign: "center" }}>
-                  <Row>
-                    <Col>입실 날짜</Col>
-                    <Col>{detailInfo.tmp_checkin}</Col>
-                  </Row>
-                  <Row>
-                    <Col>퇴실 날짜</Col>
-                    <Col>{detailInfo.tmp_checkout}</Col>
-                  </Row>
-                </Col>
-                <Col>
-                  <Row>
-                    <Col>총 일수</Col>
-                  </Row>
-                  <Row>
-                    <Col>
-                      {detailInfo.total}박 {detailInfo.total + 1}일
-                    </Col>
-                  </Row>
-                </Col>
-              </Row>
-              <hr />
-              <Row style={InfoStyle}>
-                <Col
-                  style={{
-                    fontSize: "22px",
-                    paddingTop: "6px",
-                    paddingLeft: "40px",
-                  }}
-                >
-                  옵션 선택
-                </Col>
-                <Col>
-                  <TooltipPopover />
-                </Col>
-              </Row>
+              </Col>
+            </Row>
+            <hr />
+            <Row
+              style={{
+                fontSize: "20px",
+                marginLeft: "5px",
+                fontFamily: "Orbit",
+              }}
+            >
+              <Col>
+                {detailInfo.r_type}&nbsp;&nbsp;{detailInfo.r_size} 인실
+              </Col>
+            </Row>
+            <hr />
+            <Row>
+              <Col style={{ textAlign: "center" }}>
+                <Row>
+                  <Col style={{ fontFamily: "Orbit" }}>입실 날짜</Col>
+                  <Col>{detailInfo.tmp_checkin}</Col>
+                </Row>
+                <hr />
+                <Row>
+                  <Col style={{ fontFamily: "Orbit" }}>퇴실 날짜</Col>
+                  <Col>{detailInfo.tmp_checkout}</Col>
+                </Row>
+              </Col>
+              <Col style={{ textAlign: "center", marginTop: "10px" }}>
+                <Row>
+                  <Col></Col>
+                  <Col
+                    md="8"
+                    style={{
+                      fontSize: "20px",
+                      fontFamily: "Orbit",
+                      marginBottom: "5px",
+                    }}
+                  >
+                    총 일수
+                  </Col>
+                  <Col></Col>
+                </Row>
+                <Row>
+                  <Col></Col>
+                  <Col md="8" style={{ fontSize: "20px", fontFamily: "Orbit" }}>
+                    {detailInfo.total}박 {detailInfo.total + 1}일
+                  </Col>
+                  <Col></Col>
+                </Row>
+              </Col>
+            </Row>
+            <hr />
+            <Row style={{ textAlign: "center", marginBottom: "10px" }}>
+              <Col
+                style={{
+                  fontSize: "22px",
+                  padding: "0px 0px 0px 40px",
+                  fontFamily: "Orbit",
+                }}
+              >
+                옵션 선택
+              </Col>
+              <TooltipPopover />
+            </Row>
+            <div style={{ border: "solid 1px", padding: "5px" }}>
               <Row>{optionListView}</Row>
-              <Col style={InfoStyle}>총 결제 금액 </Col>
-              <Col style={InfoStyle}> {totalPay}</Col>
+            </div>
+            <hr />
+            <Row style={{ margin: "20px 0 20px" }}>
+              <Col md="4" style={{ fontSize: "20px" }}>
+                총 결제 금액
+              </Col>
+              <Col style={{ fontSize: "28px", fontFamily: "Gugi" }}>
+                {" "}
+                {addComma(totalPay)} 원
+              </Col>
+            </Row>
+            <Row>
               <Col className="text-center">
                 <input
                   type="button"
@@ -338,7 +395,7 @@ const RoomDetail = () => {
                   value={"결제"}
                 />
               </Col>
-            </Container>
+            </Row>
           </Col>
           {/* 예약하기 버튼을 누르면 결제 모달창이 뜨게  */}
         </Row>

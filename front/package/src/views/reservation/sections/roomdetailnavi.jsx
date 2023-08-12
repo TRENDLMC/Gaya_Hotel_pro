@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Container } from "reactstrap";
+import { Container, Row, Col, NavItem } from "reactstrap";
 
 const RoomNavi = ({ scrollRef }) => {
   // 리뷰 리스트 출력시 필요한 정보 객체
@@ -12,26 +12,28 @@ const RoomNavi = ({ scrollRef }) => {
     setNavIndex(null);
   }, [scrollRef, navIndex]);
 
-  useEffect(() => {
-    const changeNavBtnStyle = () => {
-      scrollRef.current.forEach((ref, idx) => {
-        if (ref.offsetTop - 180 < window.scrollY) {
-          navRef.current.forEach((ref) => {
-            ref.className = ref.className.replace(" active", "");
-          });
+  // useEffect(() => {
+  //   const changeNavBtnStyle = () => {
+  //     scrollRef.current.forEach((ref, idx) => {
+  //       if (ref.offsetTop !== null) {
+  //         if (ref.offsetTop - 180 < window.scrollY) {
+  //           navRef.current.forEach((ref) => {
+  //             ref.className = ref.className.replace(" active", "");
+  //           });
 
-          navRef.current[idx].className += " active";
-        }
-      });
-    };
+  //           navRef.current[idx].className += " active";
+  //         }
+  //       }
+  //     });
+  //   };
+  //   window.addEventListener("scroll", changeNavBtnStyle);
 
-    window.addEventListener("scroll", changeNavBtnStyle);
+  //   return () => {
+  //     window.removeEventListener("scroll", changeNavBtnStyle);
+  //   };
+  // }, [scrollRef]);
 
-    return () => {
-      window.removeEventListener("scroll", changeNavBtnStyle);
-    };
-  }, [scrollRef]);
-
+  //방 상세정보 속 네비게이션
   const DETAIL_NAV = [
     { idx: 0, name: "방 소개" },
     { idx: 1, name: "옵션 소개" },
@@ -39,18 +41,27 @@ const RoomNavi = ({ scrollRef }) => {
   ];
 
   const Row2Styles = {
-    height: "100px",
-    border: "solid",
+    height: "80px",
+    fontSize: "25px",
+    textAlign: "center",
+    paddingTop: "18px",
   };
 
   // CSS 나중에
   return (
-    <Container id="navContainer">
-      {/* 스크롤 내리면 화면 맨 위에 고정되게  */}
-
-      <nav className="navBar">
+    <Container
+      id="navContainer"
+      style={{
+        margin: "20px auto",
+        border: "solid 1px #c2a575",
+        fontFamily: "Orbit",
+      }}
+    >
+      {/* 스크롤 내리면 화면 맨 위에 고정되게 */}
+      <Row>
+        <Col md="2"></Col>
         {DETAIL_NAV.map(({ idx, name }) => (
-          <div
+          <Col
             key={idx}
             ref={(ref) => (navRef.current[idx] = ref)}
             onClick={() => {
@@ -59,9 +70,10 @@ const RoomNavi = ({ scrollRef }) => {
             style={Row2Styles}
           >
             {name}
-          </div>
+          </Col>
         ))}
-      </nav>
+        <Col md="2"></Col>
+      </Row>
     </Container>
   );
 };
