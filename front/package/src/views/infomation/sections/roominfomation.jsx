@@ -6,13 +6,17 @@ import img102 from "../../../assets/images/roomlist/img102.jpg";
 import img103 from "../../../assets/images/roomlist/img103.jpg";
 import img104 from "../../../assets/images/roomlist/img104.jpg";
 
+
 const RoomInfomation = () => {
 
   return (
     <div>
         <br/><br/>
         <Row><h1 style={{textAlign:"center"}}>방 소개</h1></Row>
-        <br/><br/><br/>
+        <br/><br/>
+        <br/><br/>
+        <hr style={{width:"90%", margin: "auto"}}/>
+        <br/><br/>
         {/* 디럭스 룸 */}
         <Row>
             <Col md="5">
@@ -107,6 +111,8 @@ const RoomInfomation = () => {
               </h6>
             </Col>
         </Row>
+        <br/><br/>
+        <hr style={{width:"90%", margin: "auto"}}/>
         <br/><br/>
 
     </div>
