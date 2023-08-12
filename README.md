@@ -8,11 +8,6 @@
 :heavy_check_mark:  여긴 뭐쓰지 <br><br>
 
 
-  const addComma = (price) => {
-    let returnString = price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    return returnString;
-  }
-
 
 ### :pushpin: 프로그램 소개 
 :wine_glass: 호텔 웹사이트 <br>
