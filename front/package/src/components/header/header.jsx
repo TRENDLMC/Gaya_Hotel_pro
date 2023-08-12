@@ -123,19 +123,14 @@ const Header = () => {
                       방소개
                     </Link>
                   </DropdownItem>
-                  <DropdownItem>
-                    <Link to={"/info"} state={{ num: 3 }} >
-                      서비스 소개
-                    </Link>
-                  </DropdownItem>
                   <DropdownItem divider />
                   <DropdownItem >
-                    <Link to={"/info"} state={{ num: 4 }} >
+                    <Link to={"/info"} state={{ num: 3 }} >
                       찾오시는길
                     </Link>
                   </DropdownItem>
                   <DropdownItem>
-                    <Link to={"/info"} state={{ num: 5 }} >
+                    <Link to={"/info"} state={{ num: 4 }} >
                       예약안내
                     </Link>
                   </DropdownItem>

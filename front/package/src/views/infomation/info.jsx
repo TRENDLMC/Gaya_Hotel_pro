@@ -8,6 +8,7 @@ import Leftnavi from "./sections/infos.jsx";
 import { Container, Row, Col } from "reactstrap";
 import { useLocation } from "react-router-dom";
 import Kakao from "./sections/Kakao.jsx";
+import HotelRoominfomation from "./sections/hotelinfo.jsx";
 
 //scss
 
@@ -31,19 +32,18 @@ const Information = () => {
   };
 
   return (
-    <div id="main-wrapper">
+    <div>
       <Header />
-      <Container>
+      <Container >
         <Row>
-          <Col md="3" style={{ border: "solid" }}>
+          <Col md="3" style={{ border: "none" }}>
             <Leftnavi />
           </Col>
-          <Col md="9" style={{ border: "solid" }}>
-            {open[1] && "1 칸"}
+          <Col md="9" style={{ border: "none" }}>
+            {open[1] && <HotelRoominfomation />}
             {open[2] && "2 칸"}
-            {open[3] && "3 칸"}
-            {open[4] && <Kakao />}
-            {open[5] && "5 칸"}
+            {open[4] && "3 칸"}
+            {open[3] && <Kakao />}
           </Col>
         </Row>
       </Container>
