@@ -1,5 +1,6 @@
 import React, { useState, forwardRef, useEffect } from "react";
 import { Container, Row, Col } from "reactstrap";
+import { FaStar, FaStarHalf } from "react-icons/fa";
 
 // const RoomReviewList = () => {
 //   // 세션 스토리지 roomInfo
@@ -87,20 +88,49 @@ const ReviewList = () => {
   }, []);
 
   const Row3Styles = {
-    border: "solid",
+    textAlign: "center",
+    fontFamily: "Orbit",
+    fontSize: "50px",
   };
-
   const ReviewListView = () => {
     if (reviewList !== undefined) {
       return reviewList.map(
         (
           review //map방식을 사용하여 존재하는 값만큼 반복함 roomlist에저장된값만큼 for을 사용한다고 보면됌.
         ) => (
-          <Row style={Row3Styles}>
-            <Col md="2">{review.starpoint}</Col>
-            <Col md="7">{review.content}</Col>
-            <Col md="3">{review.review_num}</Col>
-            {/* 작성자 아이디가 들어가야 하나 테스트 용으로 review_num으로 대체 */}
+          <Row>
+            <Col
+              md="3"
+              style={{
+                textAlign: "center",
+                fontSize: "30px",
+                paddingTop: "5px",
+              }}
+            >
+              <FaStar style={{ color: "orange", marginBottom: "10px" }} />
+              <span>&nbsp;&nbsp;{review.starpoint}</span>
+            </Col>
+            <Col
+              md="6"
+              style={{
+                textAlign: "center",
+                fontSize: "20px",
+                paddingTop: "15px",
+                textOverflow: "ellipsis",
+              }}
+            >
+              <div style={{ textOverflow: "ellipsis" }}> {review.content}</div>
+            </Col>
+            <Col
+              md="3"
+              style={{
+                textAlign: "center",
+                fontSize: "20px",
+                paddingTop: "15px",
+              }}
+            >
+              {review.id.id}
+            </Col>
           </Row>
         )
       );
@@ -132,15 +162,33 @@ const ReviewList = () => {
   };
 
   return (
-    <Container>
+    <Container style={{ width: "70%", margin: "0 auto 30px" }}>
       {/* 맨위로 올라갈수 있는 버튼이 항상 존재하게 */}
-      <Row style={Row3Styles}>
-        <Col md="2">별점</Col>
-        <Col md="7">내용</Col>
-        <Col md="3">작성자</Col>
+      <Row style={{ margin: "80px 0 80px 0" }}>
+        <Col></Col>
+        <Col className="col-md" style={Row3Styles}>
+          리&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;뷰
+        </Col>
+        <Col></Col>
       </Row>
-
-      <ReviewListView />
+      <Row>
+        <Col>
+          <Row
+            style={{ border: "solid 1px", height: "50px", paddingTop: "10px" }}
+          >
+            <Col md="3" style={{ textAlign: "center", fontSize: "20px" }}>
+              별&nbsp;&nbsp;&nbsp;&nbsp;점
+            </Col>
+            <Col md="6" style={{ textAlign: "center", fontSize: "20px" }}>
+              내&nbsp;&nbsp;&nbsp;&nbsp;용
+            </Col>
+            <Col md="3" style={{ textAlign: "center", fontSize: "20px" }}>
+              작&nbsp;&nbsp;성&nbsp;&nbsp;자
+            </Col>
+          </Row>
+          <ReviewListView />
+        </Col>
+      </Row>
     </Container>
   );
 };

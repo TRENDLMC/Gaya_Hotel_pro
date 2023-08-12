@@ -1,5 +1,6 @@
 import React, { useRef, forwardRef } from "react";
 import { Container, Row, Col } from "reactstrap";
+import StarInput from "../../memberinfo/sections/starpont";
 
 // const RoomContent = forwardRef((props, ref) => {
 //   // 세션 스토리지 roomInfo

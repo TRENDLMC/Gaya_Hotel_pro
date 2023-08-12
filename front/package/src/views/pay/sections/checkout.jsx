@@ -64,7 +64,7 @@ export function CheckoutPage(payinfo, reservationinfo) {
 
   return (
     <div>
-      <h1>주문서</h1>
+      {/* <h1>주문서</h1>
       <span>{`${price.toLocaleString()}원`}</span>
       <div>
         <label>
@@ -76,7 +76,7 @@ export function CheckoutPage(payinfo, reservationinfo) {
           />
           5,000원 할인 쿠폰 적용
         </label>
-      </div>
+      </div> */}
       <div id="payment-widget" />
       <div id="agreement" />
       <button
