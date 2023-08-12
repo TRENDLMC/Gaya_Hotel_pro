@@ -17,6 +17,7 @@ import { FailPage } from "./views/pay/sections/fail";
 import { SuccessPage } from "./views/pay/sections/success";
 import Information from "./views/infomation/info";
 import TopButton from "./views/home/sections/topbutton";
+import ScrollToTop from "./views/home/sections/scrolltop";
 
 dayjs.extend(isLeapYear); // 플러그인 등록
 dayjs.locale("ko"); // 언어 등록
@@ -37,6 +38,7 @@ root.render(
       <Route path="/info" element={<Information />} />
     </Routes>
     <TopButton />
+    <ScrollToTop />
   </BrowserRouter>
 );
 
