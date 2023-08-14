@@ -37,7 +37,7 @@ const Header = () => {
     var id = {
       id: sessionStorage.getItem("id"),
     };
-    fetch("http://localhost:8095/user/gradecheck", {
+    fetch(process.env.REACT_APP_SERVER_LOCAL+"/user/gradecheck", {
       method: "POST", //조회
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(id),
