@@ -32,13 +32,22 @@ const Adminres = () => {
       return totReservation.map((Res, index) => (
         <Row key={index}>
           <Col>{Res.res_num.reservation_num}</Col>
-          <Col>{Res.res_num.r_num.r_num}</Col>
-          <Col>{Res.res_num.r_num.r_type}</Col>
-          <Col>{new Date(Res.res_num.check_in).toLocaleDateString()}</Col>
-          <Col>{new Date(Res.res_num.check_out).toLocaleDateString()}</Col>
+          <Col>
+            {Res.res_num.id.id}
+            <br />
+            {Res.res_num.order_id}
+          </Col>
+          <Col>
+            {Res.res_num.r_num.r_num}
+            <br />
+            {Res.res_num.r_num.r_type}
+          </Col>
+          <Col>
+            {new Date(Res.res_num.check_in).toLocaleDateString()}
+            <br />~ {new Date(Res.res_num.check_out).toLocaleDateString()}
+          </Col>
           {renderOptionColumns(Res)}
           <Col>{Res.res_num.total_price}</Col>
-          <Col>{Res.res_num.id.id}</Col>
         </Row>
       ));
     } else {
@@ -61,13 +70,12 @@ const Adminres = () => {
         <hr />
         <Row>
           <Col>예약번호</Col>
-          <Col>방번호</Col>
-          <Col>방등급</Col>
-          <Col>체크인</Col>
-          <Col>체크아웃</Col>
+          {/* 아이디랑 order_idZ */}
+          <Col>예약정보</Col>
+          <Col>방 정보</Col>
+          <Col>입퇴실날짜</Col>
           <Col>옵션</Col>
           <Col>총결제금액</Col>
-          <Col>예약자아이디</Col>
         </Row>
         <hr />
         <br />

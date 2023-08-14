@@ -130,6 +130,7 @@ const ReviewList = () => {
             >
               {review.id.id}
             </Col>
+            <hr style={{ width: "97%", margin: "0 auto" }} />
           </Row>
         )
       );
@@ -171,9 +172,18 @@ const ReviewList = () => {
         <Col></Col>
       </Row>
       <Row>
-        <Col>
+        <Col></Col>
+        <Col md="9">
           <Row
-            style={{ border: "solid 1px", height: "50px", paddingTop: "10px" }}
+            style={{
+              margin: "0 auto",
+              height: "50px",
+              paddingTop: "10px",
+              borderTopRightRadius: "10px",
+              borderTopLeftRadius: "10px",
+              background: "#8f103d",
+              color: "#fff",
+            }}
           >
             <Col md="3" style={{ textAlign: "center", fontSize: "20px" }}>
               별&nbsp;&nbsp;&nbsp;&nbsp;점
@@ -185,8 +195,10 @@ const ReviewList = () => {
               작&nbsp;&nbsp;성&nbsp;&nbsp;자
             </Col>
           </Row>
+
           <ReviewListView />
         </Col>
+        <Col></Col>
       </Row>
     </Container>
   );
