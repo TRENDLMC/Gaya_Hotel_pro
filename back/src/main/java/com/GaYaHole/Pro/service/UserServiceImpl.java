@@ -44,18 +44,20 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public String login(User user) { //로그인
-
         Optional<User> user2 = userRepository.findById(user.getId());
-        BCryptPasswordEncoder hashPwd = new BCryptPasswordEncoder();
-        //로그인 시 비밀번호를 BCrypt 형식으로 바꿔서 비교한다
-
-        if(hashPwd.matches(user.getPwd(), user2.get().getPwd())){
-            //비밀번호가 일치하면 토큰 발급
-            String token = tokenProvider.create(user2);
-            return token;
-        }
-        else{
-            //일치하지 않으면 발급하지 않는다
+        if(user2.isPresent()) {
+            BCryptPasswordEncoder hashPwd = new BCryptPasswordEncoder();
+            //로그인 시 비밀번호를 BCrypt 형식으로 바꿔서 비교한다
+            System.out.println(hashPwd.matches(user.getPwd(), user2.get().getPwd()));
+            if (hashPwd.matches(user.getPwd(), user2.get().getPwd())) {
+                //비밀번호가 일치하면 토큰 발급
+                String token = tokenProvider.create(user2);
+                return token;
+            } else {
+                //일치하지 않으면 발급하지 않는다
+                return null;
+            }
+        }else {
             return null;
         }
 

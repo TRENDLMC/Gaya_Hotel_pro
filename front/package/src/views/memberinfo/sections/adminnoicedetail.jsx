@@ -17,7 +17,7 @@ const Modaldetail = ({ detail, setdetail, modaltogle, setmodalopp, setrender }) 
 
     const putnotice = () => {//수정버튼을 누를시 활성화 됌.
         fetch(
-            "http://localhost:8095/admin/modnotice", {
+            process.env.REACT_APP_SERVER_LOCAL + "/admin/modnotice", {
             method: "PUT",//전송 mapper를 설정
             headers: { "Content-Type": "application/json" },//값을 json형식으로 보내므로 headers에 전송값을 설정해줌
             body: JSON.stringify(detail),//보디에는 json형식으로 문자형으로 변경하여 위에서 저장한 값을 뿌려줌
@@ -35,7 +35,7 @@ const Modaldetail = ({ detail, setdetail, modaltogle, setmodalopp, setrender }) 
 
     const deletenotice = () => {//삭제버튼을 누를시 발생
         fetch(
-            "http://localhost:8095/admin/" + detail.n_num, {//delete의경우 query string으로 값을 전송가능하기떄문에 형식을 맞춰줌
+            process.env.REACT_APP_SERVER_LOCAL + "/admin/" + detail.n_num, {//delete의경우 query string으로 값을 전송가능하기떄문에 형식을 맞춰줌
             method: "delete",//전송 mapper를 설정
             headers: { "Content-Type": "application/json" },//값을 json형식으로 보내므로 headers에 전송값을 설정해줌
         })

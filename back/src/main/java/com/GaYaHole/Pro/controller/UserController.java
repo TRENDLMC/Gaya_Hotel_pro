@@ -31,11 +31,9 @@ public class UserController {
         //로그인하며 토큰 스트링을 받아오기 때문에 스트링으로 선언
         if(result!=null){
             //토큰을 받아오지 못했다면 로그인 실패, 받아왔다면 성공
-            System.out.println( "로그인 성공");
-            System.out.println(result);
         }
         else{
-            System.out.println( "로그인 실패");
+            result="실패";
         }
         return result;
     }
@@ -75,8 +73,12 @@ public class UserController {
     @PostMapping("/user/gradecheck") //사용자 -> 블랙 여부
     public int gradecheck(@RequestBody User user){
         Optional<User> user1=userService.gradeCheck(user);
-        return user1.get().getGrade(); //0 -> 일반 사용자 | 1 -> 관리자 | -1 -> 블랙 사용자
-    }
+        if(user1.isPresent()) {
+            return user1.get().getGrade(); //0 -> 일반 사용자 | 1 -> 관리자 | -1 -> 블랙 사용자
+        }else {
+            return 0;
+        }
+        }
 
     //http://localhost:8095/user/info
     @PostMapping("/user/info") //사용자 -> 사용자 정보 조회

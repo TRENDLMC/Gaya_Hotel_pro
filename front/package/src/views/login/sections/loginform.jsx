@@ -1,5 +1,5 @@
 import React, { Component, useEffect, useState } from "react";
-import { Container, Row, Col, Form, FormGroup, Label, Input } from "reactstrap";
+import { Container, Row, Col, Form, FormGroup, Label, Input, ListGroup } from "reactstrap";
 import { HashLink as Link } from "react-router-hash-link";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -39,7 +39,7 @@ const LoginForm = () => {
 
     console.log(JSON.stringify(loginInfo));
 
-    fetch(process.env.REACT_APP_SERVER_LOCAL+"/user/login", {
+    fetch(process.env.REACT_APP_SERVER_LOCAL + "/user/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(loginInfo),
@@ -48,7 +48,8 @@ const LoginForm = () => {
         return response.text();
       })
       .then((data) => {
-        if (data === null) {
+        console.log(data);
+        if (data === "??") {
           alert("로그인 실패.");
           window.location.reload();
         } else {

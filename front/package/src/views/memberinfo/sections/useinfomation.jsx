@@ -27,7 +27,7 @@ const Userinfo = () => {
         let moduserinfo = {
             id: sessionStorage.getItem("id")
         };//아이디값을 세선에서 가져와서json형식으로 서버에보내줌
-        fetch("http://localhost:8095/user/info", {
+        fetch(process.env.REACT_APP_SERVER_LOCAL + "/user/info", {
             method: "POST",//조회
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(moduserinfo),
@@ -52,7 +52,7 @@ const Userinfo = () => {
             pwd: pwd
         };//아이디와 비밀번호를 json형식으로 포장후 보냄
 
-        fetch("http://localhost:8095/user/chepwd", {
+        fetch(process.env.REACT_APP_SERVER_LOCAL + "/user/chepwd", {
             method: "POST",//조회
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(moduserinfo),
@@ -76,7 +76,7 @@ const Userinfo = () => {
     }//useinfo 함수에다가 값이변경될경우 바로바로 적용되게만듬
 
     const submituserinfo = () => {//수정완료버튼을 누르면 실행
-        fetch("http://localhost:8095/user/modify", {
+        fetch(process.env.REACT_APP_SERVER_LOCAL + "/user/modify", {
             method: "PUT",//put 방식으로 보내서 db의 값을 변경시킴
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(useinfomation),

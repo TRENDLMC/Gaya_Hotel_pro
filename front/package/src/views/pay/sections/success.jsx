@@ -4,7 +4,6 @@ import Footer from "../../../components/footer/footer";
 import { Container, Row, Col, Form, FormGroup, Label, Input } from "reactstrap";
 import { useEffect } from "react";
 
-const SERVER_URL = "http://localhost:8095/";
 
 export function SuccessPage() {
   const [searchParams] = useSearchParams();
@@ -19,7 +18,7 @@ export function SuccessPage() {
     tmp.r_num = { r_num: tmp.r_num };
     console.log(tmp);
 
-    fetch(SERVER_URL + "reser/reservation", {
+    fetch(process.env.REACT_APP_SERVER_LOCAL + "/reser/reservation", {
       //fetch로 연결된 서버로 전송함df
       method: "POST", //전송 mapper를 설정
       headers: { "Content-Type": "application/json" }, //값을 json형식으로 보내므로 headers에 전송값을 설정해줌

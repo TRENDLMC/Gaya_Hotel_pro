@@ -12,7 +12,6 @@ import {
 } from "reactstrap";
 import * as dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
-import { findRenderedDOMComponentWithClass } from "react-dom/test-utils";
 
 const DetailsReservation = () => {
   const [roomlist, setRoomlist] = useState([]); //위에서 서버로부터 받아온값을 저장하는 state
@@ -58,7 +57,7 @@ const DetailsReservation = () => {
       check_in: dayjs(check_in).format("YYYY-MM-DD"), //가져온 데이터값을 전송하기전에 사용하기편한 형태로변환시킴 fotmat작업
       check_out: dayjs(check_out).format("YYYY-MM-DD"), //마찬가지 값또한 db의 변수명과동일하게설정하여 vo사용이 가능하게만듬
     };
-    fetch("http://localhost:8095/reser/datecheck", {
+    fetch(process.env.REACT_APP_SERVER_LOCAL + "/reser/datecheck", {
       //fetch로 연결된 서버로 전송함
       method: "POST", //전송 mapper를 설정
       headers: { "Content-Type": "application/json" }, //값을 json형식으로 보내므로 headers에 전송값을 설정해줌

@@ -7,7 +7,7 @@ const Adminprice = () => {
 
     useEffect(() => {
         async function fetchData() {
-            fetch("http://localhost:8095/admin/gProfit")
+            fetch(process.env.REACT_APP_SERVER_LOCAL + "/admin/gProfit")
                 .then((response) => {
                     return response.json();
                 }).then((data) => {

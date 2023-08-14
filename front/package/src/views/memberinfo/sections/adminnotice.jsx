@@ -21,7 +21,7 @@ const Admintabel = () => {
     }, [])
 
     async function fetchData() {
-        fetch("http://localhost:8095/admin/notice")
+        fetch(process.env.REACT_APP_SERVER_LOCAL + "/admin/notice")
             .then((response) => {
                 return response.json();
             }).then((data) => {
@@ -32,7 +32,7 @@ const Admintabel = () => {
     }
 
     const Readnotice = (event) => {
-        fetch("http://localhost:8095/admin/ndetail?n_num=" + event.target.id)
+        fetch(process.env.REACT_APP_SERVER_LOCAL + "/admin/ndetail?n_num=" + event.target.id)
             .then((response) => {
                 return response.json();
             }).then((data) => {
@@ -77,7 +77,7 @@ const Admintabel = () => {
             return;
         }
         fetch(
-            "http://localhost:8095/admin/addnotice", {
+            process.env.REACT_APP_SERVER_LOCAL + "/admin/addnotice", {
             method: "POST",//전송 mapper를 설정
             headers: { "Content-Type": "application/json" },//값을 json형식으로 보내므로 headers에 전송값을 설정해줌
             body: JSON.stringify(addnotice),//보디에는 json형식으로 문자형으로 변경하여 위에서 저장한 값을 뿌려줌

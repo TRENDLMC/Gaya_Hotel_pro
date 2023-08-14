@@ -37,22 +37,24 @@ const Header = () => {
     var id = {
       id: sessionStorage.getItem("id"),
     };
-    fetch(process.env.REACT_APP_SERVER_LOCAL+"/user/gradecheck", {
-      method: "POST", //조회
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(id),
-    })
-      .then((response) => {
-        return response.json();
+    if (sessionStorage.getItem("id") !== null) {
+      fetch(process.env.REACT_APP_SERVER_LOCAL + "/user/gradecheck", {
+        method: "POST", //조회
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(id),
       })
-      .then((date) => {
-        sessionStorage.setItem("grade", date);
-        setGrade(date);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    sessionCheck();
+        .then((response) => {
+          return response.json();
+        })
+        .then((date) => {
+          sessionStorage.setItem("grade", date);
+          setGrade(date);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      sessionCheck();
+    }
   }, [loginSession]);
 
   const sessionClear = () => {

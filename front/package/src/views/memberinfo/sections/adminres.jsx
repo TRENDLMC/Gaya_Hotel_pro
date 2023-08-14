@@ -11,7 +11,7 @@ const Adminres = () => {
 
   async function fetchData() {
     try {
-      const response = await fetch("http://localhost:8095/admin/reservation");
+      const response = await fetch(process.env.REACT_APP_SERVER_LOCAL + "/admin/reservation");
       const data = await response.json();
       setReservation(data);
     } catch (error) {

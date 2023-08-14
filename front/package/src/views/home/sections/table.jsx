@@ -12,7 +12,7 @@ const PageTable = () => {
     }, [])
 
     async function fetchData() {//전체 공지사항 리스트를가져오는 fethch 
-        fetch("http://localhost:8095/admin/notice")
+        fetch(process.env.REACT_APP_SERVER_LOCAL + "/admin/notice")
             .then((response) => {
                 return response.json();//json형식으로 파싱시킴
             }).then((data) => {
@@ -23,7 +23,7 @@ const PageTable = () => {
     }
 
     const Readnotice = (event) => {
-        fetch("http://localhost:8095/admin/ndetail?n_num=" + event.target.id)//상세보기 버튼 클릭시 저장된 글번호를 토대로 서버에 정보를요청 GET방식
+        fetch(process.env.REACT_APP_SERVER_LOCAL + "/admin/ndetail?n_num=" + event.target.id)//상세보기 버튼 클릭시 저장된 글번호를 토대로 서버에 정보를요청 GET방식
             .then((response) => {
                 return response.json();//파싱
             }).then((data) => {

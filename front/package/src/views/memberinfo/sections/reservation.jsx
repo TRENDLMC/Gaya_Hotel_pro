@@ -23,7 +23,7 @@ const Readreservation = () => {
         var moduserinfo = {
             id: sessionStorage.getItem("id"),
         }
-        fetch("http://localhost:8095/user/mypage", {
+        fetch(process.env.REACT_APP_SERVER_LOCAL + "/user/mypage", {
             method: "POST",//조회
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(moduserinfo),
@@ -114,7 +114,7 @@ const Readreservation = () => {
             reservation_num: { reservation_num: Reservation[temnum].res_num.reservation_num }
         }
         console.log(JSON.stringify(reviwe));
-        fetch("http://localhost:8095/review/write", {
+        fetch(process.env.REACT_APP_SERVER_LOCAL + "/review/write", {
             method: "POST",//조회
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(reviwe),

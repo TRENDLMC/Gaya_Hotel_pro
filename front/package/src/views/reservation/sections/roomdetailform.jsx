@@ -5,7 +5,6 @@ import { CheckoutPage } from "./../../pay/sections/checkout";
 import TooltipPopover from "./pricepopover.jsx";
 
 const RoomDetail = () => {
-  const SERVER_URL = "http://localhost:8095/";
 
   // 세션 스토리지 roomInfo -> 방리스트 페이지에서 받아온 방 정보 JSON
   const [detailInfo, setDetailInfo] = useState([]);
@@ -59,7 +58,7 @@ const RoomDetail = () => {
   const getRoomDetail = (r_num) => {
     const rrum = { r_num };
 
-    fetch(SERVER_URL + "reserv/detail", {
+    fetch(process.env.REACT_APP_SERVER_LOCAL + "/reserv/detail", {
       //fetch로 연결된 서버로 전송함
       method: "POST", //전송 mapper를 설정
       headers: { "Content-Type": "application/json" }, //값을 json형식으로 보내므로 headers에 전송값을 설정해줌
@@ -94,7 +93,7 @@ const RoomDetail = () => {
     setDetailInfo(tmp);
     console.log(detailInfo);
 
-    fetch(SERVER_URL + "reserv/option", {
+    fetch(process.env.REACT_APP_SERVER_LOCAL + "/reserv/option", {
       //fetch로 연결된 서버로 전송함
       method: "POST", //전송 mapper를 설정
       headers: { "Content-Type": "application/json" }, //값을 json형식으로 보내므로 headers에 전송값을 설정해줌

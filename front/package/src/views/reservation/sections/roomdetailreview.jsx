@@ -5,7 +5,6 @@ import { FaStar, FaStarHalf } from "react-icons/fa";
 // const RoomReviewList = () => {
 //   // 세션 스토리지 roomInfo
 
-const SERVER_URL = "http://localhost:8095/";
 
 // const RoomReviewList = forwardRef((props, ref) => {
 //   const [reviewList, setReviewList] = useState([]);
@@ -140,7 +139,7 @@ const ReviewList = () => {
   const searchReview = (r_num) => {
     const rrum = { r_num };
     console.log(rrum);
-    fetch(SERVER_URL + "reserv/review", {
+    fetch(process.env.REACT_APP_SERVER_LOCAL + "/reserv/review", {
       //fetch로 연결된 서버로 전송함
       method: "POST", //전송 mapper를 설정
       headers: { "Content-Type": "application/json" }, //값을 json형식으로 보내므로 headers에 전송값을 설정해줌

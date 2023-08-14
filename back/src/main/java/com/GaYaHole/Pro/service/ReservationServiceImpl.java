@@ -43,7 +43,9 @@ public class ReservationServiceImpl implements ReservationService{
         user = reservation.getId();
         Optional<User> user1=userRepository.findById(user.getId());
         room = roomRepository.roominfo(reservation.getR_num().getR_num());
-        user=user1.get();
+        if(user1.isPresent()) {
+            user = user1.get();
+        }
         // id와 r_num의 형식이 각각 USER, ROOM이기 때문에 그에 맞춰 데이터를 가져온다
 
         reservation = Reservation.builder()
@@ -66,7 +68,6 @@ public class ReservationServiceImpl implements ReservationService{
                 .reservation_num(reservation)
                 .build();
         //예약이 실행됨과 동시에 매출 테이블에도 정보를 추가해준다
-
         accountRepository.save(accounting);
 
     }

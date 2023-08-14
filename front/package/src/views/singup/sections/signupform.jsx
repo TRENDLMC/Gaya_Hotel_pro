@@ -124,7 +124,7 @@ const PageForm = () => {
             alert("상세주소를 입력해주십시오");
             return;
         }
-        fetch("http://localhost:8095/user/join", {//경로
+        fetch(process.env.REACT_APP_SERVER_LOCAL + "/user/join", {//경로
             method: "POST",//insert이므로 post방식으로 보냄
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(user),
@@ -147,7 +147,7 @@ const PageForm = () => {
         let id = {
             id: user.id
         }//아이디만 저장하여 json형식으로 보낼준비
-        fetch("http://localhost:8095/user/idcheck", {
+        fetch(process.env.REACT_APP_SERVER_LOCAL + "/user/idcheck", {
             method: "POST",//조회
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(id),
