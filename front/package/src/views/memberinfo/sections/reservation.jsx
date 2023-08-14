@@ -8,7 +8,31 @@ const Readreservation = () => {
   const [restarpont, setstarpont] = useState();
   const [reviewcon, setreviewcon] = useState("");
   const [modelon, setmodalon] = useState(false);
-  const [modelon2, setmodalon2] = useState(false);
+  const [modelon2, setmodalon2] = useState({
+    0: false,
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+    5: false,
+    6: false,
+    7: false,
+    8: false,
+    9: false,
+    10: false,
+    11: false,
+    12: false,
+    13: false,
+    14: false,
+    15: false,
+    16: false,
+    17: false,
+    18: false,
+    19: false,
+    20: false,
+    21: false,
+  });
+
   const [temnum, settemnum] = useState("");
   const [temnum2, settemnum2] = useState("");
 
@@ -16,43 +40,36 @@ const Readreservation = () => {
     setreviewcon(event.target.value);
   };
 
-<<<<<<< Updated upstream
-    const btn_togle = (event) => {
-        setmodalon(!modelon);
-        settemnum(event.target.id);
-    }
-    useEffect(() => {
-        var moduserinfo = {
-            id: sessionStorage.getItem("id"),
-        }
-        fetch(process.env.REACT_APP_SERVER_LOCAL + "/user/mypage", {
-            method: "POST",//조회
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(moduserinfo),
-        }).then((response) => {
-            return response.json();
-        }).then((date) => {
-            setreservation(date);
-        }).catch((err) => {
-            console.log(err);
-        });
-    }, []);
-=======
   const btn_togle = (event) => {
     setmodalon(!modelon);
     settemnum(event.target.id);
-  };
+  }
+  useEffect(() => {
+    var moduserinfo = {
+      id: sessionStorage.getItem("id"),
+    }
+    fetch(process.env.REACT_APP_SERVER_LOCAL + "/user/mypage", {
+      method: "POST",//조회
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(moduserinfo),
+    }).then((response) => {
+      return response.json();
+    }).then((date) => {
+      setreservation(date);
+    }).catch((err) => {
+      console.log(err);
+    });
+  }, []);
+
   const btn_togle2 = (event) => {
-    setmodalon2(!modelon2);
-    settemnum2(event.target.id);
+    setmodalon2({ [event.target.id]: true });
   };
->>>>>>> Stashed changes
 
   useEffect(() => {
     var moduserinfo = {
       id: sessionStorage.getItem("id"),
     };
-    fetch("http://localhost:8095/user/mypage", {
+    fetch(process.env.REACT_APP_SERVER_LOCAL + "/user/mypage", {
       method: "POST", //조회
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(moduserinfo),
@@ -94,6 +111,7 @@ const Readreservation = () => {
     },
   };
   const Reservationlist = () => {
+    console.log(Reservation);
     if (Reservation.length !== undefined) {
       return Reservation.map(
         (
@@ -102,7 +120,7 @@ const Readreservation = () => {
         ) => (
           <Row key={index} style={{ textAlign: "center", height: "100px" }}>
             <Col md="3" style={{ lineHeight: "100px", display: "table" }}>
-              {Res.res_num.order_id}
+              {Res.res_num.r_num.reservation_num}
             </Col>
             <Col style={{ lineHeight: "30px", display: "table" }}>
               <div
@@ -145,7 +163,7 @@ const Readreservation = () => {
                   width: "120",
                 }}
               ></input>
-              <Modal id={index} style={customStyles2} isOpen={modelon2}>
+              <Modal id={index} style={customStyles2} isOpen={modelon2[index]}>
                 <Container>
                   <Row style={{ height: "30px", margin: "10px 0 20px 0" }}>
                     <Col
@@ -250,8 +268,7 @@ const Readreservation = () => {
         reservation_num: Reservation[temnum].res_num.reservation_num,
       },
     };
-    console.log(JSON.stringify(reviwe));
-    fetch("http://localhost:8095/review/write", {
+    fetch(process.env.REACT_APP_SERVER_LOCAL + "/review/write", {
       method: "POST", //조회
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(reviwe),
@@ -263,114 +280,11 @@ const Readreservation = () => {
         } else {
           alert("실패");
         }
-<<<<<<< Updated upstream
-        console.log(JSON.stringify(reviwe));
-        fetch(process.env.REACT_APP_SERVER_LOCAL + "/review/write", {
-            method: "POST",//조회
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(reviwe),
-        }).then((response) => {
-            if (response.ok) {
-                alert("리뷰 작성되었습니다.");
-                setmodalon(!modelon);
-            } else {
-                alert("실패")
-            }
-        }).catch((err) => {
-            console.log(err);
-        });
-    }
-
-
-
-
-
-
-
-
-    return (
-        <Container style={{ marginBottom: "200px" }}>
-            <Row>
-                <Col>
-                    예약내역
-                </Col>
-            </Row>
-            <hr />
-            <Row>
-                <Col>
-                    예약번호
-                </Col>
-                <Col>
-                    방번호
-                </Col>
-                <Col>
-                    방등급
-                </Col>
-                <Col>
-                    체크인
-                </Col>
-                <Col>
-                    체크아웃
-                </Col>
-                <Col>
-                    옵션
-                </Col>
-                <Col>
-                    총결제금액
-                </Col>
-                <Col>
-                    리뷰작성
-                </Col>
-            </Row>
-            <hr /><br /><br />
-            <br /><br />
-
-            <Reservationlist />
-
-            <Modal style={customStyles} isOpen={modelon}>
-                <Container>
-                    <Row>
-                        <Col></Col><Col style={{ fontSize: "25px" }}>리뷰작성 </Col><Col></Col>
-                    </Row>
-                    <Row>
-                        <Col md={2} style={{ fontSize: "25px" }}>
-                            리뷰
-                        </Col>
-                        <Col>
-                            <input type="text" onChange={reviewchange} style={{ width: "90%" }} />
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col md={3}>
-                        </Col>
-                        <Col md={7}>
-                            <StarRating setreview={setstarpont} />
-                        </Col>
-                        <Col>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col></Col>
-                        <Col>
-                            <input type="button" value={"작성"} onClick={addreview} />
-                        </Col>
-                        <Col>
-                            <input type="button" value={"취소"} onClick={btn_togle} />
-                        </Col>
-                        <Col></Col>
-                    </Row>
-                </Container>
-            </Modal>
-        </Container >
-    )
-}
-=======
       })
       .catch((err) => {
         console.log(err);
       });
   };
->>>>>>> Stashed changes
 
   return (
     <Container style={{ marginBottom: "200px" }}>
