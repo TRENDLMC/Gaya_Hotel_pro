@@ -80,6 +80,10 @@ export function CheckoutPage(payinfo, reservationinfo) {
       <div id="payment-widget" />
       <div id="agreement" />
       <button
+        className="btn btn-gaya-gradiant"
+        style={{
+          width:"80%"
+        }}
         onClick={async () => {
           const paymentWidget = paymentWidgetRef.current;
           sessionStorage.setItem(

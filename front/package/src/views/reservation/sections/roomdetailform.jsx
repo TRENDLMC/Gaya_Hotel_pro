@@ -146,40 +146,26 @@ const RoomDetail = () => {
       return <Row>{sOption.option_content}</Row>;
     }
   );
+  const showSelectedOptions2 = selectedOption.map(
+    (
+      sOption //map방식을 사용하여 존재하는 값만큼 반복함 roomlist에저장된값만큼 for을 사용한다고 보면됌.
+    ) => {
+      return <Row style={{fontSize:"15px"}}>
+              <Col>
+                {sOption.option_content}
+              </Col>
+              <Col>
+                {sOption.option_price} 원
+              </Col>
+            </Row>;
+    }
+  );
 
   const optionListView = optionList.map(
     (
       option //map방식을 사용하여 존재하는 값만큼 반복함 방 타입에 따른 옵션이 추가됨
     ) => {
       return (
-        // <label className="checkboxLabel" key={option.option_code}>
-        //   <input
-        //     type="checkbox"
-        //     id={option.option_code}
-        //     value={option.option_price}
-        //     onChange={(e) => {
-        //       onCheckedItem(e.target.checked, e.target.id, e.target.value);
-        //     }}
-        //   />
-        //   <label htmlFor={option.option_code}>
-        //     {option.option_code} : {option.option_content}
-        //   </label>
-        // </label>
-        // <Col md="6">
-        //   <div class="checkbox-wrapper">
-        //     <input
-        //       type="checkbox"
-        //       id={option.option_code}
-        //       value={option.option_price}
-        //       onChange={(e) => {
-        //         onCheckedItem(e.target.checked, e.target.id, e.target.value);
-        //       }}
-        //     />
-        //     <label for={option.option_code}>
-        //       {option.option_code} : {option.option_content}
-        //     </label>
-        //   </div>
-        // </Col>
         <Col md="6" className="box">
           <input
             type="checkbox"
@@ -401,41 +387,56 @@ const RoomDetail = () => {
       </Container>
       {/* 최종 예약 정보창 모달 */}
       <Modal isOpen={modalop} ariaHideApp={false} style={modalStyles}>
-        <Container style={{ height: "100%", border: "solid" }}>
-          <Row style={{ height: "100%" }}>
+        <Container style={{ height: "100%",textAlign:"center" }}>
+          <Row style={{ height: "100%"}}>
             {/* 모달창 왼쪽 */}
-            <Col style={InfoStyle} md="6">
-              <Row style={InfoStyle}>
-                <Col>객실 번호</Col>
+            <Col md="6" style={{border:"1px solid", fontSize:"20px"}}>
+              <Row>
+                <Col style={{borderRight:"1px solid",fontSize:"20px"}}>객실 번호</Col>
                 <Col>{detailInfo.r_num}</Col>
               </Row>
-              <Row style={InfoStyle}>
-                <Col>객실 종류</Col>
+              <Row>
+                <Col style={{borderRight:"1px solid"}}>객실 종류</Col>
                 <Col>{detailInfo.r_type}</Col>
               </Row>
-              <Row style={InfoStyle}>
-                <Col>객실 최대 인원</Col>
-                <Col>{detailInfo.r_size}</Col>
+              <Row>
+                <Col style={{borderRight:"1px solid"}}>객실 최대 인원</Col>
+                <Col>{detailInfo.r_size} 인</Col>
               </Row>
-              <Row style={InfoStyle}>
-                <Col>체크인 날짜</Col>
+              <Row>
+                <Col style={{borderRight:"1px solid"}}>체크인 날짜</Col>
                 <Col>{detailInfo.tmp_checkin}</Col>
               </Row>
-              <Row style={InfoStyle}>
-                <Col>체크아웃 날짜</Col>
+              <Row style={{borderBottom:"1px solid"}}>
+                <Col style={{borderRight:"1px solid"}}>체크아웃 날짜</Col>
                 <Col>{detailInfo.tmp_checkout}</Col>
               </Row>
-              <Row style={InfoStyle}>
-                <Row>선택된 옵션 </Row>
-
-                <Col style={InfoStyle}>{showSelectedOptions}</Col>
+              <Row style={{borderBottom:"1px solid", paddingBottom:"10px"}}>
+                <Col>
+                  <Row style={{paddingTop:"15px", fontSize:"25px"}}>
+                    <Col>
+                      선택된 옵션
+                    </Col>
+                  </Row>
+                  <hr />
+                  {showSelectedOptions2}
+                </Col>
               </Row>
-              결제 총 금액 창<Row>총 결제 금액 : {totalPay}</Row>
-              <input
+              <Row style={{fontSize:"30px", paddingTop:"10px"}}>
+                <Col>
+                  총 결제 금액
+                </Col>
+                <Col>
+                  {totalPay}원
+                </Col>
+              </Row>
+
+              <Row style={{margin:"15px 0 0 0 "}}>
+                <input
                 className="btn btn-info"
-                style={{ marginLeft: "210px" }}
+                style={{ width:"80%", margin:"0 auto" }}
                 type="button"
-                value={"확인"}
+                value={"닫 기"}
                 onClick={(event) => {
                   //모달창 상태 토글
                   ontogel();
@@ -443,11 +444,13 @@ const RoomDetail = () => {
                   setSelectedOption([]);
                 }}
               />
+              </Row>
+              
             </Col>
 
             {/* 모달창 오른쪽 */}
 
-            <Col style={InfoStyle} md="6">
+            <Col md="6">
               {/* 토스 결제 창 */}
               <CheckoutPage
                 payinfo={paymentInfo}
