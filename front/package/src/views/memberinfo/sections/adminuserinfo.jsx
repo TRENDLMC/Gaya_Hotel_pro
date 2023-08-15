@@ -9,24 +9,39 @@ const Adminuserinfo = () => {
     return (
         <Container>
             <Row>
-                <Col>
-                    유저아이디
-                </Col>
-                <Col>
-                    이메일
-                </Col>
-                <Col>
-                    이름
-                </Col>
-                <Col>
-                    등급
-                </Col>
-                <Col>
-                    변경값
-                </Col>
-                <Col>
+                <Col
+                style={{
+                    fontSize: "40px",
+                    fontFamily: "Orbit",
+                    margin: "30px 0 30px 20px",
+                    textAlign:"center"
+                }}
+                >
+                회원 목록
                 </Col>
             </Row>
+            <Row style={{textAlign:"center", fontSize:"22px", lineHeight:"50px",background:"#e2e2e2"}}>
+                <hr style={{margin:"0"}}/>
+                    <Col>
+                        유저아이디
+                    </Col>
+                    <Col>
+                        이메일
+                    </Col>
+                    <Col>
+                        이름
+                    </Col>
+                    <Col>
+                        등급
+                    </Col>
+                    <Col>
+                        변경값
+                    </Col>
+                    <Col>
+                    </Col>
+                <hr style={{margin:"0"}}/>
+            </Row>
+            
             <User />
         </Container>
     )
@@ -79,8 +94,10 @@ const User = () => {
     if (userinfo !== undefined) {
 
         return (
+
             userinfo.map((user, idx) => (
-                <Row key={user.id}>
+                
+                <Row key={user.id} style={{textAlign:"center", marginTop:"22px"}}>
                     <Col>
                         {user.id}
                         <input type="hidden" value={user.id} id={idx} />
@@ -107,8 +124,12 @@ const User = () => {
                     <Col>
                         <input id={user.id} type="button" value={"등급변경"} onClick={idsele} />
                     </Col>
+                    <hr style={{marginTop:"14px"}}/>
                 </Row>
-            )))
+            ))
+
+        )
+
     }
 }
 export default Adminuserinfo;

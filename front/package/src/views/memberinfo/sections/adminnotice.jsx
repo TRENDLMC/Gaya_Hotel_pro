@@ -122,11 +122,33 @@ const Admintabel = () => {
             overflow: "auto",
         },
     };
+    const customStyles2 = {
+        overlay: {
+            backgroundColor: "rgba(0,0,0,0.5)",
+        },
+        content: {
+            left: "0",
+            margin: "auto",
+            width: "500px",
+            height: "450px",
+            padding: "0",
+            overflow: "auto",
+        },
+    };
     return (
         <div>
             <Container>
                 <Row>
-                    <Col style={{ marginLeft: "200px" }} md="10">
+                    <Col style={{
+                        fontSize: "40px",
+                        fontFamily: "Orbit",
+                        margin: "30px 0 30px 20px",
+                        textAlign:"center"
+                    }}
+                    >공지 작성</Col>
+                </Row>
+                <Row style={{textAlign:"center", marginLeft:"130px"}}>
+                    <Col style={{  }}>
                         <div className="table-responsive">
                             <Table>
                                 <thead>
@@ -144,23 +166,26 @@ const Admintabel = () => {
                     </Col>
                 </Row>
                 <Row>
-                    <Col></Col>
-                    <Col></Col>
-                    <Col></Col>
-                    <Col><input type='button' value={"글작성"} onClick={addmodaltogle} /></Col>
+                    <Col style={{textAlign:"right"}}>
+                        <input type='button' className='btn btn-gaya-gradiant' value={"글작성"} onClick={addmodaltogle} />
+                    </Col>
                 </Row>
             </Container>
-            <Modal isOpen={modalop} style={customStyles} ariaHideApp={false}>
+            <Modal id="modal1" isOpen={modalop} style={customStyles} ariaHideApp={false}>
                 <Modaldetail detail={detail} setdetail={setdetail} modaltogle={modaltogle} setmodalopp={setmodalopp} setrender={fetchData} />
             </Modal>
-            <Modal isOpen={addmodal} style={customStyles} ariaHideApp={false}>
-                <Label htmlFor="name">제목</Label>
-                <Input type='text' name={"n_title"} onChange={changeaddnotice} />
-                <Label htmlFor="name">내용</Label>
-                <Input type='text' name={"n_content"} onChange={changeaddnotice} />
-                <Input type='button' value={'작성'} onClick={addnoticefetch} />
-                <Input type='button' value={'취소'} onClick={addmodaltogle} />
-
+            <Modal id="modal2" isOpen={addmodal} style={customStyles} ariaHideApp={false}>
+                <div style={{padding:"40px"}}>
+                    <div style={{textAlign:"center"}}>
+                        <Label style={{fontSize:"24px", fontFamily:"Orbit"}}>공지 작성</Label><br/>
+                    </div>
+                    <Label htmlFor="name">제목</Label>
+                    <Input type='text' name={"n_title"} onChange={changeaddnotice} />
+                    <Label style={{marginTop:"20px"}} htmlFor="name">내용</Label>
+                    <Input style={{height:"100px"}} type='text' name={"n_content"} onChange={changeaddnotice} />
+                    <Input  style={{margin:"30px 0 10px", background:"#8f103d", color:"#FFF"}} type='button' value={'작성'} onClick={addnoticefetch} />
+                    <Input type='button' value={'취소'} onClick={addmodaltogle} />
+                </div>
             </Modal>
         </div>
     );

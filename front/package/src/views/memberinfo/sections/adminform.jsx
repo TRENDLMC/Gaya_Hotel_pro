@@ -70,17 +70,24 @@ const Adminform = () => {
                     type="button"
                     onClick={resbtn}
                     value={"예약정보조회"}
+                    style={{background:"#8f103d" ,border:" #8f103d",color:"#c2a575", fontSize:"24px", fontFamily:"Orbit"}}
                   />
                 </li>
                 <hr></hr>
                 <li href="#" class="nav-link">
                   <i class="bx bx-user-check"></i>
-                  <input type="button" onClick={noticebtn} value={"공지사항"} />
+                  <input type="button" onClick={noticebtn} value={"공지사항"}
+                    style={{background:"#8f103d" ,border:" #8f103d",color:"#c2a575", fontSize:"24px", fontFamily:"Orbit"}}
+
+                  />
                 </li>
                 <hr />
                 <li href="#" class="nav-link">
                   <i class="bx bx-conversation"></i>
-                  <input type="button" onClick={usebtn} value={"회원조회"} />
+                  <input type="button" onClick={usebtn} value={"회원조회"}
+                    style={{background:"#8f103d" ,border:" #8f103d",color:"#c2a575", fontSize:"24px", fontFamily:"Orbit"}}
+
+                  />
                 </li>
                 <hr></hr>
               </ul>

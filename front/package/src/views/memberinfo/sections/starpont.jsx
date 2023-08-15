@@ -44,8 +44,8 @@ const StarRating = ({ setreview }) => {
     };
 
     return (
-        <Base>
-            <Name>별점</Name>
+        <Base> 
+            <Name style={{marginTop:"10px"}}>별점</Name>
             <RatingField>
                 <StarInput
                     onClickRating={handleClickRating}
@@ -98,7 +98,7 @@ const StarRating = ({ setreview }) => {
                     isHalf={true}
                 />
             </RatingField>
-            <RatingValue>{rating}</RatingValue>
+            <RatingValue style={{marginTop:"10px"}}>{rating}</RatingValue>
         </Base>
     );
 };

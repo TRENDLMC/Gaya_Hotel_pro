@@ -111,7 +111,7 @@ const Readreservation = () => {
     },
   };
   const Reservationlist = () => {
-    console.log(Reservation);
+    console.log(Reservation.length);
     if (Reservation.length !== undefined) {
       return Reservation.map(
         (
@@ -160,7 +160,8 @@ const Readreservation = () => {
                   display: "table-cell",
                   verticalAlign: "middle",
                   height: "44",
-                  width: "120",
+                  fontSize:"13px",
+                  padding:"10px"
                 }}
               ></input>
               <Modal id={index} style={customStyles2} isOpen={modelon2[index]}>
@@ -177,28 +178,38 @@ const Readreservation = () => {
                     </Col>
                   </Row>
                   <Row style={{ textAlign: "center" }}>
-                    {Object.keys(Res)
-                      .filter((key) => key.startsWith("imt"))
-                      .map((optionKey, index) => {
-                        console.log(Res[optionKey].option_content);
-                        if (index % 2 === 0) {
-                          return (
-                            <Col md="6">
-                              <hr />
-                              {Res[optionKey].option_content}
-                              <hr />
-                            </Col>
-                          );
-                        } else {
-                          return (
-                            <Col md="6">
-                              <hr />
-                              {Res[optionKey].option_content}
-                              <hr />
-                            </Col>
-                          );
-                        }
-                      })}
+                    {()=>{
+                      if(Reservation.length === 1){
+                        return <Col style={{margin:"0"}}>선택된 옵션이 없습니다</Col>;
+                      } else {
+                        {Object.keys(Res)
+                          .filter((key) => key.startsWith("imt"))
+                          .map((optionKey, index) => {
+                            console.log(Res.length);
+                            console.log("우하하");
+                            if (index % 2 === 0) {
+                                return (
+                                  <Col md="6">
+                                    <hr />
+                                    {Res[optionKey].option_content}
+                                    <hr />
+                                  </Col>
+                                );
+                              } else {
+                                return (
+                                  <Col md="6">
+                                    <hr />
+                                    {Res[optionKey].option_content}
+                                    <hr />
+                                  </Col>
+                                );
+                              }
+                            }
+                          )}
+                      }
+                    }}
+                    
+                      <Col style={{margin:"15px"}}>선택된 옵션이 없습니다</Col>
                   </Row>
                   <Row>
                     <Col style={{ textAlign: "center", margin: "0 0 15px 0" }}>
@@ -313,38 +324,34 @@ const Readreservation = () => {
       <hr style={{ margin: "0px" }} />
       <Reservationlist />
       <Modal style={customStyles} isOpen={modelon}>
-        <Container>
+        <Container style={{padding:"20px 30px 20px 30px"}}>
           <Row>
-            <Col></Col>
-            <Col style={{ fontSize: "25px" }}>리뷰작성 </Col>
-            <Col></Col>
+            <Col style={{ fontSize: "25px",marginBottom:"15px", textAlign:"center" }}>리뷰작성 </Col>
           </Row>
           <Row>
-            <Col md={2} style={{ fontSize: "25px" }}>
-              리뷰
-            </Col>
-            <Col>
+             <Col>
               <input
                 type="text"
                 onChange={reviewchange}
-                style={{ width: "90%" }}
+                style={{width:"100%",height:"100px"}}
               />
             </Col>
           </Row>
           <Row>
-            <Col md={3}></Col>
-            <Col md={7}>
+            <Col md="3"></Col>
+            <Col md="7" style={{margin:"0 0 0 -4px"}}>
               <StarRating setreview={setstarpont} />
             </Col>
             <Col></Col>
+
           </Row>
-          <Row>
+          <Row style={{marginTop:"10px"}}>
             <Col></Col>
             <Col>
-              <input type="button" value={"작성"} onClick={addreview} />
+              <input className="btn btn-gaya-gradiant" type="button" value={"작성"} onClick={addreview} />
             </Col>
             <Col>
-              <input type="button" value={"취소"} onClick={btn_togle} />
+              <input className="btn btn-secondary" type="button" value={"취소"} onClick={btn_togle} />
             </Col>
             <Col></Col>
           </Row>

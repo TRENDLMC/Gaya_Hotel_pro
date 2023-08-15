@@ -52,16 +52,32 @@ const Modaldetail = ({ detail, setdetail, modaltogle, setmodalopp, setrender }) 
 
     if (detail !== undefined) {
         return (
-            <>
-                <input value={detail.n_title} name={"n_title"} disabled={moddetail} onChange={handleInputChange} />
-                <input value={detail.n_content} name={"n_content"} disabled={moddetail} onChange={handleInputChange} />
-                {moddetail && <input type='button' value={"삭제"} onClick={deletenotice} />}
-                {moddetail && <input type='button' value={"수정"} onClick={() => { setmoddetail(false) }} />}
-                {/* oclick을 누를시 바로 함수 실행시켜서 modal의 disabled을 값을 변경 */}
-                {!moddetail && <input type='button' value={"수정하기"} onClick={putnotice} />}
-                <input type='button' value={"닫기"} onClick={modaltogle} />
-                {/* 상위 컴포넌트의 토글의값을 변경시켜서 모달창이 닫히도록 만듬 */}
-            </>
+            <div style={{padding:"15px"}}>
+                <Container>
+                    <Row>
+                        제목 <input value={detail.n_title} name={"n_title"} disabled={moddetail} onChange={handleInputChange} />
+                    </Row>
+                    <Row style={{marginTop:"20px"}}>
+                        내용 <input style={{height:'100px'}} value={detail.n_content} name={"n_content"} disabled={moddetail} onChange={handleInputChange} />
+                    </Row>
+                     {/* oclick을 누를시 바로 함수 실행시켜서 modal의 disabled을 값을 변경 */}
+                    {/* 상위 컴포넌트의 토글의값을 변경시켜서 모달창이 닫히도록 만듬 */}
+                    <Row style={{marginTop:"20px"}}>
+                        <Col>
+                            {!moddetail && <input className='btn btn-secondary'  type='button' value={"수정하기"} onClick={putnotice} />}
+                        </Col>
+                        <Col>
+                            {moddetail && <input className='btn btn-secondary'  type='button' value={"수정"} onClick={() => { setmoddetail(false) }} />}
+                        </Col>
+                        <Col>
+                            {moddetail && <input className='btn btn-secondary' type='button' value={"삭제"} onClick={deletenotice} />}
+                        </Col>
+                        <Col>
+                             <input className='btn btn-secondary'  type='button' value={"닫기"} onClick={modaltogle} />
+                        </Col>
+                    </Row>
+                </Container>
+            </div>
         )
     } else {
         return (

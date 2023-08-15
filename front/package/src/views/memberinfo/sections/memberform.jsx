@@ -80,6 +80,7 @@ const Memberform = () => {
                     type="button"
                     onClick={resbutton}
                     value={"예약조회/리뷰작성"}
+                    style={{background:"#8f103d" ,border:" #8f103d",color:"#c2a575", fontSize:"24px", fontFamily:"Orbit"}}
                   />
                 </li>
                 <hr></hr>
@@ -89,6 +90,7 @@ const Memberform = () => {
                     type="button"
                     onClick={usebutton}
                     value={"개인정보조회"}
+                    style={{background:"#8f103d" ,border:" #8f103d",color:"#c2a575", fontSize:"24px", fontFamily:"Orbit"}}
                   />
                 </li>
                 <hr />

@@ -16,7 +16,7 @@ const PopoverItem = (props) => {
         type="button"
         style={{ width: "100px", padding: "5px", margin: "0" }}
       >
-        {"props.item.text"}
+        {props.item.text}
       </Button>
       <Popover
         placement={props.item.placement}
