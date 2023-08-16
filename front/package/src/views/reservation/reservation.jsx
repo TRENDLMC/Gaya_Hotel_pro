@@ -24,7 +24,7 @@ const Reservation = () => {
           <RoomNavi scrollRef={scrollRef} />
           <RoomContent ref={scrollRef} />
           <RoomOption ref={scrollRef} />
-          <ReviewList />
+          <ReviewList ref={scrollRef} />
         </div>
       </div>
       <Footer />

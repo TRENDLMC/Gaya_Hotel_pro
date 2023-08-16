@@ -34,7 +34,6 @@ const Readreservation = () => {
   });
 
   const [temnum, settemnum] = useState("");
-  const [temnum2, settemnum2] = useState("");
 
   const reviewchange = (event) => {
     setreviewcon(event.target.value);
@@ -43,23 +42,31 @@ const Readreservation = () => {
   const btn_togle = (event) => {
     setmodalon(!modelon);
     settemnum(event.target.id);
-  }
+  };
   useEffect(() => {
     var moduserinfo = {
       id: sessionStorage.getItem("id"),
-    }
+    };
     fetch(process.env.REACT_APP_SERVER_LOCAL + "/user/mypage", {
-      method: "POST",//조회
+      method: "POST", //조회
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(moduserinfo),
-    }).then((response) => {
-      return response.json();
-    }).then((date) => {
-      setreservation(date);
-    }).catch((err) => {
-      console.log(err);
-    });
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((date) => {
+        setreservation(date);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
+
+  const addComma = (price) => {
+    let returnString = price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return returnString;
+  };
 
   const btn_togle2 = (event) => {
     setmodalon2({ [event.target.id]: true });
@@ -120,7 +127,7 @@ const Readreservation = () => {
         ) => (
           <Row key={index} style={{ textAlign: "center", height: "100px" }}>
             <Col md="3" style={{ lineHeight: "100px", display: "table" }}>
-              {Res.res_num.r_num.reservation_num}
+              {Res.res_num.reservation_num}
             </Col>
             <Col style={{ lineHeight: "30px", display: "table" }}>
               <div
@@ -160,8 +167,8 @@ const Readreservation = () => {
                   display: "table-cell",
                   verticalAlign: "middle",
                   height: "44",
-                  fontSize:"13px",
-                  padding:"10px"
+                  fontSize: "13px",
+                  padding: "10px",
                 }}
               ></input>
               <Modal id={index} style={customStyles2} isOpen={modelon2[index]}>
@@ -177,40 +184,28 @@ const Readreservation = () => {
                       선택된 옵션
                     </Col>
                   </Row>
-                  <Row style={{ textAlign: "center" }}>
-                    {()=>{
-                      if(Reservation.length === 1){
-                        return <Col style={{margin:"0"}}>선택된 옵션이 없습니다</Col>;
-                      } else {
-                        {Object.keys(Res)
-                          .filter((key) => key.startsWith("imt"))
-                          .map((optionKey, index) => {
-                            console.log(Res.length);
-                            console.log("우하하");
-                            if (index % 2 === 0) {
-                                return (
-                                  <Col md="6">
-                                    <hr />
-                                    {Res[optionKey].option_content}
-                                    <hr />
-                                  </Col>
-                                );
-                              } else {
-                                return (
-                                  <Col md="6">
-                                    <hr />
-                                    {Res[optionKey].option_content}
-                                    <hr />
-                                  </Col>
-                                );
-                              }
-                            }
-                          )}
-                      }
-                    }}
-                    
-                      <Col style={{margin:"15px"}}>선택된 옵션이 없습니다</Col>
-                  </Row>
+
+                  {Reservation[index].imt0 !== undefined ? (
+                    Object.keys(Res)
+                      .filter((key) => key.startsWith("imt"))
+                      .map((optionKey) => {
+                        return (
+                          <Row style={{ textAlign: "center" }}>
+                            <hr style={{ marginBottom: "10px" }} />
+                            <Col>{Res[optionKey].option_content}</Col>
+                            <Col>{addComma(Res[optionKey].option_price)}원</Col>
+                            <hr style={{ marginTop: "10px" }} />
+                          </Row>
+                        );
+                      })
+                  ) : (
+                    <Row style={{ textAlign: "center" }}>
+                      <Col style={{ margin: "5px 0 20px" }}>
+                        선택된 옵션이 없습니다
+                      </Col>
+                    </Row>
+                  )}
+
                   <Row>
                     <Col style={{ textAlign: "center", margin: "0 0 15px 0" }}>
                       <input
@@ -237,7 +232,7 @@ const Readreservation = () => {
                   verticalAlign: "middle",
                 }}
               >
-                {Res.res_num.total_price} 원
+                {addComma(Res.res_num.total_price)} 원
               </div>
             </Col>
             <Col style={{ lineHeight: "100px", display: "table" }}>
@@ -324,34 +319,51 @@ const Readreservation = () => {
       <hr style={{ margin: "0px" }} />
       <Reservationlist />
       <Modal style={customStyles} isOpen={modelon}>
-        <Container style={{padding:"20px 30px 20px 30px"}}>
+        <Container style={{ padding: "20px 30px 20px 30px" }}>
           <Row>
-            <Col style={{ fontSize: "25px",marginBottom:"15px", textAlign:"center" }}>리뷰작성 </Col>
+            <Col
+              style={{
+                fontSize: "25px",
+                marginBottom: "15px",
+                textAlign: "center",
+              }}
+            >
+              리뷰작성{" "}
+            </Col>
           </Row>
           <Row>
-             <Col>
+            <Col>
               <input
                 type="text"
                 onChange={reviewchange}
-                style={{width:"100%",height:"100px"}}
+                style={{ width: "100%", height: "100px" }}
               />
             </Col>
           </Row>
           <Row>
             <Col md="3"></Col>
-            <Col md="7" style={{margin:"0 0 0 -4px"}}>
+            <Col md="7" style={{ margin: "0 0 0 -4px" }}>
               <StarRating setreview={setstarpont} />
             </Col>
             <Col></Col>
-
           </Row>
-          <Row style={{marginTop:"10px"}}>
+          <Row style={{ marginTop: "10px" }}>
             <Col></Col>
             <Col>
-              <input className="btn btn-gaya-gradiant" type="button" value={"작성"} onClick={addreview} />
+              <input
+                className="btn btn-gaya-gradiant"
+                type="button"
+                value={"작성"}
+                onClick={addreview}
+              />
             </Col>
             <Col>
-              <input className="btn btn-secondary" type="button" value={"취소"} onClick={btn_togle} />
+              <input
+                className="btn btn-secondary"
+                type="button"
+                value={"취소"}
+                onClick={btn_togle}
+              />
             </Col>
             <Col></Col>
           </Row>

@@ -5,7 +5,6 @@ import { Container, Row, Col, Form, FormGroup, Label, Input } from "reactstrap";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-
 export function SuccessPage() {
   const [searchParams] = useSearchParams();
   let navigate = useNavigate();
@@ -40,50 +39,52 @@ export function SuccessPage() {
       <Header />
       <div className="page-wrapper">
         <div className="container-fluid">
-          <Container >
-            <Row style={{
-              border:"1px solid #8f103d",
-              width: "600px",
-              height:"400px",
-              textAlign:"center",
-              margin: "60px auto"
-                  }}>
+          <Container>
+            <Row
+              style={{
+                border: "1px solid #8f103d",
+                width: "600px",
+                height: "400px",
+                textAlign: "center",
+                margin: "60px auto",
+              }}
+            >
               <Col>
-                <Row style={{margin:"66px 0 30px"}}>
+                <Row style={{ margin: "66px 0 30px" }}>
                   <Col>
                     <h1>결제 성공 하였습니다.</h1>
                   </Col>
                 </Row>
-                <Row style={{fontSize:"20px"}}>
+                <Row style={{ fontSize: "20px" }}>
                   <div>{`주문 아이디: ${searchParams.get("orderId")}`}</div>
                 </Row>
-                <Row style={{fontSize:"20px", margin: "35px 0 30px"}}>
+                <Row style={{ fontSize: "20px", margin: "35px 0 30px" }}>
                   <div>{`결제 금액: ${Number(
                     searchParams.get("amount")
                   ).toLocaleString()}원`}</div>
                 </Row>
-                <Row style={{marginTop:"50px"}}>
+                <Row style={{ marginTop: "50px" }}>
                   <Col>
-                  <input
-                    className="btn btn-secondary"
-                    style={{ width:"80%", margin:"0 auto" }}
-                    type="button"
-                    value={"홈으로"}
-                    onClick={
-                      navigate("/")
-                    }
-                  />
+                    <input
+                      className="btn btn-secondary"
+                      style={{ width: "80%", margin: "0 auto" }}
+                      type="button"
+                      value={"홈으로"}
+                      onClick={() => {
+                        navigate("/");
+                      }}
+                    />
                   </Col>
                   <Col>
-                  <input
-                    className="btn btn-gaya-gradiant"
-                    style={{ width:"80%", margin:"0 auto" }}
-                    type="button"
-                    value={"마이페이지"}
-                    onClick={
-                      navigate("/mypage")
-                    }
-                  />
+                    <input
+                      className="btn btn-gaya-gradiant"
+                      style={{ width: "80%", margin: "0 auto" }}
+                      type="button"
+                      value={"마이페이지"}
+                      onClick={() => {
+                        navigate("/mypage");
+                      }}
+                    />
                   </Col>
                 </Row>
               </Col>

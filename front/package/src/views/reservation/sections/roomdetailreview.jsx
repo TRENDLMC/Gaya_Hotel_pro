@@ -74,7 +74,8 @@ import { FaStar, FaStarHalf } from "react-icons/fa";
 
 // export default RoomReviewList;
 
-const ReviewList = () => {
+// const ReviewList = () => {
+const ReviewList = forwardRef((props, ref) => {
   const [reviewList, setReviewList] = useState([]);
 
   useEffect(() => {
@@ -161,46 +162,48 @@ const ReviewList = () => {
   };
 
   return (
-    <Container style={{ width: "70%", margin: "0 auto 30px" }}>
-      {/* 맨위로 올라갈수 있는 버튼이 항상 존재하게 */}
-      <Row style={{ margin: "80px 0 80px 0" }}>
-        <Col></Col>
-        <Col className="col-md" style={Row3Styles}>
-          리&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;뷰
-        </Col>
-        <Col></Col>
-      </Row>
-      <Row>
-        <Col></Col>
-        <Col md="9">
-          <Row
-            style={{
-              margin: "0 auto",
-              height: "50px",
-              paddingTop: "10px",
-              borderTopRightRadius: "10px",
-              borderTopLeftRadius: "10px",
-              background: "#8f103d",
-              color: "#fff",
-            }}
-          >
-            <Col md="3" style={{ textAlign: "center", fontSize: "20px" }}>
-              별&nbsp;&nbsp;&nbsp;&nbsp;점
-            </Col>
-            <Col md="6" style={{ textAlign: "center", fontSize: "20px" }}>
-              내&nbsp;&nbsp;&nbsp;&nbsp;용
-            </Col>
-            <Col md="3" style={{ textAlign: "center", fontSize: "20px" }}>
-              작&nbsp;&nbsp;성&nbsp;&nbsp;자
-            </Col>
-          </Row>
+    <section ref={(reviewRef) => (ref.current[2] = reviewRef)}>
+      <Container style={{ width: "70%", margin: "0 auto 30px" }}>
+        {/* 맨위로 올라갈수 있는 버튼이 항상 존재하게 */}
+        <Row style={{ margin: "80px 0 80px 0" }}>
+          <Col></Col>
+          <Col className="col-md" style={Row3Styles}>
+            리&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;뷰
+          </Col>
+          <Col></Col>
+        </Row>
+        <Row>
+          <Col></Col>
+          <Col md="9">
+            <Row
+              style={{
+                margin: "0 auto",
+                height: "50px",
+                paddingTop: "10px",
+                borderTopRightRadius: "10px",
+                borderTopLeftRadius: "10px",
+                background: "#8f103d",
+                color: "#fff",
+              }}
+            >
+              <Col md="3" style={{ textAlign: "center", fontSize: "20px" }}>
+                별&nbsp;&nbsp;&nbsp;&nbsp;점
+              </Col>
+              <Col md="6" style={{ textAlign: "center", fontSize: "20px" }}>
+                내&nbsp;&nbsp;&nbsp;&nbsp;용
+              </Col>
+              <Col md="3" style={{ textAlign: "center", fontSize: "20px" }}>
+                작&nbsp;&nbsp;성&nbsp;&nbsp;자
+              </Col>
+            </Row>
 
-          <ReviewListView />
-        </Col>
-        <Col></Col>
-      </Row>
-    </Container>
+            <ReviewListView />
+          </Col>
+          <Col></Col>
+        </Row>
+      </Container>
+    </section>
   );
-};
+});
 
 export default ReviewList;

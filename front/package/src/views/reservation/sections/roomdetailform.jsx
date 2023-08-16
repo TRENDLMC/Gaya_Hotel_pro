@@ -22,11 +22,6 @@ const RoomDetail = () => {
   // 처음 페이지가 렌더링 될시 방 정보,체크인,체크아웃,
 
   useEffect(() => {
-    console.log("룸 인포 : " + RoomInfo.r_num);
-    let roomNum = RoomInfo.r_num;
-    console.log(
-      "사진 경로 : " + "../../../assets/images/roomlist/img" + roomNum + ".jpg"
-    );
     getRoomDetail(RoomInfo.r_num);
   }, []);
 
@@ -125,10 +120,7 @@ const RoomDetail = () => {
       // console.log(JSON.stringify(options[0]));
       for (let i = 0; i < options.length; i++) {
         for (let j = 0; j < arr.length; j++) {
-          console.log("arr j : " + arr[j]);
-          console.log("option i : " + JSON.stringify(options[i].option_code));
           if ('"' + arr[j] + '"' === JSON.stringify(options[i].option_code)) {
-            console.log("성공");
             selectedOption.push(options[i]);
           }
         }
@@ -351,6 +343,11 @@ const RoomDetail = () => {
                   type="button"
                   style={{ marginTop: "5px" }}
                   onClick={(event) => {
+                    console.log("셀렉티드 옵션" + selectedOption);
+                    console.log(
+                      "셀렉티드 옵션" + JSON.stringify(selectedOption)
+                    );
+
                     ontogel();
                     selectedOptions();
                     setPaymentInfo({
@@ -373,7 +370,7 @@ const RoomDetail = () => {
                     );
                   }}
                   className="btn btn-gaya-gradiant col-md-12"
-                  value={"결제"}
+                  value={"결 제"}
                 />
               </Col>
             </Row>
@@ -415,7 +412,14 @@ const RoomDetail = () => {
                     <Col>선택된 옵션</Col>
                   </Row>
                   <hr />
-                  {showSelectedOptions2}
+                  {selectedOption && showSelectedOptions2}
+                  {selectedOption.length === 0 && (
+                    <Row style={{ margin: "20px 0 20px" }}>
+                      <Col style={{ textAlign: "center" }}>
+                        선택된 옵션이 없습니다.
+                      </Col>
+                    </Row>
+                  )}
                 </Col>
               </Row>
               <Row style={{ fontSize: "30px", paddingTop: "10px" }}>

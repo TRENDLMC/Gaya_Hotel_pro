@@ -116,33 +116,36 @@ const Header = () => {
                 </DropdownToggle>
                 <DropdownMenu className="b-none animated fadeInUp">
                   <DropdownItem>
-                    <Link to={"/info"} state={{ num: 1 }} >
+                    <Link to={"/info"} state={{ num: 1 }}>
                       호텔소개
                     </Link>
                   </DropdownItem>
-                  <DropdownItem >
-                    <Link to={"/info"} state={{ num: 2 }} >
+                  <DropdownItem>
+                    <Link to={"/info"} state={{ num: 2 }}>
                       방소개
                     </Link>
                   </DropdownItem>
                   <DropdownItem divider />
-                  <DropdownItem >
-                    <Link to={"/info"} state={{ num: 3 }} >
+                  <DropdownItem>
+                    <Link to={"/info"} state={{ num: 3 }}>
                       찾오시는길
                     </Link>
                   </DropdownItem>
                   <DropdownItem>
-                    <Link to={"/info"} state={{ num: 4 }} >
+                    <Link to={"/info"} state={{ num: 4 }}>
                       예약안내
                     </Link>
                   </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
-              <NavItem>
-                <Link className="nav-link" to={"/reservationlist"}>
-                  예약
-                </Link>
-              </NavItem>
+              {sessionStorage.getItem("id") !== null && (
+                <NavItem>
+                  <Link className="nav-link" to={"/reservationlist"}>
+                    예약
+                  </Link>
+                </NavItem>
+              )}
+
               {loginSession && <NavItem>{gradeCheck()}</NavItem>}
               <NavItem>{sessionCheck()}</NavItem>
             </Nav>

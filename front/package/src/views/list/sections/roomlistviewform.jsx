@@ -99,6 +99,7 @@ const DetailsReservation = () => {
       check_out: dayjs(check_out).format("YYYY-MM-DD"),
       r_num: event.target.name,
       total: checkDayResult,
+      r_type: event.target.id,
     };
     sessionStorage.setItem("roominfo", JSON.stringify(roominfo)); //세선에 값을 roominfo라는 이름으로 저장함
     navigate12("/reservation"); //그후 위에서 선언해준 navigate를 사용하여 바로 페이지를 전환시킴
@@ -138,6 +139,7 @@ const DetailsReservation = () => {
           <input
             type="button"
             name={room.r_num}
+            id={room.r_type}
             className="btn btn-outline-gaya"
             onClick={Reservationpage}
             value={"예약하러가기"}

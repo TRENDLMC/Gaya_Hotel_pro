@@ -6,49 +6,14 @@ import { Container, Row, Col } from "reactstrap";
 
 //   const SERVER_URL = "http://localhost:8095/";
 
-const RoomInfo = JSON.parse(sessionStorage.getItem("roominfo"));
 const RoomContent = forwardRef((props, ref) => {
-  const [detailInfo, setDetailInfo] = useState([]);
-
+  const RoomInfo = JSON.parse(sessionStorage.getItem("roominfo"));
   useEffect(() => {
-    getRoomDetail(RoomInfo.r_num);
+    console.log(RoomInfo.r_type);
   }, []);
 
-  const getRoomDetail = (r_num) => {
-    const rrum = { r_num };
-
-    fetch(process.env.REACT_APP_SERVER_LOCAL + "/reserv/detail", {
-      //fetch로 연결된 서버로 전송함
-      method: "POST", //전송 mapper를 설정
-      headers: { "Content-Type": "application/json" }, //값을 json형식으로 보내므로 headers에 전송값을 설정해줌
-      body: JSON.stringify(rrum), //보디에는 json형식으로 문자형으로 변경하여 위에서 저장한 값을 뿌려줌
-    })
-      .then((response) => {
-        //성공시 서버에서 반환한 값을 json형태로변환
-        return response.json();
-      })
-      .then((data) => {
-        // console.log("data.r_num :" + data.r_num);
-        // console.log("data.r_size :" + data.r_size);
-        const tmp = {
-          r_num: data.r_num,
-          r_size: data.r_size,
-          r_price: data.r_price * RoomInfo.total,
-          r_type: data.r_type,
-          tmp_checkin: RoomInfo.check_in,
-          tmp_checkout: RoomInfo.check_out,
-          total: RoomInfo.total,
-        };
-        setDetailInfo(tmp);
-      })
-      .catch((err) => {
-        alert(err);
-      });
-  };
-
   const ShowContent = () => {
-    console.log(detailInfo.r_type);
-    if (detailInfo.r_type === "디럭스 룸") {
+    if (RoomInfo.r_type === "디럭스 룸") {
       return (
         <section ref={(reviewRef) => (ref.current[0] = reviewRef)}>
           <Container>
@@ -113,7 +78,7 @@ const RoomContent = forwardRef((props, ref) => {
           </Container>
         </section>
       );
-    } else if (detailInfo.r_type === "스탠다드 룸") {
+    } else if (RoomInfo.r_type === "스탠다드 룸") {
       return (
         <section ref={(reviewRef) => (ref.current[0] = reviewRef)}>
           <Container>
@@ -178,7 +143,7 @@ const RoomContent = forwardRef((props, ref) => {
           </Container>
         </section>
       );
-    } else if (detailInfo.r_type === "패밀리 룸") {
+    } else if (RoomInfo.r_type === "패밀리 룸") {
       return (
         <section ref={(reviewRef) => (ref.current[0] = reviewRef)}>
           <Container>
