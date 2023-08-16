@@ -5,7 +5,6 @@ import { FaStar, FaStarHalf } from "react-icons/fa";
 // const RoomReviewList = () => {
 //   // 세션 스토리지 roomInfo
 
-
 // const RoomReviewList = forwardRef((props, ref) => {
 //   const [reviewList, setReviewList] = useState([]);
 

@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { Button, Popover, PopoverHeader, PopoverBody, Col } from "reactstrap";
+import {
+  Button,
+  Popover,
+  PopoverHeader,
+  PopoverBody,
+  Row,
+  Col,
+  Container,
+} from "reactstrap";
 
 const PopoverItem = (props) => {
   const [popoverOpen, setPopoverOpen] = useState(false);
@@ -23,9 +31,51 @@ const PopoverItem = (props) => {
         isOpen={popoverOpen}
         target={"Popover-" + props.id}
         toggle={toggle.bind(null)}
+        style={{ width: "250px" }}
       >
-        <PopoverHeader>추가 옵션 요금 안내</PopoverHeader>
-        <PopoverBody>수영장 : 20000원</PopoverBody>
+        <PopoverHeader style={{ textAlign: "center" }}>
+          추가 옵션 요금 안내
+        </PopoverHeader>
+        <PopoverBody>
+          <Container style={{ textAlign: "center" }}>
+            <Row>
+              <Col>수영장</Col>
+              <Col>20000원</Col>
+            </Row>
+            <Row>
+              <Col>바베큐</Col>
+              <Col>40000원</Col>
+            </Row>
+            <Row>
+              <Col>조식</Col>
+              <Col>30000원</Col>
+            </Row>
+            <Row>
+              <Col>사우나</Col>
+              <Col>20000원</Col>
+            </Row>
+            <Row>
+              <Col>추가침대</Col>
+              <Col>40000원</Col>
+            </Row>
+            <Row>
+              <Col>VR룸</Col>
+              <Col>100000원</Col>
+            </Row>
+            <Row>
+              <Col>바베큐</Col>
+              <Col>40000원</Col>
+            </Row>
+            <Row>
+              <Col>키즈카페</Col>
+              <Col>40000원</Col>
+            </Row>
+            <Row>
+              <Col>기념행사</Col>
+              <Col>300000원</Col>
+            </Row>
+          </Container>
+        </PopoverBody>
       </Popover>
     </span>
   );

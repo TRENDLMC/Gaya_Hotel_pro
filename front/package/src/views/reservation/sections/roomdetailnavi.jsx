@@ -37,7 +37,7 @@ const RoomNavi = ({ scrollRef }) => {
   const DETAIL_NAV = [
     { idx: 0, name: "방 소개" },
     { idx: 1, name: "옵션 소개" },
-    { idx: 2, name: "리뷰" },
+    { idx: 2, name: "리 뷰" },
   ];
 
   const Row2Styles = {
