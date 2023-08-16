@@ -1,5 +1,14 @@
 import React, { Component, useEffect, useState } from "react";
-import { Container, Row, Col, Form, FormGroup, Label, Input, ListGroup } from "reactstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  ListGroup,
+} from "reactstrap";
 import { HashLink as Link } from "react-router-hash-link";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -73,6 +82,12 @@ const LoginForm = () => {
     width: "500px",
   };
 
+  const activeEnter = (e) => {
+    if (e.key === "Enter") {
+      Login();
+    }
+  };
+
   return (
     <div>
       <div className="spacer" id="forms-component">
@@ -98,6 +113,7 @@ const LoginForm = () => {
                     name="id"
                     placeholder="Enter Username"
                     onChange={onChange}
+                    onKeyDown={(e) => activeEnter(e)}
                   />
                 </FormGroup>
 
@@ -109,10 +125,12 @@ const LoginForm = () => {
                     name="pwd"
                     placeholder="Password"
                     onChange={onChange}
+                    onKeyDown={(e) => activeEnter(e)}
                   />
                 </FormGroup>
 
                 <Col md="12" className="text-center">
+                  <input type="hidden" value="" />
                   <input
                     type="button"
                     onClick={Login}
