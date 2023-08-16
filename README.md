@@ -2,7 +2,9 @@
 
 ![header](https://capsule-render.vercel.app/api?type=waving&color=8f103d&height=300&section=header&text=Gaya%20Hotel&fontColor=ffffff&fontSize=70&animation=fadeIn)
 <br>
-## https://web-gaya-front-ac2nll63bqd8.sel3.cloudtype.app/
+## [ https://web-gaya-front-ac2nll63bqd8.sel3.cloudtype.app/](https://web-gaya-front-ac2nll63bqd8.sel3.cloudtype.app/)
+## https://port-0-gaya-back-ac2nll63bqd8.sel3.cloudtype.app/swagger-ui/
+
 ## 🏨 호텔 홈페이지
 :heavy_check_mark: SpringBoot와 ReactJS를 활용한 FullStack 호텔 웹사이트 <br>
 :heavy_check_mark:  여긴 뭐쓰지 <br><br>
