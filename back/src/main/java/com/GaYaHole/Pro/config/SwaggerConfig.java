@@ -26,8 +26,8 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("스웨거 제목")
-                .description("스웨거 설명")
+                .title("GayaHotel Swagger")
+                .description("-")
                 .version("1.0")
                 .build();
     }
