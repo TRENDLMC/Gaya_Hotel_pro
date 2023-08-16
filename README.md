@@ -39,9 +39,17 @@
 
 #### :black_nib:유스케이스 
 
+![유스케이스](https://github.com/TRENDLMC/Gaya_Hotel_pro/assets/114639084/e9c3905d-48b4-492d-b7cd-293d15cc3e3c)
+
+
 #### :black_nib:클래스 다이어그램
 
-#### :black_nib:시퀀스 다이어그램
+![클래스다이어그램_편집](https://github.com/TRENDLMC/Gaya_Hotel_pro/assets/114639084/3af389e8-511a-40f8-a2cf-b3fb65d7ebd0)
+
+
+#### :black_nib:블록 다이어그램
+
+
 
 
  </details>
@@ -50,11 +58,62 @@
 <details>
 <summary> Back </summary>
 
+#### :black_nib:JWT
+
+![JWT](https://github.com/TRENDLMC/Gaya_Hotel_pro/assets/114639084/8f43e619-bea9-49b7-a7fe-aeebb6f1eb57)
+
+![JWT2](https://github.com/TRENDLMC/Gaya_Hotel_pro/assets/114639084/57873088-bb6e-4209-aeee-6271ea61e925)
+
+#### :black_nib:스웨거
+
+![image](https://github.com/TRENDLMC/Gaya_Hotel_pro/assets/114639084/67dd6196-6fc2-4310-bc79-35ff6a567860)
+![image](https://github.com/TRENDLMC/Gaya_Hotel_pro/assets/114639084/a4e780b7-a153-4e3d-90e1-d0256e42f943)
+
+#### :black_nib:로그인
+![로그인](https://github.com/TRENDLMC/Gaya_Hotel_pro/assets/114639084/2e850056-0dfb-4842-aa0b-41cbeff7e322)
+
+
+#### :black_nib:시큐리티 & BCyrpt
+![시큐리티 BCrypt](https://github.com/TRENDLMC/Gaya_Hotel_pro/assets/114639084/f3051871-35ef-42de-8e3b-4b0086616611)
+
+
+#### :black_nib:예약 정보 리스트
+![예약정보리스트](https://github.com/TRENDLMC/Gaya_Hotel_pro/assets/114639084/fa2749c0-f238-49e9-bca6-6c1927385664)
+
+
+#### :black_nib:토큰
+![토큰](https://github.com/TRENDLMC/Gaya_Hotel_pro/assets/114639084/a8082487-0ed2-413d-adb2-76ef76aad086)
+
+
+#### :black_nib: 
+
+![RoomRepository_SQL](https://github.com/TRENDLMC/Gaya_Hotel_pro/assets/114639084/20394d1f-f25d-49ec-968c-344c00d1a3a9)
+
     
 </details>
 
 <details>
 <summary> Front </summary>
+
+#### :black_nib:결제
+
+![결제](https://github.com/TRENDLMC/Gaya_Hotel_pro/assets/114639084/01188e55-1108-4054-9184-5ba3b76c8e00)
+
+![결제2](https://github.com/TRENDLMC/Gaya_Hotel_pro/assets/114639084/0b6aeadb-3847-43be-b9ea-1f96b88acefe)
+
+#### :black_nib:관리자 공지
+
+![관리자 공지](https://github.com/TRENDLMC/Gaya_Hotel_pro/assets/114639084/d66dc276-e471-40fd-aed1-c3789f5b0e33)
+
+#### :black_nib:지도
+
+![지도](https://github.com/TRENDLMC/Gaya_Hotel_pro/assets/114639084/7c9b5f0c-7c8d-4784-8467-f56a80decc10)
+
+![지도2](https://github.com/TRENDLMC/Gaya_Hotel_pro/assets/114639084/5414272a-c26d-410a-95af-e13b048c9b22)
+
+#### :black_nib:패스워드 체크 
+
+![패스워드체크](https://github.com/TRENDLMC/Gaya_Hotel_pro/assets/114639084/ae962bad-6105-49f3-a154-ec8f949f91bc)
 
     
 </details>
