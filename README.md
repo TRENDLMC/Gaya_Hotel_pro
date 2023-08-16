@@ -48,6 +48,7 @@
 
 
 #### :black_nib:블록 다이어그램
+![image](https://github.com/TRENDLMC/Gaya_Hotel_pro/assets/130523481/c687fd37-cb0d-4a1c-8ced-638fd05a99d4)
 
 
 
