@@ -219,8 +219,14 @@ const Admintabel = () => {
           <Label style={{ marginTop: "20px" }} htmlFor="name">
             내용
           </Label>
-          <Input
-            style={{ height: "100px" }}
+          <br />
+          <textarea
+            style={{
+              height: "100px",
+              width: "100%",
+              border: "1px solid #e2e2e2",
+              borderRadius: "5px",
+            }}
             type="text"
             name={"n_content"}
             onChange={changeaddnotice}

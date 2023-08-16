@@ -128,7 +128,7 @@ const Header = () => {
                   <DropdownItem divider />
                   <DropdownItem>
                     <Link to={"/info"} state={{ num: 3 }}>
-                      찾오시는길
+                      오시는길
                     </Link>
                   </DropdownItem>
                   <DropdownItem>

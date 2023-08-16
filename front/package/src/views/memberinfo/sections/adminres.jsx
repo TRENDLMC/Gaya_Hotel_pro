@@ -33,7 +33,10 @@ const Adminres = () => {
     20: false,
     21: false,
   });
-
+  const addComma = (price) => {
+    let returnString = price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return returnString;
+  };
   const btn_togle2 = (event) => {
     setmodalon2({ [event.target.id]: true });
   };
@@ -139,27 +142,28 @@ const Adminres = () => {
                   선택된 옵션
                 </Col>
               </Row>
-              <Row style={{ textAlign: "center" }}>
-                {(() => {
-                  if (Res.length === 1) {
+
+              {totReservation[index].imt0 !== undefined ? (
+                Object.keys(Res)
+                  .filter((key) => key.startsWith("imt"))
+                  .map((optionKey) => {
                     return (
-                      <Col style={{ margin: "15px" }}>
-                        선택된 옵션이 없습니다
-                      </Col>
+                      <Row style={{ textAlign: "center" }}>
+                        <hr style={{ marginBottom: "10px" }} />
+                        <Col>{Res[optionKey].option_content}</Col>
+                        <Col>{addComma(Res[optionKey].option_price)}원</Col>
+                        <hr style={{ marginTop: "10px" }} />
+                      </Row>
                     );
-                  } else {
-                    return Object.keys(Res)
-                      .filter((key) => key.startsWith("imt"))
-                      .map((optionKey) => (
-                        <Col md="6" key={optionKey}>
-                          <hr />
-                          {Res[optionKey].option_content}
-                          <hr />
-                        </Col>
-                      ));
-                  }
-                })()}
-              </Row>
+                  })
+              ) : (
+                <Row style={{ textAlign: "center" }}>
+                  <Col style={{ margin: "5px 0 20px" }}>
+                    선택된 옵션이 없습니다
+                  </Col>
+                </Row>
+              )}
+
               <Row>
                 <Col style={{ textAlign: "center", margin: "0 0 15px 0" }}>
                   <input

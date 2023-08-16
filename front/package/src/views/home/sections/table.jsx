@@ -108,7 +108,11 @@ const PageTable = () => {
               padding: "10px",
             }}
           >
-            <Col>{detail.n_content}</Col>
+            <Col>
+              <textarea disabled style={{ width: "100%", height: "100%" }}>
+                {detail.n_content}
+              </textarea>
+            </Col>
           </Row>
           <hr style={{ color: "#8f103d" }} />
           <Row>
@@ -155,7 +159,7 @@ const PageTable = () => {
           </Row>
         </Container>
       </div>
-      <Container style={{ marginLeft: "150px" }}>
+      <Container>
         <Row>
           <Col></Col>
           <Col md="9">

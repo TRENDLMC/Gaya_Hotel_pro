@@ -4,8 +4,6 @@ import { Container, Row, Col } from "reactstrap";
 // const RoomContent = forwardRef((props, ref) => {
 //   // 세션 스토리지 roomInfo
 
-//   const SERVER_URL = "http://localhost:8095/";
-
 const options = [
   {
     title: "수영장",
