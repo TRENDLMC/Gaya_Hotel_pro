@@ -23,8 +23,6 @@
 
 ## 🏨 호텔 홈페이지
 :heavy_check_mark: SpringBoot와 ReactJS를 활용한 FullStack 호텔 웹사이트 <br>
-:heavy_check_mark:  여긴 뭐쓰지 <br><br>
-
 
 
 ### :pushpin: 프로그램 소개 
