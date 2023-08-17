@@ -12,6 +12,15 @@
   <img src="https://img.shields.io/badge/Swagger-2196F3?style=for-the-badge&logo=&logoColor=white" alt="Myeongcheol Im" width="80" height="30">
 </a>
 
+## 배포 설정
+
+<a href="https://github.com/audelahd/Gaya_back">
+  <img src="https://img.shields.io/badge/back-000000?style=for-the-badge&logo=&logoColor=white" alt="Myeongcheol Im" width="80" height="30">
+</a><br>
+<a href="https://github.com/audelahd/Gaya_front">
+  <img src="https://img.shields.io/badge/front-f5f5dc?style=for-the-badge&logo=&logoColor=white" alt="Myeongcheol Im" width="80" height="30">
+</a>
+
 ## 🏨 호텔 홈페이지
 :heavy_check_mark: SpringBoot와 ReactJS를 활용한 FullStack 호텔 웹사이트 <br>
 :heavy_check_mark:  여긴 뭐쓰지 <br><br>
